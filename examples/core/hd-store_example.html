@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Holiday State Example</title>
+</head>
+<body>
+  <script type="module">
+    import { HdState } from '../../core/hd-state.js';
+
+    HdState.applyScheme({
+      user: {
+        name: {
+          type: String,
+          cache: true,
+          value: 'Fred',
+        },
+        age: {
+          type: Number,
+          cache: true,
+        },
+        autorized: {
+          type: Boolean,
+          cache: true,
+        }
+      },
+      ui: {
+        loading: {
+          type: Boolean,
+        },
+        settings: {
+          type: Object,
+          value: {
+            panel: true,
+            theme: 'dark',
+          },
+        }
+      },
+    });
+
+    class Example {
+      constructor() {
+
+        HdState.subscribe('user.name', (val) => {
+          let outputEl = document.createElement('div');
+          outputEl.textContent = 'Name: ' + val;
+          document.body.appendChild(outputEl);
+        });
+
+        HdState.subscribe('user.age', (val) => {
+          let outputEl = document.createElement('div');
+          outputEl.textContent = 'Age: ' + val;
+          document.body.appendChild(outputEl);
+        });
+
+        HdState.subscribe('ui.settings', (val) => {
+          console.log(val);
+        });
+
+      }
+    }
+
+    const example = new Example();
+
+    HdState.publish('user.name', 'John');
+    HdState.publish('user.age', 25);
+    HdState.publish('user.autorized', true);
+    HdState.publish('ui.loading', true);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Holiday Router Example</title>
+</head>
+<body>
+  <script type="module">
+    import { HdRouter } from '../../core/hd-router.js';
+
+    HdRouter.setRoutingMap({
+      'home': {
+        title: 'Application Homepage',
+        default: true,
+      },
+      'goods': {
+        colorCode: '#f00',
+      },
+      'settings': {
+        colorCode: '#00f',
+        icon: 'settings',
+      },
+      '404': {
+        error: true,
+      },
+    });
+
+    HdRouter.setDefaultTitle('My Site');
+
+    window.setTimeout(() => {
+      HdRouter.applyRoute('settings', {
+        user: 'John',
+        id: 123123,
+        text: 'Hello World!',
+        authorized: true,
+      });
+    }, 3000);
+
+    window.addEventListener('hd-on-route', (e) => {
+      console.log(e.detail);
+    });
+
+  </script>
+</body>
+</html>
