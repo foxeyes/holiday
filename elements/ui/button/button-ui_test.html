@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ButtonUi</title>
+  <script src="../../uilib.js" type="module"></script>
+</head>
+
+<body>
+  <style>
+    @import url(../../themes/basic.css);
+    body {
+      --color: rgb(9, 34, 80);
+      --bg-color: rgb(240, 240, 240);
+      padding: 20px;
+      background-color: var(--bg-color);
+      color: var(--color);
+    }
+  </style>
+  <h1>&lt;button-ui&gt;</h1>
+  <button-ui>My Button</button-ui>
+  <br>
+  <br>
+  <button-ui outline>Push Me!</button-ui>
+  <br>
+  <br>
+  <button-ui shade>Push Me!</button-ui>
+  <br>
+  <br>
+  <button-ui icon="flag">I Have Icon</button-ui>
+  <br>
+  <br>
+  <button-ui outline icon="flag">I Have Icon</button-ui>
+  <br>
+  <br>
+  <button-ui shade icon="flag">I Have Icon</button-ui>
+  <br>
+  <br>
+  <button-ui icon="flag" disabled>Disabled</button-ui>
+  <button-ui shade icon="flag" disabled>Disabled</button-ui>
+  <button-ui outline icon="flag" disabled>Disabled</button-ui>
+  <h1>Sqare Buttons</h1>
+  <ui-flow-mkp gap-min inline>
+    <button-ui icon="play"></button-ui>
+    <button-ui icon="pause"></button-ui>
+    <button-ui icon="stop"></button-ui>
+  </ui-flow-mkp>
+  <div>&nbsp;</div>
+  <ui-flow-mkp gap-min inline>
+    <button-ui icon="play" shade></button-ui>
+    <button-ui icon="pause" shade></button-ui>
+    <button-ui icon="stop" shade></button-ui>
+  </ui-flow-mkp>
+  <div>&nbsp;</div>
+  <ui-flow-mkp gap-min inline>
+    <button-ui icon="play" outline></button-ui>
+    <button-ui icon="pause" outline></button-ui>
+    <button-ui icon="stop" outline></button-ui>
+  </ui-flow-mkp>
+  <h1>Rounded Buttons</h1>
+  <button-ui icon="ok" rounded></button-ui>
+  &nbsp;&nbsp;
+  <button-ui icon="cancel" outline rounded></button-ui>
+  &nbsp;&nbsp;
+  <button-ui icon="cancel" shade rounded></button-ui>
+  <h1>Arrow Button</h1>
+  <button-ui icon="ok" arrow>Step Forward</button-ui>
+
+  <theme-picker-ui use-parent></theme-picker-ui>
+</body>
+
+</html>

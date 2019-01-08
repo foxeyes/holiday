@@ -85,10 +85,6 @@ class HdElement extends HTMLElement {
               } else {
                 el.setAttribute(attrName, value);
               }
-            } else if (el.shadowRoot) {
-              window.setTimeout(() => {
-                el[binding.propName] = value;
-              });
             } else {
               el[binding.propName] = value;
             }

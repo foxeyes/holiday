@@ -52,7 +52,10 @@ class HdRouter {
   static notify() {
     let routeBase = this.readAddressBar();
     let routeScheme = this.appMap[routeBase.route];
-    if (!routeScheme && this.errorRoute) {
+    if (routeBase.route === null && this.defaultRoute) {
+      this.applyRoute(this.defaultRoute);
+      return;
+    } else if (!routeScheme && this.errorRoute) {
       this.applyRoute(this.errorRoute);
       return;
     } else if (!routeScheme && this.defaultRoute) {
@@ -101,9 +104,5 @@ HdRouter.appMap = Object.create(null);
 window.onpopstate = () => {
   HdRouter.notify();
 };
-
-window.setTimeout(() => {
-  HdRouter.notify();
-});
 
 export { HdRouter };
