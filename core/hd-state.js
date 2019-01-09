@@ -76,7 +76,7 @@ class HdState {
    */
   static read(path) {
     let desc = this._getPropDesc(path);
-    return HdState.store[ path ] || desc.value;
+    return HdState.store[ path ] !== undefined ? HdState.store[ path ] : desc.value;
   }
 
   /**
