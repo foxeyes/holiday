@@ -35,7 +35,7 @@ class HdRouter {
       route: null,
       options: {},
     };
-    let paramsArr = window.location.search.split('&');
+    let paramsArr = window.location.search.split(this.separator);
     paramsArr.forEach((part) => {
       if (part.includes('?')) {
         result.route = part.replace('?', '');
@@ -88,13 +88,21 @@ class HdRouter {
     let routeStr = '?' + route;
     for (let prop in options) {
       if (options[prop] === true) {
-        routeStr += '&' + prop;
+        routeStr += this.separator + prop;
       } else {
-        routeStr += '&' + prop + '=' + `${options[prop]}`;
+        routeStr += this.separator + prop + '=' + `${options[prop]}`;
       }
     }
     window.history.pushState(null, routeScheme.title || this.defaultTitle || '', routeStr);
     this.notify();
+  }
+
+  static setSeparator(char) {
+    this._separator = char;
+  }
+
+  static get separator() {
+    return this._separator || '&';
   }
 
 }
