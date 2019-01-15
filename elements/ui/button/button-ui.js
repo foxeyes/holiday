@@ -66,6 +66,7 @@ ButtonUi.styles = /*html*/ `
   :host(:empty) {
     padding: 0;
     font-size: calc(var(--ui-font-size, 13px) + 2px) !important;
+    justify-content: center;
   }
 
   :host(:empty) icon-mkp {

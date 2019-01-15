@@ -82,6 +82,7 @@ AppShellAl.styles = /*html*/ `
     transition: left 0.2s;
     overflow: hidden;
     white-space: nowrap;
+    z-index: 10000;
   }
   top-panel-el[active] {
     left: var(--side-panel-width);
