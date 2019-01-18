@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>InputUi</title>
+  <script src="../theme-picker/theme-picker-ui.js" type="module" defer></script>
+  <script src="../../mkp/ui-caption/ui-caption-mkp.js" type="module" defer></script>
+  <script src="input-ui.js" type="module" defer></script>
+</head>
+
+<body>
+  <style>
+    body {
+      --color: rgb(9, 34, 80);
+      --bg-color: rgb(240, 240, 240);
+      padding: 20px;
+      background-color: var(--bg-color);
+      color: var(--color);
+    }
+  </style>
+
+  <h1>&lt;input-ui&gt;</h1>
+
+  <ui-caption-mkp text="Blank Input">
+    <input-ui></input-ui>
+  </ui-caption-mkp>
+
+  <ui-caption-mkp text="Value Passed">
+    <input-ui value="Input Value"></input-ui>
+  </ui-caption-mkp>
+
+  <ui-caption-mkp text="Contains Placeholder">
+    <input-ui placeholder="Placeholder text..."></input-ui>
+  </ui-caption-mkp>
+
+  <ui-caption-mkp text="Has Icon">
+    <input-ui icon="search"></input-ui>
+  </ui-caption-mkp>
+
+  <ui-caption-mkp text="Has Clear Button">
+    <input-ui clear value="Clear me!"></input-ui>
+  </ui-caption-mkp>
+
+  <ui-caption-mkp text="Required">
+    <input-ui required></input-ui>
+  </ui-caption-mkp>
+
+  <ui-caption-mkp text="Pattern Check (more than 8)">
+    <input-ui pattern=".{8,}"></input-ui>
+  </ui-caption-mkp>
+
+  <h1>Messaging</h1>
+  <ui-caption-mkp text="Tooltip & Error Message">
+    <input-ui pattern=".{8,}">
+      <div slot="message">You must enter more than 8 symbols</div>
+      <div slot="error">
+        <icon-ui icon="error"></icon-ui>&nbsp; Less than 8 symbols entered!
+      </div>
+    </input-ui>
+  </ui-caption-mkp>
+
+  <h1>Special Inputs</h1>
+
+  <ui-caption-mkp text="Numbers">
+    <input-ui type="number"></input-ui>
+  </ui-caption-mkp>
+
+  <ui-caption-mkp text="Currency (EUR)">
+    <input-ui currency="eur"></input-ui>
+  </ui-caption-mkp>
+
+  <ui-caption-mkp text="Currency (USD)">
+    <input-ui currency="usd"></input-ui>
+  </ui-caption-mkp>
+
+  <ui-caption-mkp text="Date Input">
+    <input-ui type="date"></input-ui>
+  </ui-caption-mkp>
+
+  <theme-picker-ui use-parent></theme-picker-ui>
+
+</body>
+
+</html>
