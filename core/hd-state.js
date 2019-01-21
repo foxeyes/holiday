@@ -40,7 +40,7 @@ class HdState {
       return;
     }
     if (!(value.constructor === desc.type)) {
-      console.warn('Wrong value type for path: ' + path);
+      console.warn('(HdState) Wrong value type for path: ' + path);
       return;
     }
     HdState.store[ path ] = value;
@@ -142,7 +142,7 @@ class HdState {
         cache: result.cache,
       });
     } else {
-      console.warn('Wrong state path: ' + path);
+      console.warn('(HdState) Wrong state path: ' + path);
       return null;
     }
   }
@@ -152,7 +152,11 @@ class HdState {
     if (cachedStr) {
       let cacheObj = JSON.parse(window.atob(cachedStr));
       for (let path in cacheObj) {
-        this.publish(path, cacheObj[ path ]);
+        if (this._getPropDesc(path)) {
+          this.publish(path, cacheObj[ path ]);
+        } else {
+          console.warn('(HdState) Wrong path cached: ' + path);
+        }
       }
     }
   }

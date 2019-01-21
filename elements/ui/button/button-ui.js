@@ -28,7 +28,7 @@ class ButtonUi extends HdElement {
 ButtonUi.styles = /*html*/ `
 <style>
   :host {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -37,7 +37,7 @@ ButtonUi.styles = /*html*/ `
     height: var(--tap-zone-size, 28px);
     min-height: var(--tap-zone-size, 28px);
     min-width: var(--tap-zone-size, 28px);
-    border-radius: var(--ui-radius, 2px);
+    border-radius: var(--radius, 2px);
     font-size: var(--ui-font-size, 13px);
     padding-left: var(--ui-side-padding, 0.8em);
     padding-right: var(--ui-side-padding, 0.8em);
@@ -66,6 +66,7 @@ ButtonUi.styles = /*html*/ `
   :host(:empty) {
     padding: 0;
     font-size: calc(var(--ui-font-size, 13px) + 2px) !important;
+    justify-content: center;
   }
 
   :host(:empty) icon-mkp {
@@ -92,7 +93,7 @@ ButtonUi.styles = /*html*/ `
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: var(--ui-radius, 2px);
+    border-radius: var(--radius, 2px);
     border: var(--line-width, 1px) solid var(--color, currentColor);
     opacity: var(--shade-opacity, 0.2);
     pointer-events: none;
@@ -120,7 +121,7 @@ ButtonUi.styles = /*html*/ `
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: var(--ui-radius, 2px);
+    border-radius: var(--radius, 2px);
     pointer-events: none;
     background-color: var(--color, #000);
     opacity: var(--shade-opacity, 0.1);
