@@ -1,5 +1,6 @@
 // Active Layouts:
 export { AppShellAl } from './al/app-shell/app-shell-al.js';
+export { PanelAl } from './al/panel/panel-al.js';
 
 // Markup elements:
 export { IconMkp } from './mkp/icon/icon-mkp.js';
