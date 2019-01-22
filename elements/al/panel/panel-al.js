@@ -1,29 +1,52 @@
 import { HdElement } from '../../../core/hd-element.js';
 
-import { ButtonUi } from './../../ui/button/button-ui.js';
-import { TeardropUi } from './../../ui/teardrop/teardrop-ui.js';
+import { ButtonUi } from '../../ui/button/button-ui.js';
+import { TeardropUi } from '../../ui/teardrop/teardrop-ui.js';
+import { IconMkp } from '../../mkp/icon/icon-mkp.js';
+
+IconMkp.addIcons({
+  'chevron-right': 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z',
+  'drag': 'M22.67,12L18.18,16.5L15.67,14L17.65,12L15.67,10.04L18.18,7.53L22.67,12M12,1.33L16.47,5.82L13.96,8.33L12,6.35L10,8.33L7.5,5.82L12,1.33M12,22.67L7.53,18.18L10.04,15.67L12,17.65L14,15.67L16.5,18.18L12,22.67M1.33,12L5.82,7.5L8.33,10L6.35,12L8.33,13.96L5.82,16.47L1.33,12M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10Z',
+});
 
 class PanelAl extends HdElement {
 
+  constructor() {
+    super();
+
+    this.defineAccessor('icon', (val) => {
+      this[ 'icon-el' ].icon = val;
+    });
+
+    this.defineAccessor('caption', (val) => {
+      this[ 'caption-ip' ].textContent = val;
+    });
+
+    this.defineAccessor('active', (val) => {
+      if (val) {
+        this.attr('active');
+        if (PanelAl.current && PanelAl.current !== this) {
+          PanelAl.current.active = false;
+        }
+        PanelAl.current = this;
+      } else {
+        this.attr('active', null);
+      }
+      this.notify('active', val);
+    });
+
+    this.defineAccessor('position', (val) => {
+      this._position = val;
+    });
+
+  }
+
   connectedCallback() {
+
     super.connectedCallback();
     this[ 'close-btn' ].onclick = (e) => {
       this.active = false;
     };
-    // this['pos-select'].onValueChange = (newVal) => {
-    //   if (this._position === newVal) {
-    //     return;
-    //   }
-    //   this._position = newVal;
-    //   this.setAttribute('position', newVal);
-    //   this.addEventListener('transitionend', (e) => {
-    //     this['scroll-el'].resize();
-    //   });
-    // };
-    this._position = this.getAttribute('position');
-    // if (this._position) {
-    //   this['pos-select'].value = this._position;
-    // }
 
     this._onDragStart = (e) => {
       window.addEventListener('mouseup', this._onDragEnd);
@@ -64,32 +87,6 @@ class PanelAl extends HdElement {
     this[ 'drag-el' ].addEventListener('mousedown', this._onDragStart);
   }
 
-  set icon(name) {
-    this[ 'icon-el' ].setAttribute('icon', name);
-  }
-
-  set caption(txt) {
-    this[ 'caption-ip' ].textContent = txt;
-  }
-
-  set active(val) {
-    this._active = val;
-    if (val) {
-      this.attr('active');
-      if (PanelAl.current && PanelAl.current !== this) {
-        PanelAl.current.active = false;
-      }
-      PanelAl.current = this;
-    } else {
-      this.attr('active', null);
-    }
-    this.notify('active', val);
-  }
-
-  get active() {
-    return this._active;
-  }
-
 }
 
 PanelAl.styles = /*html*/ `
@@ -97,7 +94,7 @@ PanelAl.styles = /*html*/ `
   :host {
     --local-color: var(--bg-color, #fff);
     --local-bg-color: var(--color, #000);
-    --local-content-padding: calc(var(--ui-height, 28px) + var(--gap-min, 2px));
+    --local-content-padding: calc(var(--tap-zone-size, 32px) + var(--gap-min, 2px));
 
     display: grid;
     grid-template-rows: min-content auto;
@@ -134,7 +131,7 @@ PanelAl.styles = /*html*/ `
     align-items: center;
     height: 100%;
     padding-left: 0.4em;
-    min-height: var(--ui-height, 28px);
+    min-height: var(--tap-zone-size, 32px);
   }
 
   .pan-caption {
@@ -148,8 +145,8 @@ PanelAl.styles = /*html*/ `
     position: absolute;
     align-items: center;
     justify-content: center;
-    min-height: var(--ui-height, 28px);
-    min-width: var(--ui-height, 28px);
+    min-height: var(--tap-zone-size, 32px);
+    min-width: var(--tap-zone-size, 32px);
     cursor: pointer;
   }
 
@@ -199,7 +196,7 @@ PanelAl.styles = /*html*/ `
     height: var(--ui-width, 28px);
   }
 
-  :host([position="bottom"]) #close-btn icon-ui {
+  :host([position="bottom"]) #close-btn icon-mkp {
     transform: rotate(90deg);
   }
 
@@ -220,7 +217,7 @@ PanelAl.styles = /*html*/ `
     width: var(--ui-width, 28px);
   }
 
-  :host([position="left"]) #close-btn icon-ui {
+  :host([position="left"]) #close-btn icon-mkp {
     transform: rotate(180deg);
   }
 
@@ -241,7 +238,7 @@ PanelAl.styles = /*html*/ `
     height: var(--ui-width, 28px);
   }
 
-  :host([position="top"]) #close-btn icon-ui {
+  :host([position="top"]) #close-btn icon-mkp {
     transform: rotate(-90deg);
   }
 
@@ -273,31 +270,26 @@ PanelAl.styles = /*html*/ `
 PanelAl.template = /*html*/ `
 <div class="pan-header">
   <div class="cap-block">
-    <icon-ui id="icon-el"></icon-ui>
+    <icon-mkp id="icon-el"></icon-mkp>
     <div class="pan-caption" id="caption-ip"></div>
   </div>
   <button-ui icon="drag" id="drag-el" rounded outline></button-ui>
-  <!-- <select-ui id="pos-select">
-    <div icon="arrow-right" option="right">Right</div>
-    <div icon="arrow-down" option="bottom">Bottom</div>
-    <div icon="arrow-left" option="left">Left</div>
-    <div icon="arrow-up" option="top">Top</div>
-  </select-ui> -->
 </div>
 <div class="content">
   <slot></slot>
 </div>
 <div id="close-btn">
-  <icon-ui icon="chevron-right"></icon-ui>
+  <icon-mkp icon="chevron-right"></icon-mkp>
   <teardrop-ui></teardrop-ui>
 </div>
 `;
 PanelAl.logicAttributes = [
   'icon',
   'caption',
+  'position',
 ];
 PanelAl.bindable = true;
 PanelAl.current = null;
-PanelAl.is = 'panel-lay';
+PanelAl.is = 'panel-al';
 
 export { PanelAl };

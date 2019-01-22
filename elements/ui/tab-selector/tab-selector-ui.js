@@ -19,15 +19,11 @@ class TabSelectorUi extends HdElement {
         this._currentTab && this._currentTab.removeAttribute('current');
         this._currentTab = curTab;
         curTab.setAttribute('current', '');
-        let rect = this.getBoundingClientRect();
-        let curRect = curTab.getBoundingClientRect();
+        let curPos = this._tabsArr.indexOf(curTab);
+        this[ 'underline-el' ].style.left = this._defaultUnderlineWidth * curPos + '%';
+        this[ 'underline-el' ].style.width = this._defaultUnderlineWidth + '%';
+
         let tabColorCode = curTab.getAttribute('color-code');
-        this[ 'underline-el' ].style.left = curRect.left - rect.left + 'px';
-        if (curRect.width) {
-          this[ 'underline-el' ].style.width = curRect.width + 'px';
-        } else {
-          this[ 'underline-el' ].style.width = this._defaultUnderlineWidth + '%';
-        }
         if (tabColorCode) {
           this[ 'underline-el' ].style.backgroundColor = tabColorCode;
         } else {
@@ -65,10 +61,7 @@ class TabSelectorUi extends HdElement {
     window.setTimeout(() => {
       this._init();
     });
-
-    window.addEventListener('resize', () => {
-      this[ 'underline-el' ].style.width = this._defaultUnderlineWidth + '%';
-    });
+    
   }
 
 }
@@ -143,7 +136,7 @@ TabOptionUi.styles = /*html*/ `
     justify-content: center;
     padding-left: var(--ui-side-padding, 0.8em);
     padding-right: var(--ui-side-padding, 0.8em);
-    flex-grow: 1;
+    flex: 1;
     cursor: pointer;
     user-select: none;
     opacity: 0.6;

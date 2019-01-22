@@ -14,8 +14,10 @@ class DataRowMkp extends HdElement {
       units: '',
     };
 
+    this._styleSheet = this['style-el'].sheet;
+
     this.defineAccessor('color-code', (val) => {
-      this.style.setProperty('--color-code-local', val);
+      this._styleSheet.insertRule(`:host {--color-code-local: ${val}}`);
     });
 
     this.defineAccessor('icon', (val) => {
@@ -39,24 +41,22 @@ class DataRowMkp extends HdElement {
 }
 
 DataRowMkp.styles = /*html*/ `
-<style>
+<style id="style-el">
   :host {
-    --color-code-local: currentColor;
     display: flex;
     align-items: center;
     position: relative;
     height: var(--tap-zone-size, 32px);
-    border-bottom: 1px dashed var(--color-shade, rgba(0, 0, 0, 0.2));
-    max-width: var(--column-width, 960px);
+    border-bottom: 1px dashed var(--color-shade, currentColor);
   }
   :host(:last-of-type) {
     border-bottom: none;
   }
   #icon {
-    color: var(--color-code-local);
+    color: var(--color-code-local, currentColor);
     margin-right: var(--gap-mid, 10px);
   }
-  :host(:not([icon])) #icon-el {
+  :host(:not([icon])) #icon {
     display: none;
   }
   #label {
@@ -76,7 +76,7 @@ DataRowMkp.styles = /*html*/ `
 </style>
 `;
 DataRowMkp.template = /*html*/ `
-<icon-ui id="icon" bind="icon: icon"></icon-ui>
+<icon-mkp id="icon" bind="icon: icon"></icon-mkp>
 <div id="label" bind="textContent: label"></div>
 <div id="value" bind="textContent: value"></div>
 <div id="units" bind="textContent: units"></div>

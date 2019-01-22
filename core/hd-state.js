@@ -76,7 +76,11 @@ class HdState {
    */
   static read(path) {
     let desc = this._getPropDesc(path);
-    return HdState.store[ path ] !== undefined ? HdState.store[ path ] : desc.value;
+    if (desc) {
+      return HdState.store[ path ] !== undefined ? HdState.store[ path ] : desc.value;
+    } else {
+      console.warn('(HdState) Wrong state path: ' + path);
+    }
   }
 
   /**
@@ -133,7 +137,9 @@ class HdState {
     let steps = path.split('.');
     let result = this.scheme;
     steps.forEach((stepName) => {
-      result = result[ stepName ];
+      if (typeof result === 'object') {
+        result = result[ stepName ];
+      }
     });
     if (result && result.type) {
       return new PropDescriptor({
