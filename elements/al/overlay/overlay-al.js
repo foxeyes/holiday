@@ -61,8 +61,7 @@ OverlayAl.styles = /*html*/ `
     position: absolute;
     top: var(--side-step);
     bottom: var(--side-step);
-    left: var(--side-step);
-    right: var(--side-step);
+
     display: grid;
     grid-template-rows: var(--tap-zone-size, 32px) auto;
     background-color: var(--bg-color, #fff);
@@ -73,12 +72,17 @@ OverlayAl.styles = /*html*/ `
     box-shadow: 0 0 var(--side-step) var(--color, #000);
     will-change: opacity transform;
     transition: var(--transition, 0.2s);
+
+    width: 100%;
+    max-width: var(--column-width, 960px);
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   :host(:not([active])) {
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.9);
+    transform: scale(0.9) translateX(-50%);
   }
 
   .heading {

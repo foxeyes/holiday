@@ -58,6 +58,9 @@ class AppShellAl extends HdElement {
 
 AppShellAl.styles = /*html*/ `
 <style>
+  ::-webkit-scrollbar { 
+    display: none; 
+  }
   :host {
     --color-code: var(--color-theme-1, #fff);
     display: block;

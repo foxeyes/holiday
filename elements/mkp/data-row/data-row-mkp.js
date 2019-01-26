@@ -70,7 +70,7 @@ DataRowMkp.styles = /*html*/ `
   #units {
     margin-left: var(--gap-mid, 10px);
   }
-  :host(:not([units])) #units-el {
+  :host(:not([units])) #units {
     display: none;
   }
 </style>
