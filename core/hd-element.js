@@ -135,10 +135,23 @@ class HdElement extends HTMLElement {
 
   /**
    * 
-   * @param {string} path 
-   * @param {any} value
+   * @param  {...any} args - key and value or key-value map object can be provided
    */
-  setStateProperty(path, value) {
+  setStateProperty(...args) {
+    let path, value;
+    if (args.length === 1 && typeof args[0] === 'object') {
+      let map = args[ 0 ];
+      for (let key in map) {
+        this.setStateProperty(key, map[key]);
+      }
+      return;
+    } else if (args.length === 2 && typeof args[0] === 'string') {
+      path = args[0];
+      value = args[1];
+    } else {
+      console.warn('(HdElement) Wrong state properties: ' + args);
+    }
+
     if (!this.__stateBindingsMap) {
       return;
     }

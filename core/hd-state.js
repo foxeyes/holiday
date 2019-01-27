@@ -27,11 +27,24 @@ class PropDescriptor {
 class HdState {
 
   /**
-   * 
-   * @param {String} path 
-   * @param {any} value 
+   *
+   * @param  {...any} args - key and value or key-value map object can be provided
    */
-  static publish(path, value) {
+  static publish(...args) {
+    let path, value;
+    if (args.length === 1 && typeof args[ 0 ] === 'object') {
+      let map = args[ 0 ];
+      for (let key in map) {
+        this.publish(key, map[ key ]);
+      }
+      return;
+    } else if (args.length === 2 && typeof args[ 0 ] === 'string') {
+      path = args[ 0 ];
+      value = args[ 1 ];
+    } else {
+      console.warn('(HdState) Wrong properties: ' + args);
+    }
+
     if (this.read(path) === value) {
       return;
     }
