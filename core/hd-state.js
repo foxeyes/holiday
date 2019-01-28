@@ -44,7 +44,7 @@ class HdState {
     } else {
       console.warn('(HdState) Wrong properties: ' + args);
     }
-    
+
     if (value === undefined) {
       console.warn('(HdState) "undefined" - is unproper value for state property: ' + path);
       return;
@@ -57,7 +57,7 @@ class HdState {
     if (!desc) {
       return;
     }
-    if (!(value.constructor === desc.type)) {
+    if (value !== null && value.constructor !== desc.type) {
       console.warn('(HdState) Wrong value type for path: ' + path);
       return;
     }
