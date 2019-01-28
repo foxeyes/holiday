@@ -2,6 +2,10 @@ import { HdElement } from '../../../core/hd-element.js';
 
 class GridMkp extends HdElement {
 
+  get cssSheet() {
+    return (this[ 'style-el' ] && this[ 'style-el' ].sheet) || null;
+  }
+
   constructor() {
     super();
 
@@ -11,15 +15,15 @@ class GridMkp extends HdElement {
         mid: 'var(--gap-mid)',
         max: 'var(--gap-max)',
       };
-      this[ 'style-el' ].sheet.insertRule(`:host {grid-gap: ${gapMap[val] || val}}`);
+      this.cssSheet && this.cssSheet.insertRule(`:host {grid-gap: ${gapMap[val] || val}}`);
     });
 
     this.defineAccessor('columns', (val) => {
-      this[ 'style-el' ].sheet.insertRule(`:host {grid-template-columns: ${val}}`);
+      this.cssSheet && this.cssSheet.insertRule(`:host {grid-template-columns: ${val}}`);
     });
 
     this.defineAccessor('rows', (val) => {
-      this[ 'style-el' ].sheet.insertRule(`:host {grid-template-rows: ${val}}`);
+      this.cssSheet && this.cssSheet.insertRule(`:host {grid-template-rows: ${val}}`);
     });
 
   }
