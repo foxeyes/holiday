@@ -17,6 +17,9 @@ class HdElement extends HTMLElement {
         let bKey = el.getAttribute('bind');
         let pairsArr = bKey.split(';');
         pairsArr.forEach((pair) => {
+          if (!pair) {
+            return;
+          }
           let keyValArr = pair.split(':');
           let valKey = keyValArr[1].trim();
           if (!this.__stateBindingsMap[valKey]) {

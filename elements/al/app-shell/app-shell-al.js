@@ -78,7 +78,6 @@ AppShellAl.styles = /*html*/ `
     border-top: var(--gap-min) solid currentColor;
     border-bottom: var(--gap-min) solid currentColor;
     padding-left: 0;
-    padding-right: var(--gap-mid, 0.6em);
     color: var(--color-theme-2, #000);
     background-color: var(--color-theme-1, #fff);
     font-size: calc(var(--tap-zone-size) / 2);
@@ -102,8 +101,10 @@ AppShellAl.styles = /*html*/ `
     color: var(--color-code);
   }
   .title {
+    flex-grow: 1;
     padding-left: var(--gap-mid, 0.6em);
     padding-right: var(--gap-mid, 0.6em);
+    overflow: hidden;
   }
   side-panel-el {
     display: block;
@@ -163,6 +164,9 @@ AppShellAl.template = /*html*/ `
     <icon-mkp bind="icon: icon"></icon-mkp>
   </div>
   <div class="title" bind="textContent: title"></div>
+  <div class="top-right">
+    <slot name="top-right"></slot>
+  </div>
 </top-panel-el>
 <side-panel-el bind="@active: sidePanelAcive" id="side-pan">
   <slot name="menu"></slot>

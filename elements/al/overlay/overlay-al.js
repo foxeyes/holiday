@@ -1,5 +1,6 @@
 import { HdElement } from '../../../core/hd-element.js';
 
+import { } from '../../ui/button/button-ui.js';
 import { IconMkp } from '../../mkp/icon/icon-mkp.js';
 IconMkp.addIcons({
   'close': 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z',
@@ -63,7 +64,7 @@ OverlayAl.styles = /*html*/ `
     bottom: var(--side-step);
 
     display: grid;
-    grid-template-rows: var(--tap-zone-size, 32px) auto;
+    grid-template-rows: min-content auto;
     background-color: var(--bg-color, #fff);
     color: var(--color, #000);
     z-index: 100000;
@@ -88,7 +89,7 @@ OverlayAl.styles = /*html*/ `
   .heading {
     display: grid;
     grid-template-columns: var(--tap-zone-size, 32px) auto var(--tap-zone-size, 32px);
-    border-bottom: var(--gap-min, 2px) solid currentColor;
+    padding: var(--gap-mid, 10px);
   }
   .icon {
     display: flex;
@@ -101,19 +102,7 @@ OverlayAl.styles = /*html*/ `
     align-items: center;
     user-select: none;
     color: var(--color-code-local);
-  }
-  .close {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: var(--bg-color, #fff);
-    background-color: var(--color, #000);
-    opacity: 0.8;
-    transition: var(--transition, 0.2s);
-  }
-  .close:hover {
-    opacity: 1;
+    font-size: 1.2em;
   }
   .content {
     overflow: auto;
@@ -126,9 +115,7 @@ OverlayAl.template = /*html*/ `
     <icon-mkp bind="icon: icon"></icon-mkp>
   </div>
   <div class="caption" bind="textContent: caption"></div>
-  <div class="close" bind="onclick: actions.closeClicked">
-    <icon-mkp icon="close"></icon-mkp>
-  </div>
+  <button-ui rounded icon="close" bind="onclick: actions.closeClicked"></button-ui>
 </div>
 <div class="content">
   <slot></slot>  

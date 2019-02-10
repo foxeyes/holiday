@@ -278,6 +278,11 @@ InputUi.styles = /*html*/ `
     color: var(--color-alert, #f00);
   }
 
+  :host([custom]) input::-webkit-inner-spin-button, :host([custom]) input::-webkit-outer-spin-button {
+    -webkit-appearance: none; 
+    margin: 0;
+  }
+
   .clear {
     display: none;
     justify-content: center;

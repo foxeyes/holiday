@@ -10,12 +10,12 @@ class PropDescriptor {
     /**
      * @type {Function}
      */
-    this.type = src.type || null;
+    this.type = src.type;
 
     /**
      * @type { any }
      */
-    this.value = src.value || null;
+    this.value = src.value;
 
     /**
      * @type { Boolean }
@@ -95,7 +95,7 @@ class HdState {
   static read(path) {
     let desc = this._getPropDesc(path);
     if (desc) {
-      return HdState.store[ path ] !== undefined ? HdState.store[ path ] : desc.value;
+      return HdState.store[ path ] === undefined ? desc.value : HdState.store[ path ];
     } else {
       console.warn('(HdState) Wrong state path: ' + path);
     }
@@ -105,8 +105,9 @@ class HdState {
    * 
    * @param {String} path 
    * @param {Function} handler 
+   * @param {Boolean} silent
    */
-  static subscribe(path, handler) {
+  static subscribe(path, handler, silent = false) {
     let desc = this._getPropDesc(path);
     if (!desc) {
       return;
@@ -115,7 +116,7 @@ class HdState {
       this.subscriptionsMap[ path ] = [];
     }
     HdState.subscriptionsMap[ path ].push(handler);
-    if (this.read(path) !== null) {
+    if (this.read(path) !== undefined && !silent) {
       handler(this.read(path));
     }
   }

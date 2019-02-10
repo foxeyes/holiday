@@ -10,7 +10,7 @@ SpinnerMkp.styles = /*html*/ `
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    border: 6px solid var(--color, #000);
+    border: 6px solid currentColor;
     border-radius: 100%;
     height: var(--tap-zone-size, 32px);
     width: var(--tap-zone-size, 32px);
