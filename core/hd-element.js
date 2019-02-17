@@ -195,9 +195,9 @@ class HdElement extends HTMLElement {
 
   /**
    * 
-   * @param {string} path 
-   * @param {any} value
-   * @param {number} debounceTimeout
+   * @param {String} path 
+   * @param {*} value
+   * @param {Number} debounceTimeout
    */
   setStatePropertyLater(path, value, debounceTimeout = null) {
     if (this.__statePropertyTimeout) {
@@ -209,18 +209,7 @@ class HdElement extends HTMLElement {
   }
 
   /**
-   * @param {string} styleStr
-   */
-  static set styles(styleStr) {
-    if (!this.__templatesMap.get(this.name)) {
-      let tpl = document.createElement('template');
-      this.__templatesMap.set(this.name, tpl);
-    }
-    this.__templatesMap.get(this.name).innerHTML += styleStr;
-  }
-
-  /**
-   * @param {string} tplStr
+   * @param {String} tplStr
    */
   static set template(tplStr) {
     if (!this.__templatesMap.get(this.name)) {
@@ -231,7 +220,7 @@ class HdElement extends HTMLElement {
   }
 
   /**
-   * @param {string} name
+   * @param {String} name
    */
   static set is(name) {
     if (window.customElements.get(name)) {
@@ -248,7 +237,7 @@ class HdElement extends HTMLElement {
   }
 
   /**
-   * @param {Array<string>} val
+   * @param {Array<String>} val
    */
   static set logicAttributes(val) {
     if (val.length) {
@@ -258,10 +247,6 @@ class HdElement extends HTMLElement {
         },
       });
     }
-  }
-
-  static get inst() {
-    return this['singleInstance'];
   }
 
   connectedCallback() {
@@ -297,8 +282,8 @@ class HdElement extends HTMLElement {
 
   /**
    * 
-   * @param {string} propName 
-   * @param {any} propValue
+   * @param {String} propName 
+   * @param {*} propValue
    */
   notify(propName, propValue = null) {
     let callbackName = 'on' + propName[0].toUpperCase() + propName.slice(1) + 'Change';
@@ -318,19 +303,6 @@ class HdElement extends HTMLElement {
       return;
     }
     this[name] = newVal;
-  }
-
-  /**
-   * 
-   * @param {string} attributeName 
-   * @param {string} attributeValue
-   */
-  attr(attributeName, attributeValue = '') {
-    if (attributeValue === null) {
-      this.removeAttribute(attributeName);
-    } else {
-      this.setAttribute(attributeName, attributeValue);
-    }
   }
 
 }
