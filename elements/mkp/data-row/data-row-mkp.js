@@ -7,7 +7,14 @@ class DataRowMkp extends HdElement {
   constructor() {
     super();
 
+    let formaters = {
+      money: (num) => {
+        return new Number(num).toLocaleString(undefined, { minimumFractionDigits: 2 });
+      },
+    };
+
     this.state = {
+      format: '',
       icon: '',
       label: '',
       value: '',
@@ -29,11 +36,22 @@ class DataRowMkp extends HdElement {
     });
 
     this.defineAccessor('value', (val) => {
-      this.setStateProperty('value', val);
+      if (this.state.format && formaters[ this.state.format ]) {
+        this.setStateProperty('value', formaters[ this.state.format ](val));
+      } else {
+        this.setStateProperty('value', val);
+      }
     });
 
     this.defineAccessor('units', (val) => {
       this.setStateProperty('units', val);
+    });
+
+    this.defineAccessor('format', (val) => {
+      this.setStateProperty('format', val);
+      if (this.state.value !== undefined && formaters[ val ]) {
+        this.setStateProperty('value', formaters[ val ](this.state.value));
+      }
     });
 
   }
@@ -87,6 +105,7 @@ DataRowMkp.logicAttributes = [
   'value',
   'icon',
   'units',
+  'format',
 ];
 DataRowMkp.is = 'data-row-mkp';
 
