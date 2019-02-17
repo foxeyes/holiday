@@ -17,7 +17,7 @@ class RadioUi extends HdElement {
   connectedCallback() {
     super.connectedCallback();
     this.onclick = (e) => {
-      this.attr('checked');
+      this.setAttribute('checked', '');
       if (RadioUi.reg[ this._name ]) {
         RadioUi.reg[ this._name ].forEach((inst) => {
           if (inst !== this) {
@@ -30,7 +30,7 @@ class RadioUi extends HdElement {
 
 }
 
-RadioUi.styles = /*html*/ `
+RadioUi.template = /*html*/ `
 <style>
   :host {
     display: inline-flex;
@@ -71,8 +71,6 @@ RadioUi.styles = /*html*/ `
     flex-grow: 1;
   }
 </style>
-`;
-RadioUi.template = /*html*/ `
 <div class="radio">
   <div class="radio-inner"></div>
 </div>

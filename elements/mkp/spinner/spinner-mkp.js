@@ -1,10 +1,8 @@
 import { HdElement } from '../../../core/hd-element.js';
 
-class SpinnerMkp extends HdElement {
+class SpinnerMkp extends HdElement {}
 
-}
-
-SpinnerMkp.styles = /*html*/ `
+SpinnerMkp.template = /*html*/ `
 <style>
   :host {
     display: inline-flex;

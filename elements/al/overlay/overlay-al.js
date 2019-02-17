@@ -49,7 +49,7 @@ class OverlayAl extends HdElement {
 
 }
 
-OverlayAl.styles = /*html*/ `
+OverlayAl.template = /*html*/ `
 <style>
   ::-webkit-scrollbar { 
     display: none; 
@@ -108,8 +108,6 @@ OverlayAl.styles = /*html*/ `
     overflow: auto;
   }
 </style>
-`;
-OverlayAl.template = /*html*/ `
 <div class="heading">
   <div class="icon">
     <icon-mkp bind="icon: icon"></icon-mkp>

@@ -34,7 +34,7 @@ class SelectUi extends HdElement {
       window.removeEventListener('click', this._clickOutsideHandler);
     };
     if (val) {
-      this.attr('active');
+      this.setAttribute('active', '');
       SelectUi.instances.forEach((inst) => {
         if (inst !== this) {
           inst.active = false;
@@ -44,7 +44,7 @@ class SelectUi extends HdElement {
         window.addEventListener('click', this._clickOutsideHandler);
       });
     } else {
-      this.attr('active', null);
+      this.removeAttribute('active');
     }
   }
 
@@ -58,7 +58,7 @@ class SelectUi extends HdElement {
     }
     this._value = val;
     this.dispatchEvent(this._event);
-    this.attr('value', val);
+    this.setAttribute('value', val);
     this.notify('value', val);
   }
 
@@ -119,7 +119,7 @@ class SelectUi extends HdElement {
   }
 }
 
-SelectUi.styles = /*html*/ `
+SelectUi.template = /*html*/ `
 <style>
   :host {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -279,8 +279,6 @@ SelectUi.styles = /*html*/ `
     border-bottom-right-radius: var(--border-radius-min, 2px);
   }
 </style>
-`;
-SelectUi.template = /*html*/ `
 <div class="state" >
   <icon-mkp id="current-icon-el"></icon-mkp>
   <div id="state-ip"></div>

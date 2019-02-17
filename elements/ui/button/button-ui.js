@@ -25,7 +25,7 @@ class ButtonUi extends HdElement {
 
 }
 
-ButtonUi.styles = /*html*/ `
+ButtonUi.template = /*html*/ `
 <style>
   :host {
     -webkit-tap-highlight-color: transparent;
@@ -171,10 +171,7 @@ ButtonUi.styles = /*html*/ `
     border-left: var(--gap-mid, 10px) solid var(--color);
     border-right: none;
   }
-
 </style>
-`;
-ButtonUi.template = /*html*/ `
 <teardrop-ui></teardrop-ui><icon-mkp bind="icon: icon"></icon-mkp><slot></slot>
 `;
 ButtonUi.logicAttributes = [

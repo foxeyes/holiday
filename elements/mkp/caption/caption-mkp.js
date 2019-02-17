@@ -10,7 +10,7 @@ class CaptionMkp extends HdElement {
 
 }
 
-CaptionMkp.styles = /*html*/ `
+CaptionMkp.template = /*html*/ `
 <style>
   :host {
     display: flex;
@@ -29,8 +29,6 @@ CaptionMkp.styles = /*html*/ `
     margin-right: var(--gap-mid, 10px);
   }
 </style>
-`;
-CaptionMkp.template = /*html*/ `
 <icon-mkp id="icon-el"></icon-mkp>
 <div><slot></slot></div>
 `;

@@ -24,13 +24,13 @@ class PanelAl extends HdElement {
 
     this.defineAccessor('active', (val) => {
       if (val) {
-        this.attr('active');
+        this.setAttribute('active', '');
         if (PanelAl.current && PanelAl.current !== this) {
           PanelAl.current.active = false;
         }
         PanelAl.current = this;
       } else {
-        this.attr('active', null);
+        this.removeAttribute('active');
       }
       this.notify('active', val);
     });
@@ -89,7 +89,7 @@ class PanelAl extends HdElement {
 
 }
 
-PanelAl.styles = /*html*/ `
+PanelAl.template = /*html*/ `
 <style>
   :host {
     --local-color: var(--bg-color, #fff);
@@ -266,8 +266,6 @@ PanelAl.styles = /*html*/ `
     transform: translate(-50%, -50%);
   }
 </style>
-`;
-PanelAl.template = /*html*/ `
 <div class="pan-header">
   <div class="cap-block">
     <icon-mkp id="icon-el"></icon-mkp>

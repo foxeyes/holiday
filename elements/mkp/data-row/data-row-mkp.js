@@ -58,7 +58,7 @@ class DataRowMkp extends HdElement {
 
 }
 
-DataRowMkp.styles = /*html*/ `
+DataRowMkp.template = /*html*/ `
 <style id="style-el">
   :host {
     display: flex;
@@ -92,8 +92,6 @@ DataRowMkp.styles = /*html*/ `
     display: none;
   }
 </style>
-`;
-DataRowMkp.template = /*html*/ `
 <icon-mkp id="icon" bind="icon: icon"></icon-mkp>
 <div id="label" bind="textContent: label"></div>
 <div id="value" bind="textContent: value"></div>

@@ -24,7 +24,7 @@ class UiCaptionMkp extends HdElement {
 
 }
 
-UiCaptionMkp.styles = /*html*/ `
+UiCaptionMkp.template = /*html*/ `
 <style>
   :host {
     display: block;
@@ -60,8 +60,6 @@ UiCaptionMkp.styles = /*html*/ `
     margin: 0;
   }
 </style>
-`;
-UiCaptionMkp.template = /*html*/ `
 <div class="caption-row">
   <icon-mkp bind="icon: icon"></icon-mkp>
   <div class="txt" bind="textContent: text"></div>

@@ -2,7 +2,7 @@ import { HdElement } from '../../../core/hd-element.js';
 
 class SpaceMkp extends HdElement {}
 
-SpaceMkp.styles = /*html*/ `
+SpaceMkp.template = /*html*/ `
 <style>
  :host {
    display: block;

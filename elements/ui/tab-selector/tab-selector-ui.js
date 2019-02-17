@@ -12,7 +12,7 @@ class TabSelectorUi extends HdElement {
         return;
       }
       this._current = val;
-      this.attr('current', val);
+      this.setAttribute('current', val);
       
       let curTab = this.querySelector(`[value="${val}"]`);
       if (curTab) {
@@ -66,7 +66,7 @@ class TabSelectorUi extends HdElement {
 
 }
 
-TabSelectorUi.styles = /*html*/ `
+TabSelectorUi.template = /*html*/ `
 <style>
   :host {
     display: flex;
@@ -98,13 +98,10 @@ TabSelectorUi.styles = /*html*/ `
     pointer-events: none;
   }
 </style>
-`;
-TabSelectorUi.template = /*html*/ `
 <slot></slot>
 <div class="underline" id="underline-el"></div>
 <div class="underline-all"></div>
 `;
-TabSelectorUi.bindable = true;
 TabSelectorUi.is = 'tab-selector-ui';
 
 class TabOptionUi extends HdElement {
@@ -126,7 +123,8 @@ class TabOptionUi extends HdElement {
   }
 
 }
-TabOptionUi.styles = /*html*/ `
+
+TabOptionUi.template = /*html*/ `
 <style>
   :host {
     height: var(--tap-zone-size, 32px);
@@ -166,8 +164,6 @@ TabOptionUi.styles = /*html*/ `
 
   }
 </style>
-`;
-TabOptionUi.template = /*html*/ `
 <icon-mkp bind="icon: icon"></icon-mkp><span class="text"><slot></slot></span>
 `;
 TabOptionUi.logicAttributes = [

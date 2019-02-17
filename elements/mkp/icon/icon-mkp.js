@@ -26,7 +26,7 @@ class IconMkp extends HdElement {
 }
 
 IconMkp.iconSet = Object.create(null);
-IconMkp.styles = /*html*/ `
+IconMkp.template = /*html*/ `
 <style>
   :host {
     --size: 1.2em;
@@ -43,8 +43,6 @@ IconMkp.styles = /*html*/ `
     transition: var(--transition, 0.2s);
   }
 </style>
-`;
-IconMkp.template = /*html*/ `
 <svg
   height="24"
   width="24"

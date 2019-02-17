@@ -56,7 +56,7 @@ class AppShellAl extends HdElement {
   }
 }
 
-AppShellAl.styles = /*html*/ `
+AppShellAl.template = /*html*/ `
 <style>
   ::-webkit-scrollbar { 
     display: none; 
@@ -154,8 +154,6 @@ AppShellAl.styles = /*html*/ `
     }
   }
 </style>
-`;
-AppShellAl.template = /*html*/ `
 <top-panel-el bind="@active: sidePanelAcive" id="top-pan">
   <menu-btn-el bind="onclick: actions.menuClicked">
     <icon-mkp bind="icon: menuIcon"></icon-mkp>
