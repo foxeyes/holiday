@@ -14,7 +14,7 @@ CaptionMkp.template = /*html*/ `
 <style>
   :host {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     font-size: 1.2em;
   }
   :host([underline]) {

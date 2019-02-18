@@ -66,6 +66,45 @@ class SelectUi extends HdElement {
     return this._value;
   }
 
+  update() {
+    let attrValue = this.getAttribute('value');
+    if (attrValue) {
+      this.value = attrValue;
+    }
+    this._optArr = [ ...this.querySelectorAll('[option]') ];
+    this._optArr.forEach((opt) => {
+      let optVal = opt.getAttribute('option');
+      let optIcon = opt.getAttribute('icon');
+      if (optIcon && !opt[ 'hasIcon' ]) {
+        let icon = document.createElement('icon-mkp');
+        icon.setAttribute('icon', optIcon);
+        icon.style.marginRight = '0.5em';
+        opt[ 'prepend' ](icon);
+        opt['hasIcon'] = true;
+      }
+      if (this.value && this.value === optVal) {
+        this[ 'state-ip' ].textContent = opt.textContent;
+        optIcon && this[ 'current-icon-el' ].setAttribute('icon', optIcon);
+      }
+      opt.addEventListener('click', (e) => {
+        this[ 'state-ip' ].textContent = opt.textContent;
+        this.value = optVal;
+        if (optIcon) {
+          this[ 'current-icon-el' ].setAttribute('icon', optIcon);
+        } else {
+          this[ 'current-icon-el' ].removeAttribute('icon');
+        }
+      });
+    });
+    if (!this.value && this._optArr[ 0 ]) {
+      this[ 'state-ip' ].textContent = this._optArr[ 0 ].textContent;
+      let icon = this._optArr[ 0 ].getAttribute('icon');
+      if (icon) {
+        this[ 'current-icon-el' ].setAttribute('icon', icon);
+      }
+    }
+  }
+
   connectedCallback() {
     super.connectedCallback();
     SelectUi.instances.add(this);
@@ -74,41 +113,7 @@ class SelectUi extends HdElement {
       this.active = !this.active;
     };
     window.setTimeout(() => {
-      let attrValue = this.getAttribute('value');
-      if (attrValue) {
-        this.value = attrValue;
-      }
-      this._optArr = [ ...this.querySelectorAll('[option]') ];
-      this._optArr.forEach((opt) => {
-        let optVal = opt.getAttribute('option');
-        let optIcon = opt.getAttribute('icon');
-        if (optIcon) {
-          let icon = document.createElement('icon-mkp');
-          icon.setAttribute('icon', optIcon);
-          icon.style.marginRight = '0.5em';
-          opt[ 'prepend' ](icon);
-        }
-        if (this.value && this.value === optVal) {
-          this[ 'state-ip' ].textContent = opt.textContent;
-          optIcon && this[ 'current-icon-el' ].setAttribute('icon', optIcon);
-        }
-        opt.addEventListener('click', (e) => {
-          this[ 'state-ip' ].textContent = opt.textContent;
-          this.value = optVal;
-          if (optIcon) {
-            this[ 'current-icon-el' ].setAttribute('icon', optIcon);
-          } else {
-            this[ 'current-icon-el' ].removeAttribute('icon');
-          }
-        });
-      });
-      if (!this.value && this._optArr[ 0 ]) {
-        this[ 'state-ip' ].textContent = this._optArr[ 0 ].textContent;
-        let icon = this._optArr[ 0 ].getAttribute('icon');
-        if (icon) {
-          this[ 'current-icon-el' ].setAttribute('icon', icon);
-        }
-      }
+      this.update();
     });
 
   }
