@@ -8,9 +8,24 @@ class DataRowMkp extends HdElement {
     super();
 
     let formaters = {
-      money: (num) => {
-        return new Number(num).toLocaleString(undefined, { minimumFractionDigits: 2 });
-      },
+      money: (val) => {
+        let options = {
+          minimumFractionDigits: 2,
+          useGrouping: true,
+          localeMatcher: 'best fit',
+        };
+        let currency = this.getAttribute('currency-code');
+        if (currency) {
+          options.style = 'currency';
+          options.currency = currency;
+        }
+        let locale;
+        if (this.getAttribute('locale')) {
+          locale = this.getAttribute('locale');
+        }
+        let fmt = new Intl.NumberFormat(locale, options);
+        return fmt.format(val);
+      } 
     };
 
     this.state = {

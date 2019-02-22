@@ -67,7 +67,7 @@ OverlayAl.template = /*html*/ `
     grid-template-rows: min-content auto;
     background-color: var(--bg-color, #fff);
     color: var(--color, #000);
-    z-index: 100000;
+    z-index: 1000000;
     border-radius: var(--radius, 4px);
     overflow: hidden;
     box-shadow: 0 0 var(--side-step) var(--color, #000);

@@ -118,6 +118,7 @@ AppShellAl.template = /*html*/ `
     padding: var(--gap-min);
     box-sizing: border-box;
     transition: transform 0.2s;
+    z-index: 100000;
   }
   side-panel-el[active] {
     transform: translateX(0);
@@ -154,6 +155,7 @@ AppShellAl.template = /*html*/ `
     }
   }
 </style>
+<slot></slot> 
 <top-panel-el bind="@active: sidePanelAcive" id="top-pan">
   <menu-btn-el bind="onclick: actions.menuClicked">
     <icon-mkp bind="icon: menuIcon"></icon-mkp>
@@ -169,7 +171,6 @@ AppShellAl.template = /*html*/ `
 <side-panel-el bind="@active: sidePanelAcive" id="side-pan">
   <slot name="menu"></slot>
 </side-panel-el>
-<slot></slot>  
 `;
 AppShellAl.logicAttributes = [
   'icon',
