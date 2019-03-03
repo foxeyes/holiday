@@ -94,6 +94,7 @@ DataRowMkp.template = /*html*/ `
   }
   #label {
     opacity: 0.6;
+    white-space: nowrap;
   }
   #value {
     flex-grow: 1;

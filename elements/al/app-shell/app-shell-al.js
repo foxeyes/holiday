@@ -97,12 +97,16 @@ AppShellAl.template = /*html*/ `
     height: var(--tap-zone-size, 28px);
     width: var(--l-width);
     min-width: var(--l-width);
+  }
+  :host([color-code]) {
     background-color: var(--color-theme-2, #000);
     color: var(--color-code);
   }
+  :host([color-code]) .title {
+    padding-left: var(--gap-mid, 0.6em);
+  }
   .title {
     flex-grow: 1;
-    padding-left: var(--gap-mid, 0.6em);
     padding-right: var(--gap-mid, 0.6em);
     overflow: hidden;
   }

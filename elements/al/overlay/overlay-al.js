@@ -25,12 +25,33 @@ class OverlayAl extends HdElement {
     };
 
     this.defineAccessor('active', (val) => {
+      document.body.style.height = '100%';
+      document.body.style.overflow = 'hidden';
+      document.body.ontouchmove = (e) => {
+        e.preventDefault();
+      };
+
       if (val === true) {
         this.setAttribute('active', '');
       } else if (val === false) {
         this.removeAttribute('active');
+        let styleTxt = document.body.getAttribute('style');
+        styleTxt = styleTxt.replace('height: 100%;', '').replace('overflow: hidden;', '');
+        if (styleTxt.trim()) {
+          document.body.setAttribute('style', styleTxt.trim());
+        } else {
+          document.body.removeAttribute('style');
+        }
+        document.body.ontouchmove = undefined;
       }
       this.setStateProperty('active', val);
+      if (this.hasAttribute('active')) {
+        OverlayAl.instances.forEach((inst) => {
+          if (inst !== this) {
+            inst.removeAttribute('active');
+          }
+        });
+      }
     });
 
     this.defineAccessor('caption', (val) => {
@@ -44,6 +65,8 @@ class OverlayAl extends HdElement {
     this.defineAccessor('color-code', (val) => {
       this.style.setProperty('--color-code-local', val);
     });
+
+    OverlayAl.instances.add(this);
 
   }
 
@@ -69,7 +92,7 @@ OverlayAl.template = /*html*/ `
     color: var(--color, #000);
     z-index: 1000000;
     border-radius: var(--radius, 4px);
-    overflow: hidden;
+    overflow: scroll;
     box-shadow: 0 0 var(--side-step) var(--color, #000);
     will-change: opacity transform;
     transition: var(--transition, 0.2s);
@@ -78,6 +101,11 @@ OverlayAl.template = /*html*/ `
     max-width: var(--column-width, 960px);
     left: 50%;
     transform: translateX(-50%);
+  }
+  @supports (overflow: auto) {
+    :host {
+      overflow: auto;
+    }
   }
 
   :host(:not([active])) {
@@ -107,6 +135,13 @@ OverlayAl.template = /*html*/ `
   .content {
     overflow: auto;
   }
+  @media screen and (max-width: 800px) {
+    :host {
+      --side-step: 0;
+      border-radius: 0;
+    }
+  }
+}
 </style>
 <div class="heading">
   <div class="icon">
@@ -125,6 +160,7 @@ OverlayAl.logicAttributes = [
   'icon',
   'color-code',
 ];
+OverlayAl.instances = new Set();
 OverlayAl.is = 'overlay-al';
 
 export { OverlayAl };
