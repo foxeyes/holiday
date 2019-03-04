@@ -98,7 +98,7 @@ AppShellAl.template = /*html*/ `
     width: var(--l-width);
     min-width: var(--l-width);
   }
-  :host([color-code]) {
+  :host([color-code]) .icon-wrapper {
     background-color: var(--color-theme-2, #000);
     color: var(--color-code);
   }

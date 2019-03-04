@@ -212,11 +212,9 @@ class HdElement extends HTMLElement {
    * @param {String} tplStr
    */
   static set template(tplStr) {
-    if (!this.__templatesMap.get(this.name)) {
-      let tpl = document.createElement('template');
-      this.__templatesMap.set(this.name, tpl);
-    }
-    this.__templatesMap.get(this.name).innerHTML += tplStr;
+    let tpl = document.createElement('template');
+    this.__templatesMap.set(this.name, tpl);
+    this.__templatesMap.get(this.name).innerHTML = tplStr;
   }
 
   /**
@@ -227,9 +225,7 @@ class HdElement extends HTMLElement {
       return;
     }
     this.__is = name;
-    window.setTimeout(() => {
-      window.customElements.define(name, this);
-    });
+    window.customElements.define(name, this);
   }
 
   static get is() {
