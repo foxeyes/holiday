@@ -283,6 +283,10 @@ InputUi.template = /*html*/ `
     margin: 0;
   }
 
+  :host([custom]) input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
   .clear {
     display: none;
     justify-content: center;

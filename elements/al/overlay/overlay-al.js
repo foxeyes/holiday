@@ -94,8 +94,8 @@ OverlayAl.template = /*html*/ `
     border-radius: var(--radius, 4px);
     overflow: scroll;
     box-shadow: 0 0 var(--side-step) var(--color, #000);
-    will-change: opacity transform;
-    transition: var(--transition, 0.2s);
+    will-change: opacity;
+    transition: opacity 0.4s;
 
     width: 100%;
     max-width: var(--column-width, 960px);
@@ -111,7 +111,6 @@ OverlayAl.template = /*html*/ `
   :host(:not([active])) {
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.9) translateX(-50%);
   }
 
   .heading {

@@ -12,7 +12,7 @@ class AppShellAl extends HdElement {
     super();
 
     this._onClickOutside = (e) => {
-      let path = (e.composedPath && e.composedPath()) || e.path;
+      let path = e.path || (e.composedPath && e.composedPath());
       if (!path) {
         return;
       }
@@ -20,6 +20,7 @@ class AppShellAl extends HdElement {
         this.setStateProperty('sidePanelAcive', false);
         this.setStateProperty('menuIcon', 'menu');
         window.removeEventListener('click', this._onClickOutside);
+        window.removeEventListener('touchstart', this._onClickOutside);
       }
     };
 
@@ -34,8 +35,10 @@ class AppShellAl extends HdElement {
           this.setStateProperty('menuIcon', this.state.sidePanelAcive ? 'menu-close' : 'menu');
           if (this.state.sidePanelAcive) {
             window.addEventListener('click', this._onClickOutside);
+            window.addEventListener('touchstart', this._onClickOutside);
           } else {
             window.removeEventListener('click', this._onClickOutside);
+            window.removeEventListener('touchstart', this._onClickOutside);
           }
         },
       },
@@ -53,6 +56,12 @@ class AppShellAl extends HdElement {
       this.style.setProperty('--color-code', color);
     });
 
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('click', this._onClickOutside);
+    window.removeEventListener('touchstart', this._onClickOutside);
   }
 }
 

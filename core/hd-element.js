@@ -63,8 +63,7 @@ class HdElement extends HTMLElement {
     this.__initialRender();
 
     this.__whenComponentReady = null;
-    this.whenConnected = null;
-    this.onStateUpdated = null;
+    this.stateUpdated = null;
     
     Object.defineProperty(this, 'state', {
       set: (stateObj) => {
@@ -72,12 +71,12 @@ class HdElement extends HTMLElement {
         if (!this.__stateBindingsMap) {
           return;
         }
-        for (let propKey in this.__stateBindingsMap) {
-          let bindingsArr = this.__stateBindingsMap[propKey];
+        for (let path in this.__stateBindingsMap) {
+          let bindingsArr = this.__stateBindingsMap[path];
           bindingsArr.forEach((binding) => {
             let el = binding.element;
             let value = this.__state;
-            let propPath = propKey.split('.');
+            let propPath = path.split('.');
             propPath.forEach((step) => {
               value = value[step];
             });
@@ -91,9 +90,9 @@ class HdElement extends HTMLElement {
             } else {
               el[binding.propName] = value;
             }
+            this.stateUpdated && this.stateUpdated(path);
           });
         }
-        this.onStateUpdated && this.onStateUpdated();
       },
       get: () => {
         return this.__state;
@@ -190,7 +189,7 @@ class HdElement extends HTMLElement {
       });
     }
 
-    this.onStateUpdated && this.onStateUpdated();
+    this.stateUpdated && this.stateUpdated(path);
   }
 
   /**
@@ -266,10 +265,6 @@ class HdElement extends HTMLElement {
       }
       window.addEventListener(this.__bindId, this.__bindHandler);
     }
-    
-    window.setTimeout(() => {
-      this.whenConnected && this.whenConnected();
-    });
   }
 
   disconnectedCallback() {
