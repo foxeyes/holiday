@@ -38,7 +38,7 @@ ButtonUi.template = /*html*/ `
     min-height: var(--tap-zone-size, 28px);
     min-width: var(--tap-zone-size, 28px);
     border-radius: var(--ui-radius, 2px);
-    font-size: var(--ui-font-size, 13px);
+    font-size: var(--ui-font-size, 14px);
     padding-left: var(--ui-side-padding, 0.8em);
     padding-right: var(--ui-side-padding, 0.8em);
     box-sizing: border-box;

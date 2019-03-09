@@ -118,6 +118,7 @@ AppShellAl.template = /*html*/ `
     flex-grow: 1;
     padding-right: var(--gap-mid, 0.6em);
     overflow: hidden;
+    user-select: none;
   }
   side-panel-el {
     display: block;

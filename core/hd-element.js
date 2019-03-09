@@ -54,6 +54,14 @@ class HdElement extends HTMLElement {
     }
   }
 
+  /**
+   * 
+   * @param {String} path 
+   */
+  stateUpdated(path) {
+    return;
+  }
+
   constructor() {
     super();
     this.__state = this.state;
@@ -61,9 +69,6 @@ class HdElement extends HTMLElement {
       mode: 'open',
     });
     this.__initialRender();
-
-    this.__whenComponentReady = null;
-    this.stateUpdated = null;
     
     Object.defineProperty(this, 'state', {
       set: (stateObj) => {
