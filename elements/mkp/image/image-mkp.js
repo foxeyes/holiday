@@ -7,11 +7,14 @@ class ImageMkp extends HdElement {
     super();
 
     this.defineAccessor('src', async (src) => {
-      if (!src) {
-        return;
-      }
+      // if (!src) {
+      //   return;
+      // }
       this.removeAttribute('error');
       this.setAttribute('loading', '');
+      if (src === null) {
+        return;
+      }
       let img = new Image();
       img.src = src;
       img.onload = () => {
