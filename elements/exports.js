@@ -3,6 +3,7 @@ export { AppShellAl } from './al/app-shell/app-shell-al.js';
 export { PanelAl } from './al/panel/panel-al.js';
 export { OverlayAl } from './al/overlay/overlay-al.js';
 export { CtxAl } from './al/ctx/ctx-al.js';
+export { NotificationAl } from './al/notification/notification-al.js';
 
 // Markup elements:
 export { IconMkp } from './mkp/icon/icon-mkp.js';
