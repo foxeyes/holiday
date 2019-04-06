@@ -43,7 +43,7 @@ MyComponent.is = 'my-component';
 ```
 
 ## Full Documentation, Examples, Benchmarks
-[holiday-js.firebaseapp.com](https://holiday-js.firebaseapp.com/)
+### [holiday-js.firebaseapp.com](https://holiday-js.firebaseapp.com/)
 
 ## Installation (using git)
 
