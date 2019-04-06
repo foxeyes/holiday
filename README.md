@@ -3,7 +3,7 @@
 
 * Minimal overhead upon a native web platform and DOM API
 * Native syntax for templates and styling
-* Full power of modern web-platform: custom elements, ES modules, CSS variables
+* Full power of modern web-platform: Custom Elements, Shadow DOM, ES modules, CSS variables
 * Minimalistic toolchain: can work directly in any modern browser, without any additional build process setting
 * Lightweight and "tree shaking" friendly: use what you need only
 * Fast as lightning: Holiday.js not using string pre-processing for templates in js runtime
