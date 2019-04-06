@@ -34,9 +34,6 @@ MyComponent.template = /*html*/ `
     background-color: #fff;
     color: #000;
   }
-  .username {
-    font-
-  }
 </style>
 <img bind="src: imageURL" />
 <div bind="textContent: firstName"></div>
