@@ -2,6 +2,8 @@
 export { AppShellAl } from './al/app-shell/app-shell-al.js';
 export { PanelAl } from './al/panel/panel-al.js';
 export { OverlayAl } from './al/overlay/overlay-al.js';
+export { CtxAl } from './al/ctx/ctx-al.js';
+export { NotificationAl } from './al/notification/notification-al.js';
 
 // Markup elements:
 export { IconMkp } from './mkp/icon/icon-mkp.js';
@@ -12,6 +14,7 @@ export { GridMkp } from './mkp/grid/grid-mkp.js';
 export { SpinnerMkp } from './mkp/spinner/spinner-mkp.js';
 export { UiCaptionMkp } from './mkp/ui-caption/ui-caption-mkp.js';
 export { DataRowMkp } from './mkp/data-row/data-row-mkp.js';
+export { ImageMkp } from './mkp/image/image-mkp.js';
 
 // UI-elements:
 export { ButtonUi } from './ui/button/button-ui.js';

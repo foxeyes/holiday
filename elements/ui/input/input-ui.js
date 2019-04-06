@@ -178,7 +178,7 @@ class InputUi extends HdElement {
 
 }
 
-InputUi.styles = /*html*/ `
+InputUi.template = /*html*/ `
 <style>
   :host {
     -webkit-tap-highlight-color: transparent;
@@ -281,6 +281,10 @@ InputUi.styles = /*html*/ `
   :host([custom]) input::-webkit-inner-spin-button, :host([custom]) input::-webkit-outer-spin-button {
     -webkit-appearance: none; 
     margin: 0;
+  }
+
+  :host([custom]) input[type="number"] {
+    -moz-appearance: textfield;
   }
 
   .clear {
@@ -420,8 +424,6 @@ InputUi.styles = /*html*/ `
     }
   }
 </style>
-`;
-InputUi.template = /*html*/ `
 <icon-mkp bind="icon: icon" id="icon-el"></icon-mkp>
 <input type="text" id="input-el">
 <div class="clear" id="clear-btn" bind="onclick: actions.clearClicked">

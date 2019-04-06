@@ -17,7 +17,7 @@ class CardMkp extends HdElement {
 
 }
 
-CardMkp.styles = /*html*/ `
+CardMkp.template = /*html*/ `
 <style>
   :host {
     display: block;
@@ -60,8 +60,7 @@ CardMkp.styles = /*html*/ `
     background-position: top left;
   }
 </style>
-`;
-CardMkp.template = /*html*/ `<slot></slot>`;
+<slot></slot>`;
 CardMkp.logicAttributes = [
   'background-image',
   'background-pattern',

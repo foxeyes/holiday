@@ -34,7 +34,7 @@ class SelectUi extends HdElement {
       window.removeEventListener('click', this._clickOutsideHandler);
     };
     if (val) {
-      this.attr('active');
+      this.setAttribute('active', '');
       SelectUi.instances.forEach((inst) => {
         if (inst !== this) {
           inst.active = false;
@@ -44,7 +44,7 @@ class SelectUi extends HdElement {
         window.addEventListener('click', this._clickOutsideHandler);
       });
     } else {
-      this.attr('active', null);
+      this.removeAttribute('active');
     }
   }
 
@@ -58,12 +58,51 @@ class SelectUi extends HdElement {
     }
     this._value = val;
     this.dispatchEvent(this._event);
-    this.attr('value', val);
+    this.setAttribute('value', val);
     this.notify('value', val);
   }
 
   get value() {
     return this._value;
+  }
+
+  update() {
+    let attrValue = this.getAttribute('value');
+    if (attrValue) {
+      this.value = attrValue;
+    }
+    this._optArr = [ ...this.querySelectorAll('[option]') ];
+    this._optArr.forEach((opt) => {
+      let optVal = opt.getAttribute('option');
+      let optIcon = opt.getAttribute('icon');
+      if (optIcon && !opt[ 'hasIcon' ]) {
+        let icon = document.createElement('icon-mkp');
+        icon.setAttribute('icon', optIcon);
+        icon.style.marginRight = '0.5em';
+        opt[ 'prepend' ](icon);
+        opt['hasIcon'] = true;
+      }
+      if (this.value && this.value === optVal) {
+        this[ 'state-ip' ].textContent = opt.textContent;
+        optIcon && this[ 'current-icon-el' ].setAttribute('icon', optIcon);
+      }
+      opt.addEventListener('click', (e) => {
+        this[ 'state-ip' ].textContent = opt.textContent;
+        this.value = optVal;
+        if (optIcon) {
+          this[ 'current-icon-el' ].setAttribute('icon', optIcon);
+        } else {
+          this[ 'current-icon-el' ].removeAttribute('icon');
+        }
+      });
+    });
+    if (!this.value && this._optArr[ 0 ]) {
+      this[ 'state-ip' ].textContent = this._optArr[ 0 ].textContent;
+      let icon = this._optArr[ 0 ].getAttribute('icon');
+      if (icon) {
+        this[ 'current-icon-el' ].setAttribute('icon', icon);
+      }
+    }
   }
 
   connectedCallback() {
@@ -74,41 +113,7 @@ class SelectUi extends HdElement {
       this.active = !this.active;
     };
     window.setTimeout(() => {
-      let attrValue = this.getAttribute('value');
-      if (attrValue) {
-        this.value = attrValue;
-      }
-      this._optArr = [ ...this.querySelectorAll('[option]') ];
-      this._optArr.forEach((opt) => {
-        let optVal = opt.getAttribute('option');
-        let optIcon = opt.getAttribute('icon');
-        if (optIcon) {
-          let icon = document.createElement('icon-mkp');
-          icon.setAttribute('icon', optIcon);
-          icon.style.marginRight = '0.5em';
-          opt[ 'prepend' ](icon);
-        }
-        if (this.value && this.value === optVal) {
-          this[ 'state-ip' ].textContent = opt.textContent;
-          optIcon && this[ 'current-icon-el' ].setAttribute('icon', optIcon);
-        }
-        opt.addEventListener('click', (e) => {
-          this[ 'state-ip' ].textContent = opt.textContent;
-          this.value = optVal;
-          if (optIcon) {
-            this[ 'current-icon-el' ].setAttribute('icon', optIcon);
-          } else {
-            this[ 'current-icon-el' ].removeAttribute('icon');
-          }
-        });
-      });
-      if (!this.value && this._optArr[ 0 ]) {
-        this[ 'state-ip' ].textContent = this._optArr[ 0 ].textContent;
-        let icon = this._optArr[ 0 ].getAttribute('icon');
-        if (icon) {
-          this[ 'current-icon-el' ].setAttribute('icon', icon);
-        }
-      }
+      this.update();
     });
 
   }
@@ -119,7 +124,7 @@ class SelectUi extends HdElement {
   }
 }
 
-SelectUi.styles = /*html*/ `
+SelectUi.template = /*html*/ `
 <style>
   :host {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -279,8 +284,6 @@ SelectUi.styles = /*html*/ `
     border-bottom-right-radius: var(--border-radius-min, 2px);
   }
 </style>
-`;
-SelectUi.template = /*html*/ `
 <div class="state" >
   <icon-mkp id="current-icon-el"></icon-mkp>
   <div id="state-ip"></div>

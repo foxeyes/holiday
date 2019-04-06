@@ -18,7 +18,7 @@ class TeardropUi extends HdElement {
   }
 }
 
-TeardropUi.styles = /*html*/ `
+TeardropUi.template = /*html*/ `
 <style>
   :host {
     display: block;

@@ -30,14 +30,13 @@ class GridMkp extends HdElement {
 
 }
 
-GridMkp.styles = /*html*/ `
+GridMkp.template = /*html*/ `
 <style id="style-el">
   :host {
     display: grid;
   }
 </style>
-`;
-GridMkp.template = /*html*/ `<slot></slot>`;
+<slot></slot>`;
 GridMkp.logicAttributes = [
   'gap',
   'columns',

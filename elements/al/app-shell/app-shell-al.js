@@ -12,7 +12,7 @@ class AppShellAl extends HdElement {
     super();
 
     this._onClickOutside = (e) => {
-      let path = (e.composedPath && e.composedPath()) || e.path;
+      let path = e.path || (e.composedPath && e.composedPath());
       if (!path) {
         return;
       }
@@ -20,6 +20,7 @@ class AppShellAl extends HdElement {
         this.setStateProperty('sidePanelAcive', false);
         this.setStateProperty('menuIcon', 'menu');
         window.removeEventListener('click', this._onClickOutside);
+        window.removeEventListener('touchstart', this._onClickOutside);
       }
     };
 
@@ -34,8 +35,10 @@ class AppShellAl extends HdElement {
           this.setStateProperty('menuIcon', this.state.sidePanelAcive ? 'menu-close' : 'menu');
           if (this.state.sidePanelAcive) {
             window.addEventListener('click', this._onClickOutside);
+            window.addEventListener('touchstart', this._onClickOutside);
           } else {
             window.removeEventListener('click', this._onClickOutside);
+            window.removeEventListener('touchstart', this._onClickOutside);
           }
         },
       },
@@ -54,9 +57,15 @@ class AppShellAl extends HdElement {
     });
 
   }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('click', this._onClickOutside);
+    window.removeEventListener('touchstart', this._onClickOutside);
+  }
 }
 
-AppShellAl.styles = /*html*/ `
+AppShellAl.template = /*html*/ `
 <style>
   ::-webkit-scrollbar { 
     display: none; 
@@ -97,14 +106,19 @@ AppShellAl.styles = /*html*/ `
     height: var(--tap-zone-size, 28px);
     width: var(--l-width);
     min-width: var(--l-width);
+  }
+  :host([color-code]) .icon-wrapper {
     background-color: var(--color-theme-2, #000);
     color: var(--color-code);
   }
+  :host([color-code]) .title {
+    padding-left: var(--gap-mid, 0.6em);
+  }
   .title {
     flex-grow: 1;
-    padding-left: var(--gap-mid, 0.6em);
     padding-right: var(--gap-mid, 0.6em);
     overflow: hidden;
+    user-select: none;
   }
   side-panel-el {
     display: block;
@@ -118,6 +132,7 @@ AppShellAl.styles = /*html*/ `
     padding: var(--gap-min);
     box-sizing: border-box;
     transition: transform 0.2s;
+    z-index: 100000;
   }
   side-panel-el[active] {
     transform: translateX(0);
@@ -154,8 +169,7 @@ AppShellAl.styles = /*html*/ `
     }
   }
 </style>
-`;
-AppShellAl.template = /*html*/ `
+<slot></slot> 
 <top-panel-el bind="@active: sidePanelAcive" id="top-pan">
   <menu-btn-el bind="onclick: actions.menuClicked">
     <icon-mkp bind="icon: menuIcon"></icon-mkp>
@@ -171,7 +185,6 @@ AppShellAl.template = /*html*/ `
 <side-panel-el bind="@active: sidePanelAcive" id="side-pan">
   <slot name="menu"></slot>
 </side-panel-el>
-<slot></slot>  
 `;
 AppShellAl.logicAttributes = [
   'icon',

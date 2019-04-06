@@ -30,7 +30,7 @@ class CheckboxUi extends HdElement {
 
 }
 
-CheckboxUi.styles = /*html*/ `
+CheckboxUi.template = /*html*/ `
 <style>
   :host {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -97,8 +97,6 @@ CheckboxUi.styles = /*html*/ `
     flex-grow: 1;
   }
 </style>
-`;
-CheckboxUi.template = /*html*/ `
 <div class="box">
   <div class="box-inner"></div>
 </div>

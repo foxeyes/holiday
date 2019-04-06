@@ -12,7 +12,7 @@ class TabSelectorUi extends HdElement {
         return;
       }
       this._current = val;
-      this.attr('current', val);
+      this.setAttribute('current', val);
       
       let curTab = this.querySelector(`[value="${val}"]`);
       if (curTab) {
@@ -21,8 +21,6 @@ class TabSelectorUi extends HdElement {
         curTab.setAttribute('current', '');
         let curPos = this._tabsArr.indexOf(curTab);
         this[ 'underline-el' ].style.left = this._defaultUnderlineWidth * curPos + '%';
-        this[ 'underline-el' ].style.width = this._defaultUnderlineWidth + '%';
-
         let tabColorCode = curTab.getAttribute('color-code');
         if (tabColorCode) {
           this[ 'underline-el' ].style.backgroundColor = tabColorCode;
@@ -46,7 +44,8 @@ class TabSelectorUi extends HdElement {
       });
     });
 
-    this._defaultUnderlineWidth = Math.round(100 / this._tabsArr.length);
+    this._defaultUnderlineWidth = 100 / this._tabsArr.length;
+    this[ 'underline-el' ].style.width = this._defaultUnderlineWidth + '%';
     if (currentValue) {
       this.current = currentValue;
     }
@@ -66,7 +65,7 @@ class TabSelectorUi extends HdElement {
 
 }
 
-TabSelectorUi.styles = /*html*/ `
+TabSelectorUi.template = /*html*/ `
 <style>
   :host {
     display: flex;
@@ -98,13 +97,10 @@ TabSelectorUi.styles = /*html*/ `
     pointer-events: none;
   }
 </style>
-`;
-TabSelectorUi.template = /*html*/ `
 <slot></slot>
 <div class="underline" id="underline-el"></div>
 <div class="underline-all"></div>
 `;
-TabSelectorUi.bindable = true;
 TabSelectorUi.is = 'tab-selector-ui';
 
 class TabOptionUi extends HdElement {
@@ -126,7 +122,8 @@ class TabOptionUi extends HdElement {
   }
 
 }
-TabOptionUi.styles = /*html*/ `
+
+TabOptionUi.template = /*html*/ `
 <style>
   :host {
     height: var(--tap-zone-size, 32px);
@@ -136,7 +133,8 @@ TabOptionUi.styles = /*html*/ `
     justify-content: center;
     padding-left: var(--ui-side-padding, 0.8em);
     padding-right: var(--ui-side-padding, 0.8em);
-    flex: 1;
+    flex-grow: 1;
+    flex-basis: 0;
     cursor: pointer;
     user-select: none;
     opacity: 0.6;
@@ -166,8 +164,6 @@ TabOptionUi.styles = /*html*/ `
 
   }
 </style>
-`;
-TabOptionUi.template = /*html*/ `
 <icon-mkp bind="icon: icon"></icon-mkp><span class="text"><slot></slot></span>
 `;
 TabOptionUi.logicAttributes = [

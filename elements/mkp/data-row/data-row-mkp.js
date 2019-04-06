@@ -8,9 +8,24 @@ class DataRowMkp extends HdElement {
     super();
 
     let formaters = {
-      money: (num) => {
-        return new Number(num).toLocaleString(undefined, { minimumFractionDigits: 2 });
-      },
+      money: (val) => {
+        let options = {
+          minimumFractionDigits: 2,
+          useGrouping: true,
+          localeMatcher: 'best fit',
+        };
+        let currency = this.getAttribute('currency-code');
+        if (currency) {
+          options.style = 'currency';
+          options.currency = currency;
+        }
+        let locale;
+        if (this.getAttribute('locale')) {
+          locale = this.getAttribute('locale');
+        }
+        let fmt = new Intl.NumberFormat(locale, options);
+        return fmt.format(val);
+      } 
     };
 
     this.state = {
@@ -58,7 +73,7 @@ class DataRowMkp extends HdElement {
 
 }
 
-DataRowMkp.styles = /*html*/ `
+DataRowMkp.template = /*html*/ `
 <style id="style-el">
   :host {
     display: flex;
@@ -79,6 +94,7 @@ DataRowMkp.styles = /*html*/ `
   }
   #label {
     opacity: 0.6;
+    white-space: nowrap;
   }
   #value {
     flex-grow: 1;
@@ -92,8 +108,6 @@ DataRowMkp.styles = /*html*/ `
     display: none;
   }
 </style>
-`;
-DataRowMkp.template = /*html*/ `
 <icon-mkp id="icon" bind="icon: icon"></icon-mkp>
 <div id="label" bind="textContent: label"></div>
 <div id="value" bind="textContent: value"></div>
