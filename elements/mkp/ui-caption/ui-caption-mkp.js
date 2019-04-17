@@ -39,9 +39,9 @@ UiCaptionMkp.template = /*html*/ `
   .caption-row {
     display: flex;
     align-items: center;
-    padding-bottom: 0.2em;
-    opacity: 0.8;
-    font-size: 0.9em;
+    padding-bottom: 0.4em;
+    opacity: 0.6;
+    font-size: 0.8em;
   }
   .caption-row icon-mkp {
     margin-right: 0.2em;
