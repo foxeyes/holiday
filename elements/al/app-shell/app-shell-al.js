@@ -73,30 +73,30 @@ AppShellAl.template = /*html*/ `
   :host {
     --color-code: var(--color-theme-1, #fff);
     display: block;
-    padding-left: var(--side-panel-width);
+    padding-left: var(--side-panel-width, 240px);
     padding-top: calc(var(--tap-zone-size, 28px) + var(--gap-min, 2px) * 2);
   }
   top-panel-el {
     position: fixed;
     top: 0;
     right: 0;
-    left: var(--side-panel-width);
+    left: var(--side-panel-width, 240px);
     display: flex;
     align-items: center;
-    height: var(--tap-zone-size);
-    border-top: var(--gap-min) solid currentColor;
-    border-bottom: var(--gap-min) solid currentColor;
+    height: var(--tap-zone-size, 28px);
+    border-top: var(--gap-min, 2px) solid currentColor;
+    border-bottom: var(--gap-min, 2px) solid currentColor;
     padding-left: 0;
     color: var(--color-theme-2, #000);
     background-color: var(--color-theme-1, #fff);
-    font-size: calc(var(--tap-zone-size) / 2);
+    font-size: calc(var(--tap-zone-size, 28px) / 2);
     transition: left 0.2s;
     overflow: hidden;
     white-space: nowrap;
     z-index: 10000;
   }
   top-panel-el[active] {
-    left: var(--side-panel-width);
+    left: var(--side-panel-width, 240px);
   }
   .icon-wrapper {
     --l-width: calc(var(--tap-zone-size, 28px) + var(--gap-min, 2px));
@@ -126,10 +126,10 @@ AppShellAl.template = /*html*/ `
     top: 0;
     left: 0;
     bottom: 0;
-    width: var(--side-panel-width);
+    width: var(--side-panel-width, 240px);
     background-color: var(--color-theme-2, #000);
     color: var(--color-theme-1, #fff);
-    padding: var(--gap-min);
+    padding: var(--gap-min, 2px);
     box-sizing: border-box;
     transition: transform 0.2s;
     z-index: 100000;
@@ -142,9 +142,9 @@ AppShellAl.template = /*html*/ `
     display: none;
     justify-content: center;
     align-items: center;
-    height: var(--tap-zone-size);
-    width: var(--tap-zone-size);
-    min-width: var(--tap-zone-size);
+    height: var(--tap-zone-size, 28px);
+    width: var(--tap-zone-size, 28px);
+    min-width: var(--tap-zone-size, 28px);
     background-color: var(--color-theme-2, #000);
     color: var(--color-theme-1, #fff);
     cursor: pointer;
