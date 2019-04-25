@@ -35,6 +35,9 @@ GridMkp.template = /*html*/ `
   :host {
     display: grid;
   }
+  :host([inline]) {
+    display: inline-grid;
+  }
 </style>
 <slot></slot>`;
 GridMkp.logicAttributes = [
