@@ -217,8 +217,8 @@ class HdElement extends HTMLElement {
    */
   static set template(tplStr) {
     let tpl = document.createElement('template');
+    tpl.innerHTML = tplStr;
     this.__templatesMap.set(this.name, tpl);
-    this.__templatesMap.get(this.name).innerHTML = tplStr;
   }
 
   /**
