@@ -15,6 +15,8 @@ export { SpinnerMkp } from './mkp/spinner/spinner-mkp.js';
 export { UiCaptionMkp } from './mkp/ui-caption/ui-caption-mkp.js';
 export { DataRowMkp } from './mkp/data-row/data-row-mkp.js';
 export { ImageMkp } from './mkp/image/image-mkp.js';
+export { ColumnMkp } from './mkp/column/column-mkp.js';
+export { CodeMkp } from './mkp/code/code-mkp.js';
 
 // UI-elements:
 export { ButtonUi } from './ui/button/button-ui.js';
