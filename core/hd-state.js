@@ -53,14 +53,17 @@ class HdState {
     if (this.read(path) === value) {
       return;
     }
+
     let desc = this._getPropDesc(path);
     if (!desc) {
       return;
     }
+
     if (value !== null && value.constructor !== desc.type) {
       console.warn('(HdState) Wrong value type for path: ' + path);
       return;
     }
+
     HdState.store[ path ] = value;
     if (HdState.subscriptionsMap[ path ]) {
       HdState.subscriptionsMap[ path ].forEach((handler, idx) => {
@@ -74,6 +77,7 @@ class HdState {
         }
       });
     }
+
     if (desc.cache) {
       let cachedStr = window.localStorage.getItem('hd-cache');
       let cacheObj;
@@ -95,7 +99,7 @@ class HdState {
   static read(path) {
     let desc = this._getPropDesc(path);
     if (desc) {
-      return HdState.store[ path ] === undefined ? desc.value : HdState.store[ path ];
+      return this.store[ path ] === undefined ? desc.value : this.store[ path ];
     } else {
       console.warn('(HdState) Wrong state path: ' + path);
     }
@@ -115,10 +119,24 @@ class HdState {
     if (!this.subscriptionsMap[ path ]) {
       this.subscriptionsMap[ path ] = [];
     }
-    HdState.subscriptionsMap[ path ].push(handler);
+    this.subscriptionsMap[ path ].push(handler);
     if (this.read(path) !== undefined && !silent) {
       handler(this.read(path));
     }
+  }
+
+  /**
+   * 
+   * @param {String} path 
+   */
+  static notify(path) {
+    let desc = this._getPropDesc(path);
+    if (!desc) {
+      return;
+    }
+    this.subscriptionsMap[ path ].forEach((handler) => {
+      handler(this.read(path));
+    });
   }
 
   /**
