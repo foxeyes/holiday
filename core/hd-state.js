@@ -64,15 +64,15 @@ class HdState {
       return;
     }
 
-    HdState.store[ path ] = value;
-    if (HdState.subscriptionsMap[ path ]) {
-      HdState.subscriptionsMap[ path ].forEach((handler, idx) => {
+    this.store[ path ] = value;
+    if (this.subscriptionsMap[ path ]) {
+      this.subscriptionsMap[ path ].forEach((handler, idx) => {
         if (handler) {
           handler(value);
         } else {
-          HdState.subscriptionsMap[ path ].splice(idx, 1);
-          if (!HdState.subscriptionsMap[ path ].length) {
-            delete HdState.subscriptionsMap[ path ];
+          this.subscriptionsMap[ path ].splice(idx, 1);
+          if (!this.subscriptionsMap[ path ].length) {
+            delete this.subscriptionsMap[ path ];
           }
         }
       });
@@ -123,6 +123,23 @@ class HdState {
     if (this.read(path) !== undefined && !silent) {
       handler(this.read(path));
     }
+  }
+
+  /**
+   * 
+   * @param {String} path 
+   * @param {*} value 
+   */
+  static silentWrite(path, value) {
+    let desc = this._getPropDesc(path);
+    if (!desc) {
+      return;
+    }
+    if (value !== null && value.constructor !== desc.type) {
+      console.warn('(HdState) Wrong value type for path: ' + path);
+      return;
+    }
+    this.store[ path ] = value;
   }
 
   /**
