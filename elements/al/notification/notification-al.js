@@ -57,6 +57,11 @@ NotificationAl.template = /*html*/ `
     visibility: hidden;
     pointer-events: none;
   }
+  :host([error]) {
+    --color: #fff;
+    background-color: #f00;
+    color: var(--color);
+  }
   .heading {
     display: flex;
     align-items: center;
@@ -65,6 +70,7 @@ NotificationAl.template = /*html*/ `
   .caption {
     padding-left: 0.4em;
     padding-right: var(--gap-max, 20px);
+    flex-grow: 1;
   }
   .content {
     word-wrap: break-word;

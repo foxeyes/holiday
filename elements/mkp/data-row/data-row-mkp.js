@@ -1,6 +1,6 @@
 import { HdElement } from '../../../core/hd-element.js';
 
-import { IconMkp } from '../../mkp/icon/icon-mkp.js';
+import { } from '../../mkp/icon/icon-mkp.js';
 
 class DataRowMkp extends HdElement {
 
@@ -39,7 +39,8 @@ class DataRowMkp extends HdElement {
     this._styleSheet = this['style-el'].sheet;
 
     this.defineAccessor('color-code', (val) => {
-      this._styleSheet.insertRule(`:host {--color-code-local: ${val}}`);
+      // this._styleSheet.insertRule(`:host {--color-code-local: ${val}}`);
+      this.style.setProperty('--color-code-local', val);
     });
 
     this.defineAccessor('icon', (val) => {
