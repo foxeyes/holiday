@@ -88,6 +88,10 @@ CheckboxUi.template = /*html*/ `
     border-radius: 1px;
   }
 
+  .txt {
+    white-space: nowrap;
+  }
+
   :host([checked]) .box-inner {
     display: block;
   }
