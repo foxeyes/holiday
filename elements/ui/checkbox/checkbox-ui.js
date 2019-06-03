@@ -21,6 +21,10 @@ class CheckboxUi extends HdElement {
   connectedCallback() {
     super.connectedCallback();
 
+    if (this.getAttribute('checked')) {
+      this.checked = true;
+    }
+
     this.onclick = (e) => {
       this.checked = !this.checked;
       this.notify('value', !!this.checked);
