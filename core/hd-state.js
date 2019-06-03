@@ -154,6 +154,9 @@ class HdState {
     if (!desc) {
       return;
     }
+    if (!this.subscriptionsMap[ path ]) {
+      this.subscriptionsMap[ path ] = [];
+    }
     this.subscriptionsMap[ path ].forEach((handler) => {
       handler(this.read(path));
     });
