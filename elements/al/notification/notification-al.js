@@ -58,8 +58,8 @@ NotificationAl.template = /*html*/ `
     pointer-events: none;
   }
   :host([error]) {
-    --color: #fff;
-    background-color: #f00;
+    --color: #fff !important;
+    background-color: var(--color-error, #f00) !important;
     color: var(--color);
   }
   .heading {
