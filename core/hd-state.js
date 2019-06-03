@@ -139,6 +139,9 @@ class HdState {
       console.warn('(HdState) Wrong value type for path: ' + path);
       return;
     }
+    if (!this.subscriptionsMap[ path ]) {
+      this.subscriptionsMap[ path ] = [];
+    }
     this.store[ path ] = value;
   }
 
