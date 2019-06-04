@@ -27,6 +27,24 @@ class PropDescriptor {
 class HdState {
 
   /**
+   * 
+   * @param {String} path 
+   * @param {*} value 
+   */
+  static __putToCache(path, value) {
+    let cachedStr = window.localStorage.getItem('hd-cache');
+    let cacheObj;
+    if (!cachedStr) {
+      cacheObj = {};
+    } else {
+      cacheObj = JSON.parse(window.atob(cachedStr));
+    }
+    cacheObj[ path ] = value;
+    cachedStr = window.btoa(JSON.stringify(cacheObj));
+    window.localStorage.setItem('hd-cache', cachedStr);
+  }
+
+  /**
    *
    * @param  {...any} args - key and value or key-value map object can be provided
    */
@@ -79,16 +97,7 @@ class HdState {
     }
 
     if (desc.cache) {
-      let cachedStr = window.localStorage.getItem('hd-cache');
-      let cacheObj;
-      if (!cachedStr) {
-        cacheObj = {};
-      } else {
-        cacheObj = JSON.parse(window.atob(cachedStr));
-      }
-      cacheObj[ path ] = value;
-      cachedStr = window.btoa(JSON.stringify(cacheObj));
-      window.localStorage.setItem('hd-cache', cachedStr);
+      this.__putToCache(path, value);
     }
   }
 
@@ -141,6 +150,9 @@ class HdState {
     }
     if (!this.subscriptionsMap[ path ]) {
       this.subscriptionsMap[ path ] = [];
+    }
+    if (desc.cache) {
+      this.__putToCache(path, value);
     }
     this.store[ path ] = value;
   }
