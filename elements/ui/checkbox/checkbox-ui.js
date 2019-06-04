@@ -8,27 +8,25 @@ class CheckboxUi extends HdElement {
     this.defineAccessor('checked', (val) => {
       if (val) {
         this.setAttribute('checked', '');
-      } else {
+      } else if (!val) {
         this.removeAttribute('checked');
       }
     });
 
     this.defineAccessor('value', (val) => {
-      this.checked = val;
+      this.checked = !!val;
     });
   }
 
   connectedCallback() {
     super.connectedCallback();
 
-    if (this.getAttribute('checked')) {
-      this.checked = true;
-    }
-
     this.onclick = (e) => {
       this.checked = !this.checked;
       this.notify('value', !!this.checked);
     };
+
+    this.checked = this.hasAttribute('checked');
     
   }
 
