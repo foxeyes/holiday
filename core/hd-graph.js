@@ -5,7 +5,7 @@
  * https://github.com/foxeyes/holiday/LICENSE.md
  */
 
-import { GUID } from '../modules/guid.js';
+import { GUID } from '../utils/guid.js';
 
 class HdGraphNode {
   constructor(src = {}) {
