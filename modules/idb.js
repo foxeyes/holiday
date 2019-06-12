@@ -63,6 +63,7 @@ class DbInstance {
         if (e.target.result && e.target.result._value) {
           resolve(e.target.result._value);
         } else {
+          resolve(null);
           console.warn(`IDB: cannot read "${key}"`);
         }
       };
