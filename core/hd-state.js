@@ -60,11 +60,11 @@ class HdState {
       path = args[ 0 ];
       value = args[ 1 ];
     } else {
-      console.warn('(HdState) Wrong properties: ' + args);
+      console.warn('(HdState.publish) Wrong properties: ' + args);
     }
 
     if (value === undefined) {
-      console.warn('(HdState) "undefined" - is unproper value for state property: ' + path);
+      console.warn('(HdState.publish) "undefined" - is unproper value for state property: ' + path);
       return;
     }
 
@@ -78,7 +78,7 @@ class HdState {
     }
 
     if (value !== null && value.constructor !== desc.type) {
-      console.warn('(HdState) Wrong value type for path: ' + path);
+      console.warn('(HdState.publish) Wrong value type for path: ' + path);
       return;
     }
 
@@ -110,7 +110,7 @@ class HdState {
     if (desc) {
       return this.store[ path ] === undefined ? desc.value : this.store[ path ];
     } else {
-      console.warn('(HdState) Wrong state path: ' + path);
+      console.warn('(HdState.read) Wrong state path: ' + path);
     }
   }
 
@@ -131,6 +131,28 @@ class HdState {
     this.subscriptionsMap[ path ].push(handler);
     if (this.read(path) !== undefined && !silent) {
       handler(this.read(path));
+    }
+  }
+
+  /**
+   * 
+   * @param {String} path 
+   * @param {Function} handler 
+   */
+  static unsubscribe(path, handler) {
+    let desc = this._getPropDesc(path);
+    if (!desc) {
+      console.warn('(HdState.unsubscribe) Wrong state path: ' + path);
+      return;
+    }
+    if (this.subscriptionsMap[ path ]) {
+      let idx = this.subscriptionsMap[ path ].indexOf(handler);
+      if (idx !== -1) {
+        this.subscriptionsMap[ path ].splice(idx, 1);
+      }
+      if (this.subscriptionsMap[ path ].length === 0) {
+        delete this.subscriptionsMap[ path ];
+      }
     }
   }
 
