@@ -16,8 +16,8 @@ class OverlayAl extends HdElement {
       caption: '',
       icon: '',
 
-      actions: {
-        closeClicked: (e) => {
+      on: {
+        closeClicked: () => {
           this.active = false;
         },
       },
@@ -123,11 +123,17 @@ OverlayAl.template = /*html*/ `
     color: var(--color-code-local);
     font-size: 1.2em;
   }
-  .content {
+  .content-wrapper {
     position: relative;
+  }
+  .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
-    overflow-x: hidden;
   }
   @media screen and (max-width: 800px) {
     :host {
@@ -142,10 +148,12 @@ OverlayAl.template = /*html*/ `
     <icon-mkp bind="icon: icon"></icon-mkp>
   </div>
   <div class="caption" bind="textContent: caption"></div>
-  <button-ui rounded icon="close" bind="onclick: actions.closeClicked"></button-ui>
+  <button-ui rounded icon="close" bind="onclick: on.closeClicked"></button-ui>
 </div>
-<div class="content">
-  <slot></slot>  
+<div class="content-wrapper">
+  <div class="content">
+    <slot></slot>
+  </div>
 </div>
 `;
 OverlayAl.logicAttributes = [
