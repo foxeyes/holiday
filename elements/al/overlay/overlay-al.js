@@ -85,28 +85,19 @@ OverlayAl.template = /*html*/ `
     position: absolute;
     top: var(--side-step);
     bottom: var(--side-step);
-
     display: grid;
     grid-template-rows: min-content auto;
     background-color: var(--bg-color, #fff);
     color: var(--color, #000);
     z-index: 1000000;
     border-radius: var(--radius, 4px);
-    overflow: scroll;
     box-shadow: 0 0 var(--side-step) var(--color, #000);
     will-change: opacity;
     transition: opacity 0.4s;
-
     width: 100%;
     max-width: var(--column-width, 960px);
     left: 50%;
     transform: translateX(-50%);
-  }
-  
-  @supports (overflow: auto) {
-    :host {
-      overflow: auto;
-    }
   }
 
   :host(:not([active])) {
@@ -135,7 +126,6 @@ OverlayAl.template = /*html*/ `
   .content {
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: none;
   }
   @media screen and (max-width: 800px) {
     :host {
