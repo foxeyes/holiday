@@ -124,8 +124,10 @@ OverlayAl.template = /*html*/ `
     font-size: 1.2em;
   }
   .content {
+    position: relative;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
   }
   @media screen and (max-width: 800px) {
     :host {
