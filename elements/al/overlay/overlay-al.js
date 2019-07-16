@@ -102,6 +102,7 @@ OverlayAl.template = /*html*/ `
     left: 50%;
     transform: translateX(-50%);
   }
+  
   @supports (overflow: auto) {
     :host {
       overflow: auto;
@@ -132,7 +133,9 @@ OverlayAl.template = /*html*/ `
     font-size: 1.2em;
   }
   .content {
-    overflow: auto;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
   }
   @media screen and (max-width: 800px) {
     :host {
