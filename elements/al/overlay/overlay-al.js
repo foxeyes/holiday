@@ -34,6 +34,7 @@ class OverlayAl extends HdElement {
       if (val === true) {
         this.setAttribute('active', '');
       } else if (val === false) {
+        this[ 'content-el' ].scrollTop = 0;
         this.removeAttribute('active');
         let styleTxt = document.body.getAttribute('style');
         styleTxt = styleTxt.replace('height: 100%;', '').replace('overflow: hidden;', '');
@@ -146,7 +147,7 @@ OverlayAl.template = /*html*/ `
   <div class="caption" bind="textContent: caption"></div>
   <button-ui rounded icon="close" bind="onclick: on.closeClicked"></button-ui>
 </div>
-<div class="content-wrapper">
+<div class="content-wrapper" id="content-el">
   <slot></slot>
 </div>
 `;
