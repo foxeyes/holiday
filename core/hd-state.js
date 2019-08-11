@@ -70,7 +70,7 @@ class HdState {
     }
 
     if (value === undefined) {
-      this._print('(HdState) "undefined" - is unproper value for state property: ' + path);
+      this._print('(HdState.publish) "undefined" - is unproper value for state property: ' + path);
       return;
     }
 
@@ -84,7 +84,7 @@ class HdState {
     }
 
     if (value !== null && value.constructor !== desc.type) {
-      this._print('(HdState) Wrong value type for path: ' + path);
+      this._print('(HdState.publish) Wrong value type for path: ' + path);
       return;
     }
 
@@ -116,7 +116,7 @@ class HdState {
     if (desc) {
       return this.store[ path ] === undefined ? desc.value : this.store[ path ];
     } else {
-      this._print('(HdState) Wrong state path: ' + path);
+      this._print('(HdState.read) Wrong state path: ' + path);
     }
   }
 
@@ -137,6 +137,28 @@ class HdState {
     this.subscriptionsMap[ path ].push(handler);
     if (this.read(path) !== undefined && !silent) {
       handler(this.read(path));
+    }
+  }
+
+  /**
+   * 
+   * @param {String} path 
+   * @param {Function} handler 
+   */
+  static unsubscribe(path, handler) {
+    let desc = this._getPropDesc(path);
+    if (!desc) {
+      console.warn('(HdState.unsubscribe) Wrong state path: ' + path);
+      return;
+    }
+    if (this.subscriptionsMap[ path ]) {
+      let idx = this.subscriptionsMap[ path ].indexOf(handler);
+      if (idx !== -1) {
+        this.subscriptionsMap[ path ].splice(idx, 1);
+      }
+      if (this.subscriptionsMap[ path ].length === 0) {
+        delete this.subscriptionsMap[ path ];
+      }
     }
   }
 
