@@ -30,6 +30,9 @@ class HdElement extends HTMLElement {
             propName: keyValArr[0].trim(),
           });
         });
+        if (!window['hdDevModeEnabled']) {
+          el.removeAttribute('bind');
+        }
       });
     }
   }
@@ -103,14 +106,6 @@ class HdElement extends HTMLElement {
         return this.__state;
       },
     });
-    if (this.__state) {
-      this.state = this.__state;
-    }
-  }
-
-  updateTemplateBindings() {
-    this.__stateBindingsMap = {};
-    this.__parseTemplateBindings(this.$);
     if (this.__state) {
       this.state = this.__state;
     }

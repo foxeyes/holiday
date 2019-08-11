@@ -26,6 +26,12 @@ class PropDescriptor {
 
 class HdState {
 
+  static _print(msg) {
+    if (window['hdDevModeEnabled']) {
+      console.warn(msg);
+    }
+  }
+
   /**
    * 
    * @param {String} path 
@@ -60,11 +66,11 @@ class HdState {
       path = args[ 0 ];
       value = args[ 1 ];
     } else {
-      console.warn('(HdState) Wrong properties: ' + args);
+      this._print('(HdState) Wrong properties: ' + args);
     }
 
     if (value === undefined) {
-      console.warn('(HdState) "undefined" - is unproper value for state property: ' + path);
+      this._print('(HdState) "undefined" - is unproper value for state property: ' + path);
       return;
     }
 
@@ -78,7 +84,7 @@ class HdState {
     }
 
     if (value !== null && value.constructor !== desc.type) {
-      console.warn('(HdState) Wrong value type for path: ' + path);
+      this._print('(HdState) Wrong value type for path: ' + path);
       return;
     }
 
@@ -110,7 +116,7 @@ class HdState {
     if (desc) {
       return this.store[ path ] === undefined ? desc.value : this.store[ path ];
     } else {
-      console.warn('(HdState) Wrong state path: ' + path);
+      this._print('(HdState) Wrong state path: ' + path);
     }
   }
 
@@ -145,7 +151,7 @@ class HdState {
       return;
     }
     if (value !== null && value.constructor !== desc.type) {
-      console.warn('(HdState) Wrong value type for path: ' + path);
+      this._print('(HdState) Wrong value type for path: ' + path);
       return;
     }
     if (!this.subscriptionsMap[ path ]) {
@@ -220,7 +226,7 @@ class HdState {
         cache: result.cache,
       });
     } else {
-      console.warn('(HdState) Wrong state path: ' + path);
+      this._print('(HdState) Wrong state path: ' + path);
       return null;
     }
   }
@@ -233,7 +239,7 @@ class HdState {
         if (this._getPropDesc(path)) {
           this.publish(path, cacheObj[ path ]);
         } else {
-          console.warn('(HdState) Wrong path cached: ' + path);
+          this._print('(HdState) Wrong path cached: ' + path);
         }
       }
     }

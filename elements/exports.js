@@ -4,6 +4,7 @@ export { PanelAl } from './al/panel/panel-al.js';
 export { OverlayAl } from './al/overlay/overlay-al.js';
 export { CtxAl } from './al/ctx/ctx-al.js';
 export { NotificationAl } from './al/notification/notification-al.js';
+export { RepeatAl } from './al/repeat/repeat-al.js';
 
 // Markup elements:
 export { IconMkp } from './mkp/icon/icon-mkp.js';
@@ -17,6 +18,7 @@ export { DataRowMkp } from './mkp/data-row/data-row-mkp.js';
 export { ImageMkp } from './mkp/image/image-mkp.js';
 export { ColumnMkp } from './mkp/column/column-mkp.js';
 export { CodeMkp } from './mkp/code/code-mkp.js';
+export { PlaceholderMkp } from './mkp/placeholder/placeholder-mkp.js';
 
 // UI-elements:
 export { ButtonUi } from './ui/button/button-ui.js';
@@ -26,3 +28,6 @@ export { TabSelectorUi } from './ui/tab-selector/tab-selector-ui.js';
 export { RadioUi } from './ui/radio/radio-ui.js';
 export { CheckboxUi } from './ui/checkbox/checkbox-ui.js';
 export { SelectUi } from './ui/select/select-ui.js';
+
+// Embed:
+export { GistEmbed } from './embed/gist/gist-embed.js';

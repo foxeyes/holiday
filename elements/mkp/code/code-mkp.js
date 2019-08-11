@@ -1,21 +1,6 @@
 import { HdElement } from '../../../core/hd-element.js';
 
-class CodeMkp extends HdElement {
-
-  constructor() {
-    super();
-
-    this.state = {
-      codeHTML: '',
-    };
-
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.textContent = this.innerHTML.split('|str|').join('`').trim();
-  }
-}
+class CodeMkp extends HdElement {}
 
 CodeMkp.template = /*html*/ `
 <style>
