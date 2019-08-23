@@ -7,6 +7,12 @@
 
 class DbInstance {
 
+  _print(msg) {
+    if (window['hdDevModeEnabled']) {
+      console.warn(msg);
+    }
+  }
+
   _notifyWhenReady(event = null) {
     window.dispatchEvent(new CustomEvent('hd-idb-store-ready', {
       detail: {
@@ -43,12 +49,14 @@ class DbInstance {
       this._notifyWhenReady(e);
     };
     this.request.onerror = (e) => {
-      console.log({
+      this._print({
         title: 'IDB error in ' + this.name + ': ' + storeName,
         details: e,
       });
     };
-    console.warn(`(${dbName}/${storeName}) IDB store initialized. Use 'hd-idb-store-ready' event for start.`);
+    if (window['hdDevModeEnabled']) {
+      this._print(`(${dbName}/${storeName}) IDB store initialized. Use 'hd-idb-store-ready' event for start.`);
+    }
   }
 
   /**
@@ -64,7 +72,7 @@ class DbInstance {
           resolve(e.target.result._value);
         } else {
           resolve(null);
-          console.warn(`IDB: cannot read "${key}"`);
+          this._print(`IDB: cannot read "${key}"`);
         }
       };
       request.onerror = (e) => {

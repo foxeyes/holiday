@@ -34,6 +34,7 @@ class OverlayAl extends HdElement {
       if (val === true) {
         this.setAttribute('active', '');
       } else if (val === false) {
+        this[ 'content-el' ].scrollTop = 0;
         this.removeAttribute('active');
         let styleTxt = document.body.getAttribute('style');
         styleTxt = styleTxt.replace('height: 100%;', '').replace('overflow: hidden;', '');
@@ -85,8 +86,7 @@ OverlayAl.template = /*html*/ `
     position: absolute;
     top: var(--side-step);
     bottom: var(--side-step);
-    display: grid;
-    grid-template-rows: min-content auto;
+    display: block;
     background-color: var(--bg-color, #fff);
     color: var(--color, #000);
     z-index: 1000000;
@@ -124,11 +124,8 @@ OverlayAl.template = /*html*/ `
     font-size: 1.2em;
   }
   .content-wrapper {
-    position: relative;
-  }
-  .content {
     position: absolute;
-    top: 0;
+    top: calc(var(--tap-zone-size, 32px) + var(--gap-mid, 10px) * 2);
     left: 0;
     right: 0;
     bottom: 0;
@@ -150,10 +147,8 @@ OverlayAl.template = /*html*/ `
   <div class="caption" bind="textContent: caption"></div>
   <button-ui rounded icon="close" bind="onclick: on.closeClicked"></button-ui>
 </div>
-<div class="content-wrapper">
-  <div class="content">
-    <slot></slot>
-  </div>
+<div class="content-wrapper" id="content-el">
+  <slot></slot>
 </div>
 `;
 OverlayAl.logicAttributes = [

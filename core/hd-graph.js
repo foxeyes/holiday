@@ -20,6 +20,12 @@ class HdGraphNode {
 
 class HdGraph {
 
+  static _print(msg) {
+    if (window['hdDevModeEnabled']) {
+      console.warn(msg);
+    }
+  }
+
   /**
    * 
    * @param {HdGraphNode} data
@@ -35,7 +41,7 @@ class HdGraph {
       }
     } else {
       if (this.store[id]) {
-        console.warn(`HdGraph: ${id} - already exist`);
+        this._print(`HdGraph: ${id} - already exist`);
         return;
       } else {
         guid = id;
@@ -66,7 +72,7 @@ class HdGraph {
   static update(id, data, dispatcher = null) {
     let node = this.read(id);
     if (!node) {
-      console.warn('HdGraph: unable to update node: ' + id);
+      this._print('HdGraph: unable to update node: ' + id);
       return;
     }
     node.timestamp = Date.now();
@@ -89,7 +95,7 @@ class HdGraph {
   static setProperty(id, propertyName, propertyValue, dispatcher = null) {
     let node = this.read(id);
     if (!node) {
-      console.warn('HdGraph: unable to update node: ' + id);
+      this._print('HdGraph: unable to update node: ' + id);
       return;
     }
     node.timestamp = Date.now();
@@ -123,7 +129,7 @@ class HdGraph {
   static clone(id, hardId = null) {
     let node = this.read(id);
     if (!node) {
-      console.warn('HdGraph: unable to clone node: ' + id);
+      this._print('HdGraph: unable to clone node: ' + id);
       return;
     }
     node.timestamp = Date.now();
@@ -145,7 +151,7 @@ class HdGraph {
       node.connections = [...uniqsSet];
       conNode.value.update && conNode.value.update(node.value);
     } else {
-      console.warn(`HdGraph: Could not connect ${id} & ${conId}`);
+      this._print(`HdGraph: Could not connect ${id} & ${conId}`);
     }
   }
 
@@ -168,7 +174,7 @@ class HdGraph {
       conNode.value.update && conNode.value.update(node.value);
       node.value.update && node.value.update(conNode.value);
     } else {
-      console.warn(`GraphStorage: Could not connect ${id} & ${conId}`);
+      this._print(`GraphStorage: Could not connect ${id} & ${conId}`);
     }
   }
 

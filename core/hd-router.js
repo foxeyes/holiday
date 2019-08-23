@@ -7,6 +7,12 @@
 
 class HdRouter {
 
+  static _print(msg) {
+    if (window['hdDevModeEnabled']) {
+      console.warn(msg);
+    }
+  }
+
   /**
    * 
    * @param {String} title 
@@ -62,7 +68,7 @@ class HdRouter {
       this.applyRoute(this.defaultRoute);
       return;
     } else if (!routeScheme) {
-      console.warn(`Route "${routeBase.route}" not found...`);
+      this._print(`Route "${routeBase.route}" not found...`);
       return;
     }
     let event = new CustomEvent('hd-on-route', {
@@ -82,7 +88,7 @@ class HdRouter {
   static applyRoute(route, options = {}) {
     let routeScheme = this.appMap[route];
     if (!routeScheme) {
-      console.warn('Wrong route: ' + route);
+      this._print('Wrong route: ' + route);
       return;
     }
     let routeStr = '?' + route;

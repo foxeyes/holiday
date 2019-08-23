@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>repeat-al</title>
+  <script src="../../mkp/placeholder/placeholder-mkp.js" type="module"></script>
+  <script src="./repeat-al.js" type="module"></script>
+</head>
+<body>
+  <style>
+    [out-of-range] {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    .wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-gap: 10px;
+    }
+  </style>
+
+  <div class="wrapper">
+    <repeat-al id="repeat-el" size="12" from="3">
+      <placeholder-mkp bind-repeat="textContent: text; @label: label.name">TEST</placeholder-mkp>
+    </repeat-al>
+  </div>
+
+  <script type="module">
+    let repeatEl = document.querySelector('#repeat-el');
+    let data = [];
+    for (let i = 0; i < 20; i++) {
+      data.push({
+        label: {
+          name: 'label' + i,
+        },
+        text: 'Element ' + i,
+      });
+    }
+    repeatEl.data = data;
+    window.setInterval(() => {
+      repeatEl.from = Math.round(Math.random() * 20);
+    }, 2000);
+  </script>
+
+</body>
+</html>
