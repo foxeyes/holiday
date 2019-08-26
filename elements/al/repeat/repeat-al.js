@@ -84,7 +84,6 @@ class RepeatAl extends HdElement {
           let value = parent[lastStep];
           let bObj = this._dataMap[path][idx];
           let propName = bObj.propName;
-          console.log(bObj.element)
           if (propName.includes('@')) {
             propName = propName.replace('@', '');
             bObj.element.setAttribute(propName, value);
