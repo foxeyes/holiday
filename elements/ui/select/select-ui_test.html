@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>select-ui</title>
+  <script src="./select-ui.js" type="module"></script>
+</head>
+<body>
+  <select-ui id="select-el">
+    <option-ui icon="star" option="f">FIRST</option-ui>
+    <option-ui icon="star" option="s">SECOND</option-ui>
+    <option-ui icon="star" option="t">THIRD</option-ui>
+  </select-ui>
+  <script type="module">
+    let selectEl = document.querySelector('#select-el');
+    selectEl.value = 's';
+    selectEl.onValueChange = (val) => {
+      console.log(val);
+    };
+  </script>
+</body>
+</html>

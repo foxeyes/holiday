@@ -10,60 +10,54 @@ class SelectUi extends HdElement {
   constructor() {
     super();
     this._event = new Event('change');
-  }
 
-  set active(val) {
-    if (val === this._active) {
-      return;
-    }
-    this._active = val;
-    this._clickOutsideHandler = (e) => {
-      let path = e.path || (e.composedPath && e.composedPath());
-      if (!path) {
-        path = [];
-        let el = e.target;
-        while (el) {
-          path.push(el);
-          el = el.parentElement;
-        }
-      }
-      if (path.includes(this)) {
+    this.defineAccessor('active', (val) => {
+      if (val === this._active) {
         return;
       }
-      this.active = false;
-      window.removeEventListener('click', this._clickOutsideHandler);
-    };
-    if (val) {
-      this.setAttribute('active', '');
-      SelectUi.instances.forEach((inst) => {
-        if (inst !== this) {
-          inst.active = false;
+      this._active = val;
+      this._clickOutsideHandler = (e) => {
+        let path = e.path || (e.composedPath && e.composedPath());
+        if (!path) {
+          path = [];
+          let el = e.target;
+          while (el) {
+            path.push(el);
+            el = el.parentElement;
+          }
         }
-      });
-      window.setTimeout(() => {
-        window.addEventListener('click', this._clickOutsideHandler);
-      });
-    } else {
-      this.removeAttribute('active');
-    }
-  }
+        if (path.includes(this)) {
+          return;
+        }
+        this.active = false;
+        window.removeEventListener('click', this._clickOutsideHandler);
+      };
+      if (val) {
+        this.setAttribute('active', '');
+        SelectUi.instances.forEach((inst) => {
+          if (inst !== this) {
+            inst.active = false;
+          }
+        });
+        window.setTimeout(() => {
+          window.addEventListener('click', this._clickOutsideHandler);
+        });
+      } else {
+        this.removeAttribute('active');
+      }
+    });
 
-  get active() {
-    return this._active;
-  }
+    this.defineAccessor('value', (val) => {
+      if (this._value === val) {
+        return;
+      }
+      this._value = val;
+      this.dispatchEvent(this._event);
+      this.setAttribute('value', val);
+      this.notify('value', val);
+    });
 
-  set value(val) {
-    if (this._value === val) {
-      return;
-    }
-    this._value = val;
-    this.dispatchEvent(this._event);
-    this.setAttribute('value', val);
-    this.notify('value', val);
-  }
 
-  get value() {
-    return this._value;
   }
 
   update() {
@@ -122,6 +116,7 @@ class SelectUi extends HdElement {
     super.disconnectedCallback();
     SelectUi.instances.delete(this);
   }
+  
 }
 
 SelectUi.template = /*html*/ `
@@ -294,7 +289,7 @@ SelectUi.template = /*html*/ `
 </div>
 `;
 SelectUi.bindable = true;
-SelectUi.is = 'select-ui';
 SelectUi.instances = new Set();
+SelectUi.is = 'select-ui';
 
 export { SelectUi };
