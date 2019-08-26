@@ -1,0 +1,18 @@
+:root {
+
+  --color-error: #f00;
+
+  --color: #000;
+  --bg-color: #fff;
+
+  --tap-zone-size: 36px;
+  --ui-font-size: 16px;
+
+  --gap-min: 2px;
+  --gap-mid: 10px;
+  --gap-max: 20px;
+
+  --ui-radius: 2px;
+  --transition: 0.2s;
+
+}

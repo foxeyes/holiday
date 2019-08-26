@@ -1,0 +1,16 @@
+  placeholder-dumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed currentColor;
+    opacity: 0.6;
+    padding: var(--gap-min, 2px);
+    min-height: var(--tap-zone-size, 28px);
+    box-sizing: border-box;
+  }
+  placeholder-dumb[inline] {
+    display: inline-flex;
+  }
+  placeholder-dumb:hover {
+    opacity: 1;
+  }

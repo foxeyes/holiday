@@ -8,7 +8,6 @@ export { RepeatAl } from './al/repeat/repeat-al.js';
 
 // Markup elements:
 export { IconMkp } from './mkp/icon/icon-mkp.js';
-export { SpaceMkp } from './mkp/space/space-mkp.js';
 export { CaptionMkp } from './mkp/caption/caption-mkp.js';
 export { CardMkp } from './mkp/card/card-mkp.js';
 export { GridMkp } from './mkp/grid/grid-mkp.js';
