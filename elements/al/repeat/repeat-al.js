@@ -4,10 +4,8 @@ class RepeatAl extends HdElement {
 
   _createDataMap() {
     let bindedElements = [...this.querySelectorAll('[bind-repeat]')];
+    this._dataMap = Object.create(null);
     if (bindedElements.length) {
-      if (!this._dataMap) {
-        this._dataMap = {};
-      }
       bindedElements.forEach((el) => {
         let bKey = el.getAttribute('bind-repeat');
         let pairsArr = bKey.split(';');
@@ -33,19 +31,26 @@ class RepeatAl extends HdElement {
   }
 
   _buildDOMSubtree() {
-    this.textContent = '';
-    let fragment = document.createDocumentFragment();
-    this._idxMap = [];
-    // @ts-ignore
-    for (let i = 0; i < ((this.size * 1) || this._defaultSize); i++) {
-      let domChunk = this._rTemplate.content.cloneNode(true);
-      // @ts-ignore
-      this._idxMap.push([...domChunk.children]);
-      fragment.appendChild(domChunk);
+    if (this._subtreeTimeout) {
+      window.clearTimeout(this._subtreeTimeout);
     }
-    this.appendChild(fragment);
-    this._createDataMap();
-    this.setAttribute('initialized', '');
+    this._subtreeTimeout = window.setTimeout(() => {
+      this.textContent = '';
+      let fragment = document.createDocumentFragment();
+      this._idxMap = [];
+      // @ts-ignore
+      for (let i = 0; i < ((this.size * 1) || this._defaultSize); i++) {
+        let domChunk = this._rTemplate.content.cloneNode(true);
+        // @ts-ignore
+        this._idxMap.push([ ...domChunk.children ]);
+        fragment.appendChild(domChunk);
+      }
+      this.appendChild(fragment);
+      this._createDataMap();
+      this._reflectData();
+      this.setAttribute('initialized', '');
+      this._subtreeTimeout = null;
+    });
   }
 
   _reflectData() {
@@ -53,10 +58,10 @@ class RepeatAl extends HdElement {
     if (!this.data) {
       return;
     }
-    if (this._debounceTimeout) {
-      window.clearTimeout(this._debounceTimeout);
+    if (this._dataTimeout) {
+      window.clearTimeout(this._dataTimeout);
     }
-    this._debounceTimeout = window.setTimeout(() => {
+    this._dataTimeout = window.setTimeout(() => {
       // @ts-ignore
       let from = (this.from * 1) || this._defaultFrom;
       // @ts-ignore
@@ -79,6 +84,7 @@ class RepeatAl extends HdElement {
           let value = parent[lastStep];
           let bObj = this._dataMap[path][idx];
           let propName = bObj.propName;
+          console.log(bObj.element)
           if (propName.includes('@')) {
             propName = propName.replace('@', '');
             bObj.element.setAttribute(propName, value);
@@ -98,26 +104,24 @@ class RepeatAl extends HdElement {
           });
         }
       });
-      this._debounceTimeout = null;
+      this._dataTimeout = null;
     });
   }
 
   constructor() {
     super();
     
-    this.defineAccessor('data', (/** @type {Array<*>} */ data) => {
-      this._reflectData();
-    });
     
     this.defineAccessor('from', (/** @type {Number} */ from) => {
       this._reflectData();
     });
-
+    
     this.defineAccessor('size', (/** @type {Number} */ size) => {
-      if (this.hasAttribute('initialized')) {
-        this._buildDOMSubtree();
-        this._reflectData();
-      }
+      this._buildDOMSubtree();
+    });
+    
+    this.defineAccessor('data', (/** @type {Array<*>} */ data) => {
+      this._reflectData();
     });
 
     this._defaultFrom = 0;

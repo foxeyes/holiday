@@ -21,27 +21,86 @@
     }
   </style>
 
+  <div>
+    <select name="" id="select-el">
+      <option value="data">data</option>
+      <option value="size">size</option>
+      <option value="from">from</option>
+    </select>
+    <div>&nbsp;</div>
+  </div>
+
   <div class="wrapper">
-    <repeat-al id="repeat-el" size="12" from="3">
+    <repeat-al id="repeat-el">
       <placeholder-mkp bind-repeat="textContent: text; @label: label.name">TEST</placeholder-mkp>
     </repeat-al>
   </div>
 
   <script type="module">
     let repeatEl = document.querySelector('#repeat-el');
-    let data = [];
-    for (let i = 0; i < 20; i++) {
-      data.push({
-        label: {
-          name: 'label' + i,
-        },
-        text: 'Element ' + i,
-      });
+    let selectEl = document.querySelector('#select-el');
+
+    const rndData = () => {
+      let data = [];
+      let size = 10;
+      while (size) {
+        data.push({
+          text: Date.now(),
+          label: {
+            name: 'LBL' + Date.now(),
+          },
+        });
+        size--;
+      }
+      return data;
+    };
+
+    let interval = null;
+
+    const tests = {
+
+      data: () => {
+        window.clearInterval(interval);
+        repeatEl.size = 10;
+        repeatEl.from = 0;
+        repeatEl.data = rndData();
+        interval = window.setInterval(() => {
+          repeatEl.data = rndData();
+        }, 1000);
+        console.log('data');
+      },
+
+      from: () => {
+        window.clearInterval(interval);
+        repeatEl.size = 10;
+        repeatEl.data = rndData();
+        interval = window.setInterval(() => {
+          repeatEl.from = Math.round(Math.random() * 10);
+        }, 1000);
+        console.log('from');
+      },
+
+      size: () => {
+        window.clearInterval(interval);
+        repeatEl.from = 0;
+        repeatEl.data = rndData();
+        interval = window.setInterval(() => {
+          repeatEl.size = Math.round(Math.random() * 10) + 6;
+        }, 1000);
+        console.log('size');
+      },
+
+    };
+
+    selectEl.onchange = () => {
+      let val = selectEl.value;
+      if (tests[ val ]) {
+        tests[ val ]();
+      }
     }
-    repeatEl.data = data;
-    window.setInterval(() => {
-      repeatEl.from = Math.round(Math.random() * 20);
-    }, 2000);
+
+    selectEl.onchange();
+
   </script>
 
 </body>
