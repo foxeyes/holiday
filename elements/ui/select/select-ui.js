@@ -9,6 +9,12 @@ class SelectUi extends HdElement {
 
   constructor() {
     super();
+
+    this.state = {
+      curText: '',
+      curIcon: '',
+    };
+
     this._event = new Event('change');
 
     this.defineAccessor('active', (val) => {
@@ -47,55 +53,52 @@ class SelectUi extends HdElement {
       }
     });
 
-    this.defineAccessor('value', (val) => {
-      if (this._value === val) {
-        return;
-      }
-      this._value = val;
-      this.dispatchEvent(this._event);
-      this.setAttribute('value', val);
-      this.notify('value', val);
-    });
-
-
   }
 
-  update() {
+  _handleValue() {
     let attrValue = this.getAttribute('value');
     if (attrValue) {
       this.value = attrValue;
     }
-    this._optArr = [ ...this.querySelectorAll('[option]') ];
     this._optArr.forEach((opt) => {
       let optVal = opt.getAttribute('option');
       let optIcon = opt.getAttribute('icon');
-      if (optIcon && !opt[ 'hasIcon' ]) {
+      if (this.value && this.value === optVal) {
+        this.setStateProperty({
+          curIcon: optIcon,
+          curText: opt.textContent,
+        });
+      }
+    });
+  }
+
+  update() {
+    this._optArr.forEach((opt) => {
+      let optVal = opt.getAttribute('option');
+      let optIcon = opt.getAttribute('icon');
+      if (optIcon && !opt['hasIcon']) {
         let icon = document.createElement('icon-mkp');
         icon.setAttribute('icon', optIcon);
         icon.style.marginRight = '0.5em';
-        opt[ 'prepend' ](icon);
+        opt['prepend'](icon);
         opt['hasIcon'] = true;
       }
-      if (this.value && this.value === optVal) {
-        this[ 'state-ip' ].textContent = opt.textContent;
-        optIcon && this[ 'current-icon-el' ].setAttribute('icon', optIcon);
-      }
       opt.addEventListener('click', (e) => {
-        this[ 'state-ip' ].textContent = opt.textContent;
+        this.setStateProperty({
+          curIcon: optIcon,
+          curText: opt.textContent,
+        });
         this.value = optVal;
-        if (optIcon) {
-          this[ 'current-icon-el' ].setAttribute('icon', optIcon);
-        } else {
-          this[ 'current-icon-el' ].removeAttribute('icon');
-        }
       });
     });
-    if (!this.value && this._optArr[ 0 ]) {
-      this[ 'state-ip' ].textContent = this._optArr[ 0 ].textContent;
-      let icon = this._optArr[ 0 ].getAttribute('icon');
-      if (icon) {
-        this[ 'current-icon-el' ].setAttribute('icon', icon);
-      }
+    if (!this.value && this._optArr[0]) {
+      let icon = this._optArr[0].getAttribute('icon');
+      this.setStateProperty({
+        curIcon: icon,
+        curText: this._optArr[0].textContent,
+      });
+    } else {
+      this._handleValue();
     }
   }
 
@@ -106,10 +109,19 @@ class SelectUi extends HdElement {
     this.onclick = () => {
       this.active = !this.active;
     };
-    window.setTimeout(() => {
-      this.update();
-    });
+    this._optArr = [...this.querySelectorAll('[option]')];
+    this.update();
 
+    this.defineAccessor('value', (val) => {
+      if (this._value === val) {
+        return;
+      }
+      this._value = val;
+      this.dispatchEvent(this._event);
+      this.setAttribute('value', val);
+      this.notify('value', val);
+      this._handleValue();
+    });
   }
 
   disconnectedCallback() {
@@ -280,8 +292,8 @@ SelectUi.template = /*html*/ `
   }
 </style>
 <div class="state" >
-  <icon-mkp id="current-icon-el"></icon-mkp>
-  <div id="state-ip"></div>
+  <icon-mkp bind="icon: curIcon"></icon-mkp>
+  <div bind="textContent: curText"></div>
 </div>
 <icon-mkp icon="menu-down" class="menu-icon"></icon-mkp>
 <div class="options">

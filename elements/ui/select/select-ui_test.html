@@ -9,13 +9,18 @@
 </head>
 <body>
   <select-ui id="select-el">
-    <option-ui icon="star" option="f">FIRST</option-ui>
-    <option-ui icon="star" option="s">SECOND</option-ui>
-    <option-ui icon="star" option="t">THIRD</option-ui>
+    <option-ui icon="star" option="1">FIRST</option-ui>
+    <option-ui icon="star" option="2">SECOND</option-ui>
+    <option-ui icon="star" option="3">THIRD</option-ui>
+  </select-ui>
+  <select-ui>
+    <option-ui icon="star" option="a">A</option-ui>
+    <option-ui icon="star" option="b">B</option-ui>
+    <option-ui icon="star" option="c">C</option-ui>
   </select-ui>
   <script type="module">
     let selectEl = document.querySelector('#select-el');
-    selectEl.value = 's';
+    selectEl.value = '2';
     selectEl.onValueChange = (val) => {
       console.log(val);
     };
