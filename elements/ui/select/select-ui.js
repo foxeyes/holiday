@@ -56,10 +56,6 @@ class SelectUi extends HdElement {
   }
 
   _handleValue() {
-    let attrValue = this.getAttribute('value');
-    if (attrValue) {
-      this.value = attrValue;
-    }
     this._optArr.forEach((opt) => {
       let optVal = opt.getAttribute('option');
       let optIcon = opt.getAttribute('icon');
@@ -113,12 +109,10 @@ class SelectUi extends HdElement {
     this.update();
 
     this.defineAccessor('value', (val) => {
-      if (this._value === val) {
-        return;
-      }
-      this._value = val;
       this.dispatchEvent(this._event);
-      this.setAttribute('value', val);
+      if (this.getAttribute('value') !== val) {
+        this.setAttribute('value', val);
+      }
       this.notify('value', val);
       this._handleValue();
     });
@@ -300,6 +294,9 @@ SelectUi.template = /*html*/ `
   <slot></slot>
 </div>
 `;
+SelectUi.logicAttributes = [
+  'value',
+];
 SelectUi.bindable = true;
 SelectUi.instances = new Set();
 SelectUi.is = 'select-ui';
