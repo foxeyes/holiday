@@ -30,7 +30,7 @@ export class GistEmbed extends HdElement {
           let fileName = Object.keys(apiResponse.files)[0];
           fileContent = apiResponse.files[fileName].content;
           window.localStorage.setItem(id, fileContent);
-        } catch {
+        } catch (e) {
           fileContent = 'Error loading gist...';
         }
       }
