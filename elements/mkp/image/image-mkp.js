@@ -63,9 +63,11 @@ ImageMkp.template = /*html*/ `
    background-size: contain;
    background-repeat: no-repeat;
    background-position: center center;
+   opacity: 1;
+   transition: opacity 0.3s;
  }
 :host([loading]) #img-el {
-  display: none;
+  opacity: 0;
  }
 </style>
 <div id="img-el"></div>
