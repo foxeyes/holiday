@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>image-mkp</title>
+  <script src="image-mkp.js" type="module"></script>
+</head>
+<body>
+  <style>
+    body {
+      padding: 20px;
+    }
+    image-mkp {
+      height: 300px;
+      width: 300px;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <image-mkp id="img"></image-mkp>
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+  <select id="mode">
+    <option value="prop">PRORERTY</option>
+    <option value="attr">ATTRIBUTE</option>
+  </select>
+  <div>&nbsp;</div>
+  <div>&nbsp;</div>
+  <select id="sel">
+    <option value="">EMPTY</option>
+    <option value="null">NULL</option>
+    <option value="https://static.scientificamerican.com/sciam/cache/file/32665E6F-8D90-4567-9769D59E11DB7F26_source.jpg?w=590&h=800&7E4B4CAD-CAE1-4726-93D6A160C2B068B2">URL</option>
+  </select>
+  <script type="module">
+    const img = document.querySelector('#img');
+    const modeSelector = document.querySelector('#mode');
+    const selector = document.querySelector('#sel');
+    let mode = 'prop';
+    modeSelector.onchange = () => {
+      mode = modeSelector.value;
+    };
+    selector.onchange = () => {
+      let val = selector.value;
+      if (val === 'null') {
+        val = null;
+      }
+      console.log(val)
+      if (mode === 'prop') {
+        img.src = val;
+      } else if (mode === 'attr') {
+        img.setAttribute('src', val);
+      }
+    };
+  </script>
+</body>
+</html>

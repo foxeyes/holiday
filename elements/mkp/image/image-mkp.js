@@ -7,31 +7,35 @@ class ImageMkp extends HdElement {
     super.connectedCallback();
     this.setAttribute('error', '');
     this.defineAccessor('src', (src) => {
-      this[ 'img-el' ].style.setProperty('--local-bg-image', ``);
-      this.removeAttribute('error');
-      this.setAttribute('loading', '');
-      if (src === null) {
-        return;
+      if (this._srcTimeout) {
+        window.clearTimeout(this._srcTimeout);
       }
-      if (!src) {
-        this.setAttribute('error', '');
-        this.removeAttribute('loading');
-        return;
-      }
-      let img = new Image();
-      img.src = src;
-      img.onload = () => {
-        this[ 'img-el' ].style.setProperty('--local-bg-image', `url('${src}')`);
-        this.removeAttribute('loading');
+      this._srcTimeout = window.setTimeout(() => {
         this.removeAttribute('error');
-        img = null;
-      }
-      img.onerror = () => {
-        this[ 'img-el' ].style.setProperty('--local-bg-image', '');
-        this.setAttribute('error', '');
-        this.removeAttribute('loading');
-        img = null;
-      }
+        this.setAttribute('loading', '');
+        if (src === null || src === 'null') {
+          return;
+        }
+        if (!src) {
+          this.setAttribute('error', '');
+          this.removeAttribute('loading');
+          return;
+        }
+        let img = new Image();
+        img.src = src;
+        img.onload = () => {
+          this.removeAttribute('loading');
+          this.removeAttribute('error');
+          this[ 'img-el' ].style.backgroundImage = `url('${src}')`;
+          img = null;
+        }
+        img.onerror = () => {
+          this.setAttribute('error', '');
+          this.removeAttribute('loading');
+          img = null;
+        }
+        this._srcTimeout = null;
+      }, 20);
     });
   }
 
@@ -44,6 +48,7 @@ ImageMkp.template = /*html*/ `
    justify-content: center;
    align-items: center;
    font-size: 100%;
+   box-sizing: border-box;
  }
  :host([error]) {
   background: linear-gradient(#FFF, #eee);
@@ -52,7 +57,9 @@ ImageMkp.template = /*html*/ `
   border-bottom: var(--gap-max, 20px) solid #fff;
   border-left: var(--gap-max, 20px) solid rgba(0, 0, 0, 0.05);
   border-right: var(--gap-max, 20px) solid rgba(0, 0, 0, 0.05);
-  box-sizing: border-box;
+ }
+ spinner-mkp {
+   position: absolute;
  }
  :host(:not([loading])) spinner-mkp {
   display: none;
@@ -60,14 +67,16 @@ ImageMkp.template = /*html*/ `
  #img-el {
    height: 100%;
    width: 100%;
-   background-image: var(--local-bg-image);
    background-size: contain;
    background-repeat: no-repeat;
    background-position: center center;
    opacity: 1;
    transition: opacity 0.3s;
  }
-:host([loading]) #img-el {
+ :host([loading]) #img-el {
+  opacity: 0;
+ }
+ :host([error]) #img-el {
   opacity: 0;
  }
 </style>
