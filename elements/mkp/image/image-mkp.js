@@ -7,6 +7,7 @@ class ImageMkp extends HdElement {
     super.connectedCallback();
     this.setAttribute('error', '');
     this.defineAccessor('src', (src) => {
+      this[ 'img-el' ].style.setProperty('--local-bg-image', ``);
       this.removeAttribute('error');
       this.setAttribute('loading', '');
       if (src === null) {
@@ -22,7 +23,7 @@ class ImageMkp extends HdElement {
       img.onload = () => {
         this[ 'img-el' ].style.setProperty('--local-bg-image', `url('${src}')`);
         this.removeAttribute('loading');
-        this._loadedOnce = true;
+        this.removeAttribute('error');
         img = null;
       }
       img.onerror = () => {
