@@ -3,16 +3,18 @@ import {} from '../spinner/spinner-mkp.js';
 
 class ImageMkp extends HdElement {
 
-  constructor() {
-    super();
-
-    this.defineAccessor('src', async (src) => {
-      // if (!src) {
-      //   return;
-      // }
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute('error', '');
+    this.defineAccessor('src', (src) => {
       this.removeAttribute('error');
       this.setAttribute('loading', '');
       if (src === null) {
+        return;
+      }
+      if (!src) {
+        this.setAttribute('error', '');
+        this.removeAttribute('loading');
         return;
       }
       let img = new Image();
@@ -21,15 +23,17 @@ class ImageMkp extends HdElement {
         this[ 'img-el' ].style.setProperty('--local-bg-image', `url('${src}')`);
         this.removeAttribute('loading');
         this._loadedOnce = true;
+        img = null;
       }
       img.onerror = () => {
         this[ 'img-el' ].style.setProperty('--local-bg-image', '');
         this.setAttribute('error', '');
         this.removeAttribute('loading');
+        img = null;
       }
     });
-
   }
+
 }
 
 ImageMkp.template = /*html*/ `
