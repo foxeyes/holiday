@@ -85,7 +85,7 @@ class HdRouter {
    * @param {String} route 
    * @param {Object} options 
    */
-  static applyRoute(route, options = {}) {
+  static reflect(route, options = {}) {
     let routeScheme = this.appMap[route];
     if (!routeScheme) {
       this._print('Wrong route: ' + route);
@@ -100,6 +100,15 @@ class HdRouter {
       }
     }
     window.history.pushState(null, routeScheme.title || this.defaultTitle || '', routeStr);
+  }
+
+  /**
+  *
+  * @param {String} route
+  * @param {Object} options
+  */
+  static applyRoute(route, options = {}) {
+    this.reflect(route, options);
     this.notify();
   }
 
