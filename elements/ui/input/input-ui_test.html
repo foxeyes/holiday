@@ -5,10 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>InputUi</title>
-  <script src="../theme-picker/theme-picker-ui.js" type="module" defer></script>
-  <script src="../../mkp/ui-caption/ui-caption-mkp.js" type="module" defer></script>
-  <script src="input-ui.js" type="module" defer></script>
+  <title>input-ui</title>
+  <script src="../../mkp/ui-caption/ui-caption-mkp.js" type="module"></script>
+  <script src="./input-ui.js" type="module"></script>
 </head>
 
 <body>
@@ -16,6 +15,11 @@
     body {
       --color: rgb(9, 34, 80);
       --bg-color: rgb(240, 240, 240);
+      --tap-zone-size: 38px;
+      --ui-radius: 3px;
+      --ui-font-size: 16px;
+      --color-alert: #f00;
+
       padding: 20px;
       background-color: var(--bg-color);
       color: var(--color);

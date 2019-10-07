@@ -35,7 +35,7 @@ class CheckboxUi extends HdElement {
 CheckboxUi.template = /*html*/ `
 <style>
   :host {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
     display: inline-flex;
     align-items: center;
     height: var(--tap-zone-size, 32px);

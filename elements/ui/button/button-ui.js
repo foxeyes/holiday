@@ -74,7 +74,6 @@ ButtonUi.template = /*html*/ `
   }
 
   :host([disabled]) {
-    /* filter: grayscale(1); */
     opacity: 0.2;
     pointer-events: none;
     outline: none;
@@ -83,7 +82,6 @@ ButtonUi.template = /*html*/ `
   :host([outline]) {
     background: none;
     color: var(--color, #000);
-    /* border: var(--line-width, 1px) solid var(--color, currentColor); */
   }
 
   :host([outline])::after {
@@ -139,14 +137,14 @@ ButtonUi.template = /*html*/ `
 
   :host([arrow]) {
     border-radius: 0;
-    padding-left: calc(var(--gap-mid) / 2);
+    padding-left: calc(var(--gap-mid, 10px) / 2);
     margin-left: var(--gap-mid, 10px);
     margin-right: var(--gap-mid, 10px);
   }
 
   :host([arrow])::before {
     position: absolute;
-    left: calc(0px - var(--gap-mid));
+    left: calc(0px - var(--gap-mid, 10px));
     top: 0;
     content: '';
     height: var(--tap-zone-size, 28px);
@@ -160,7 +158,7 @@ ButtonUi.template = /*html*/ `
 
   :host([arrow])::after {
     position: absolute;
-    right: calc(0px - var(--gap-mid));
+    right: calc(0px - var(--gap-mid, 10px));
     top: 0;
     content: '';
     height: var(--tap-zone-size, 28px);

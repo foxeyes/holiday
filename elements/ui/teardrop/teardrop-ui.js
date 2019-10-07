@@ -1,57 +1,8 @@
 import { HdElement } from '../../../core/hd-element.js';
 
-class TeardropUi extends HdElement {
-  constructor() {
-    super();
-    if (TeardropUi.instances.size === 0) {
-      window.addEventListener('mousedown', TeardropUi.mouseUpHandler);
-    }
-    TeardropUi.instances.add(this);
-  }
+const TD_INSTANCES = new Set();
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    TeardropUi.instances.delete(this);
-    if (TeardropUi.instances.size === 0) {
-      window.removeEventListener('mousedown', TeardropUi.mouseUpHandler);
-    }
-  }
-}
-
-TeardropUi.template = /*html*/ `
-<style>
-  :host {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    border-radius: var(--border-radius-mid, 6px);
-    pointer-events: none;
-  }
-  .drop {
-    position: absolute;
-    transition: 0.8s;
-    height: 6px;
-    width: 6px;
-    border-radius: 6px;
-    background-color: currentColor;
-    opacity: 0.3;
-    will-change: transform opacity;
-    box-sizing: border-box;
-  }
-  .drop[dropped] {
-    transform: scale(20);
-    opacity: 0;
-  }
-</style>
-`;
-TeardropUi.is = 'teardrop-ui';
-TeardropUi.instances = new Set();
-
-TeardropUi.mouseUpHandler = function (e) {
+const _tdMouseUpHandler = function (e) {
   /**
    * @type {TeardropUi}
    */
@@ -91,5 +42,55 @@ TeardropUi.mouseUpHandler = function (e) {
     });
   });
 };
+
+class TeardropUi extends HdElement {
+
+  constructor() {
+    super();
+    if (TD_INSTANCES.size === 0) {
+      window.addEventListener('mousedown', _tdMouseUpHandler);
+    }
+    TD_INSTANCES.add(this);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    TD_INSTANCES.delete(this);
+    if (TD_INSTANCES.size === 0) {
+      window.removeEventListener('mousedown', _tdMouseUpHandler);
+    }
+  }
+}
+
+TeardropUi.template = /*html*/ `
+<style>
+  :host {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .drop {
+    position: absolute;
+    transition: 0.8s;
+    height: 6px;
+    width: 6px;
+    border-radius: 6px;
+    background-color: currentColor;
+    opacity: 0.3;
+    will-change: transform opacity;
+    box-sizing: border-box;
+  }
+  .drop[dropped] {
+    transform: scale(20);
+    opacity: 0;
+  }
+</style>
+`;
+TeardropUi.is = 'teardrop-ui';
 
 export { TeardropUi };

@@ -5,32 +5,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>TeardropUi</title>
-  <script src="../../uilib.js" type="module"></script>
+  <title>teardrop-ui</title>
+  <script src="./teardrop-ui.js" type="module"></script>
 </head>
 
 <body>
   <style>
-    @import url(../../themes/basic.css);
     body {
       --color: rgb(9, 34, 80);
-      --bg-color: rgb(240, 240, 240);
       padding: 20px;
-      background-color: var(--bg-color);
-      color: var(--color);
+
     }
-    ui-block-lay {
-      max-width: 400px;
-      border: 1px solid var(--color);
-      padding-bottom: 10px;
+    .active-el {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100px;
+      border: 1px solid currentColor;
+      user-select: none;
     }
   </style>
-  <h1>&lt;teardrop-ui&gt;</h1>
-  <ui-block-lay outline caption="Teardrop Effect Demo" icon="" >
-    <teardrop-ui></teardrop-ui>
+  <div class="active-el">
     Click me!
-  </ui-block-lay>
-  <theme-picker-ui use-parent></theme-picker-ui>
+    <teardrop-ui></teardrop-ui>
+  </div>
 </body>
 
 </html>

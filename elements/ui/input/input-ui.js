@@ -189,9 +189,9 @@ InputUi.template = /*html*/ `
     min-width: 210px;
     line-height: var(--tap-zone-size, 28px);
     color: var(--color, currentColor);
-    border-radius: var(--radius);
+    border-radius: var(--ui-radius, 2px);
     box-sizing: border-box;
-    transition: var(--transition);
+    transition: var(--transition, 0.2s);
     font-size: var(--ui-font-size, 13px);
   }
 
@@ -206,7 +206,7 @@ InputUi.template = /*html*/ `
     opacity: var(--shade-opacity, 0.1);
     pointer-events: none;
     border-radius: var(--radius, 2px);
-    transition: var(--transition);
+    transition: var(--transition, 0.2s);
   }
 
   .underline {
@@ -250,7 +250,7 @@ InputUi.template = /*html*/ `
     color: var(--color, currentColor);
     -webkit-appearance: none;
     font-size: var(--ui-font-size, 13px);
-    line-height: calc(var(--tap-zone-size) - 1px);
+    line-height: calc(var(--tap-zone-size, 28px) - 1px);
     font-family: var(--font-base, inherit);
   }
 
@@ -274,10 +274,6 @@ InputUi.template = /*html*/ `
     display: inline-flex;
   }
 
-  :host([invalid]) {
-    color: var(--color-alert, #f00);
-  }
-
   :host([custom]) input::-webkit-inner-spin-button, :host([custom]) input::-webkit-outer-spin-button {
     -webkit-appearance: none; 
     margin: 0;
@@ -291,7 +287,7 @@ InputUi.template = /*html*/ `
     display: none;
     justify-content: center;
     align-items: center;
-    width: var(--tap-zone-size-mid, 38px);
+    width: var(--tap-zone-size, 28px);
     height: 100%;
     cursor: pointer;
     color: currentColor;
@@ -322,7 +318,7 @@ InputUi.template = /*html*/ `
     color: var(--bg-color, #fff);
     z-index: 10000;
     padding: var(--gap-mid, 10px);
-    border-radius: var(--radius, 2px);
+    border-radius: var(--ui-radius, 2px);
     line-height: 1.2em;
     box-sizing: border-box;
     box-shadow: 0 0 0 2px var(--bg-color, #fff);
@@ -332,7 +328,7 @@ InputUi.template = /*html*/ `
   }
 
   .message {
-    color: var(--bg-color);
+    color: var(--bg-color, #fff);
     text-align: left;
   }
 
@@ -364,16 +360,20 @@ InputUi.template = /*html*/ `
     color: #fff;
   }
 
+  :host([invalid]) {
+    --color: var(--color-alert, #f00);
+  }
+
   :host([invalid]) .error {
     display: block;
   }
 
   :host([invalid]) .tooltip {
-    background-color: var(--color-alert);
+    background-color: var(--color-alert, #f00);
   }
 
   :host([invalid]) .tooltip::after {
-    background-color: var(--color-alert);
+    background-color: var(--color-alert, #f00);
   }
 
   :host([invalid]) .message {

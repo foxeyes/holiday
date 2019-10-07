@@ -8,20 +8,32 @@
   <script src="./select-ui.js" type="module"></script>
 </head>
 <body>
+  <style>
+    body {
+      padding: 20px;
+      --color: rgb(12, 34, 82);
+      --tap-zone-size: 36px;
+      --ui-radius: 3px;
+    }
+  </style>
+
   <select-ui id="select-el">
     <option-ui icon="star" option="1">FIRST</option-ui>
     <option-ui icon="star" option="2">SECOND</option-ui>
     <option-ui icon="star" option="3">THIRD</option-ui>
   </select-ui>
-  <select-ui>
+
+  <span>&nbsp;</span>
+
+  <select-ui value="b">
     <option-ui icon="star" option="a">A</option-ui>
     <option-ui icon="star" option="b">B</option-ui>
     <option-ui icon="star" option="c">C</option-ui>
   </select-ui>
+
   <script type="module">
     let selectEl = document.querySelector('#select-el');
     selectEl.value = '2';
-    // selectEl.setAttribute('value', '2');
     selectEl.onValueChange = (val) => {
       console.log(val);
     };

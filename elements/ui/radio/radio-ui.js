@@ -1,27 +1,34 @@
 import { HdElement } from '../../../core/hd-element.js';
 
+const RADIO_REG = Object.create(null);
+
 class RadioUi extends HdElement {
 
   constructor() {
     super();
 
     this.defineAccessor('name', (name) => {
-      this._name = name;
-      if (!RadioUi.reg[ name ]) {
-        RadioUi.reg[ name ] = [];
+      if (!RADIO_REG[ name ]) {
+        RADIO_REG[ name ] = [];
       }
-      RadioUi.reg[ name ].push(this);
+      RADIO_REG[ name ].push(this);
     });
+
+    this.onValueChange = null;
   }
 
   connectedCallback() {
     super.connectedCallback();
     this.onclick = (e) => {
       this.setAttribute('checked', '');
-      if (RadioUi.reg[ this._name ]) {
-        RadioUi.reg[ this._name ].forEach((inst) => {
+      this.notify('checked', true);
+      this.notify('value', true);
+      if (RADIO_REG[ this['name'] ]) {
+        RADIO_REG[ this['name'] ].forEach((/** @type {RadioUi}*/ inst) => {
           if (inst !== this) {
-            inst.attr('checked', null);
+            inst.removeAttribute('checked');
+            inst.notify('checked', false);
+            inst.notify('value', false);
           }
         });
       }
@@ -33,9 +40,10 @@ class RadioUi extends HdElement {
 RadioUi.template = /*html*/ `
 <style>
   :host {
+    -webkit-tap-highlight-color: transparent;
     display: inline-flex;
     align-items: center;
-    height: var(--tap-zone-size, 32px);
+    height: var(--tap-zone-size, 28px);
     cursor: pointer;
     font-size: var(--ui-font-size, 18px);
   }
@@ -44,16 +52,16 @@ RadioUi.template = /*html*/ `
     display: flex;
     justify-content: center;
     align-items: center;
-    height: var(--tap-zone-size, 32px);
-    width: var(--tap-zone-size, 32px);
+    height: var(--tap-zone-size, 28px);
+    width: var(--tap-zone-size, 28px);
     border: var(--gap-min, 2px) solid currentColor;
-    border-radius: var(--radius, 4px);
+    border-radius: var(--radius, 2px);
     box-sizing: border-box;
     margin-right: 0.5em;
   }
 
   .radio-inner {
-    --inner-size: calc(var(--tap-zone-size, 32px) / 4);
+    --inner-size: calc(var(--tap-zone-size, 28px) / 4);
     display: none;
     height: var(--inner-size);
     width: var(--inner-size);
@@ -82,6 +90,5 @@ RadioUi.logicAttributes = [
   'name',
 ];
 RadioUi.is = 'radio-ui';
-RadioUi.reg = {};
 
 export { RadioUi };

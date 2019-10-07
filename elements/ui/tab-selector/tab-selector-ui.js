@@ -68,11 +68,12 @@ class TabSelectorUi extends HdElement {
 TabSelectorUi.template = /*html*/ `
 <style>
   :host {
+    -webkit-tap-highlight-color: transparent;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    height: var(--tap-zone-size, 32px);
+    height: var(--tap-zone-size, 28px);
     font-size: var(--ui-font-size, 15px);
     box-sizing: border-box;
     color: var(--color, currentColor);
@@ -126,7 +127,8 @@ class TabOptionUi extends HdElement {
 TabOptionUi.template = /*html*/ `
 <style>
   :host {
-    height: var(--tap-zone-size, 32px);
+    -webkit-tap-highlight-color: transparent;
+    height: var(--tap-zone-size, 28px);
     display: flex;
     align-items: center;
     white-space: nowrap;
@@ -139,7 +141,6 @@ TabOptionUi.template = /*html*/ `
     user-select: none;
     opacity: 0.6;
     transition: var(--transition, 0.2s);
-    -webkit-tap-highlight-color: transparent;
   }
   :host([current]) {
     opacity: 1;
@@ -150,6 +151,7 @@ TabOptionUi.template = /*html*/ `
   }
   :host([icon]) icon-mkp {
     margin-right: 0.5em;
+    color: var(--color, #000);
   }
 
   @media screen and (max-width:600px) {

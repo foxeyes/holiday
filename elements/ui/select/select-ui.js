@@ -109,12 +109,18 @@ class SelectUi extends HdElement {
     this.update();
 
     this.defineAccessor('value', (val) => {
-      this.dispatchEvent(this._event);
       if (this.getAttribute('value') !== val) {
         this.setAttribute('value', val);
+        return;
       }
-      this.notify('value', val);
-      this._handleValue();
+      if (this._notifyTimeout) {
+        window.clearTimeout(this._notifyTimeout);
+      }
+      this._notifyTimeout = window.setTimeout(() => {
+        this.dispatchEvent(this._event);
+        this.notify('value', val);
+        this._handleValue();
+      });
     });
   }
 
@@ -128,7 +134,7 @@ class SelectUi extends HdElement {
 SelectUi.template = /*html*/ `
 <style>
   :host {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
     position: relative;
     display: inline-flex;
     font-size: var(--ui-font-size, 13px);
@@ -142,11 +148,11 @@ SelectUi.template = /*html*/ `
     align-items: center;
     flex-wrap: nowrap;
     white-space: nowrap;
-    height: var(--tap-zone-size, 32px);
+    height: var(--tap-zone-size, 28px);
     padding-left: 0.5em;
     padding-right: calc(0.5em + 24px);
     box-sizing: border-box;
-    border-radius: var(--radius, 2px);
+    border-radius: var(--ui-radius, 2px);
     color: var(--color, currentColor);
     user-select: none;
     overflow: hidden;
@@ -164,7 +170,7 @@ SelectUi.template = /*html*/ `
     right: 0;
     bottom: 0;
     border: 1px solid var(--color, currentColor);
-    border-radius: var(--radius, 2px);
+    border-radius: var(--ui-radius, 2px);
     opacity: var(--shade-opacity, 0.2);
     pointer-events: none;
     transition: var(--transition, 0.2s);
@@ -195,7 +201,7 @@ SelectUi.template = /*html*/ `
     pointer-events: none;
     opacity: 0;
     transition: var(--transition, 0.2s);
-    border-radius: var(--radius, 2px);
+    border-radius: var(--ui-radius, 2px);
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     z-index: 100000;
@@ -224,7 +230,7 @@ SelectUi.template = /*html*/ `
     position: relative;
     display: flex;
     align-items: center;
-    height: var(--tap-zone-size, 32px);
+    height: var(--tap-zone-size, 28px);
     padding-left: 0.5em;
     padding-right: 0.5em;
     cursor: pointer;
@@ -259,30 +265,6 @@ SelectUi.template = /*html*/ `
   :host([grow]) .state {
     display: flex;
     flex-grow: 1;
-  }
-
-  :host([connect="all"]) .state {
-    border-radius: var(--border-radius-min, 2px);
-  }
-
-  :host([connect="top"]) .state {
-    border-top-left-radius: var(--border-radius-min, 2px);
-    border-top-right-radius: var(--border-radius-min, 2px);
-  }
-
-  :host([connect="bottom"]) .state {
-    border-bottom-left-radius: var(--border-radius-min, 2px);
-    border-bottom-right-radius: var(--border-radius-min, 2px);
-  }
-
-  :host([connect="left"]) .state {
-    border-top-left-radius: var(--border-radius-min, 2px);
-    border-bottom-left-radius: var(--border-radius-min, 2px);
-  }
-
-  :host([connect="right"]) .state {
-    border-top-right-radius: var(--border-radius-min, 2px);
-    border-bottom-right-radius: var(--border-radius-min, 2px);
   }
 </style>
 <div class="state" >
