@@ -86,7 +86,15 @@ class RepeatAl extends HdElement {
           let propName = bObj.propName;
           if (propName.includes('@')) {
             propName = propName.replace('@', '');
-            bObj.element.setAttribute(propName, value);
+            if (typeof value === 'boolean') {
+              if (value) {
+                bObj.element.setAttribute(propName, '');
+              } else {
+                bObj.element.removeAttribute(propName);
+              }
+            } else {
+              bObj.element.setAttribute(propName, value);
+            }
           } else {
             bObj.element[propName] = value;
           }
