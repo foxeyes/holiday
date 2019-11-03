@@ -15,6 +15,15 @@ class ButtonUi extends HdElement {
     this.defineAccessor('icon', (icon) => {
       this.setStateProperty('icon', icon);
     });
+
+    this.defineAccessor('color-code', (val) => {
+      let color = this.getAttribute('color-code');
+      if (color) {
+        this.style.setProperty('--color-code', val);
+      } else {
+        this.style.removeProperty('--color-code');
+      }
+    });
     
   }
 
@@ -61,6 +70,7 @@ ButtonUi.template = /*html*/ `
 
   icon-mkp {
     margin-right: 0.5em;
+    color: var(--color-code, currentColor);
   }
 
   :host(:empty) {
@@ -174,6 +184,7 @@ ButtonUi.template = /*html*/ `
 `;
 ButtonUi.logicAttributes = [
   'icon',
+  'color-code',
 ];
 ButtonUi.is = 'button-ui';
 
