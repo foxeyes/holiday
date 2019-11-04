@@ -1,7 +1,7 @@
 import { HdElement } from '../../../core/hd-element.js';
 
-import { ButtonUi } from '../../ui/button/button-ui.js';
-import { TeardropUi } from '../../ui/teardrop/teardrop-ui.js';
+import { } from '../../ui/button/button-ui.js';
+import { } from '../../ui/teardrop/teardrop-ui.js';
 import { IconMkp } from '../../mkp/icon/icon-mkp.js';
 
 IconMkp.addIcons({
@@ -85,6 +85,11 @@ class PanelAl extends HdElement {
     };
 
     this[ 'drag-el' ].addEventListener('mousedown', this._onDragStart);
+
+    if (!this.hasAttribute('position')) {
+      this.setAttribute('position', 'right');
+    }
+    
   }
 
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>panel-al</title>
+  <script src="./panel-al.js" type="module"></script>
+</head>
+<body>
+  <style>
+    :root {
+      --color: rgb(57, 104, 112);
+      --bg-color: rgb(241, 241, 241);
+    }
+    .panel-content {
+      padding: 20px;
+    }
+  </style>
+  <button id="open-btn">Open Panel</button>
+  <panel-al id="panel-el" caption="Panel Caption" icon="star" active>
+    <div class="panel-content">
+      This panel can be moved to any screen border with a top right control. Just drag-n-drop it!
+    </div>
+  </panel-al>
+  <script>
+    const openBtn = document.querySelector('#open-btn');
+    const panel = document.querySelector('#panel-el');
+    openBtn.onclick = (e) => {
+      panel.setAttribute('active', '');
+    };
+  </script>
+</body>
+</html>
