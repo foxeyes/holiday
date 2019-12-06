@@ -109,6 +109,7 @@ class HdElement extends HTMLElement {
     if (this.__state) {
       this.state = this.__state;
     }
+    this.__globalSubscriptions = {};
   }
 
   /**
@@ -269,6 +270,15 @@ class HdElement extends HTMLElement {
 
   disconnectedCallback() {
     window.removeEventListener(this.__bindId, this.__bindHandler);
+    if (this.constructor['__globalState']) {
+      for (let path in this.__globalSubscriptions) {
+        this.__globalSubscriptions[path].forEach((callback) => {
+          this.constructor['__globalState'].unsubscribe(path, callback);
+          callback = null;
+        });
+      }
+      this.__globalSubscriptions = null;
+    }
   }
 
   /**
@@ -294,6 +304,25 @@ class HdElement extends HTMLElement {
       return;
     }
     this[name] = newVal;
+  }
+
+  static connectGlobalState(stateClass) {
+    this.__globalState = stateClass;
+  }
+  
+  /**
+   * 
+   * @param {String} path 
+   * @param {Function} callback 
+   */
+  subscribe(path, callback) {
+    if (this.constructor['__globalState']) {
+      this.constructor[ '__globalState' ].subscribe(path, callback);
+      if (!this.__globalSubscriptions[path]) {
+        this.__globalSubscriptions[path] = [];
+      }
+      this.__globalSubscriptions[path].push(callback);
+    }
   }
 
 }
