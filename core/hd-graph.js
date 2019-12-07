@@ -5,7 +5,7 @@
  * https://github.com/foxeyes/holiday/LICENSE.md
  */
 
-import { GUID } from '../utils/guid.js';
+import {UID} from '../utils/uid.js';
 
 class HdGraphNode {
   constructor(src = {}) {
@@ -27,7 +27,7 @@ class HdGraph {
   }
 
   /**
-   * 
+   *
    * @param {HdGraphNode} data
    * @param {string} id
    * @returns {string}
@@ -35,9 +35,9 @@ class HdGraph {
   static create(data, id = null) {
     let guid;
     if (!id) {
-      guid = GUID.generate();
+      guid = UID.generate();
       while (this.store[guid]) {
-        guid = GUID.generate();
+        guid = UID.generate();
       }
     } else {
       if (this.store[id]) {
@@ -55,7 +55,7 @@ class HdGraph {
 
 
   /**
-   * 
+   *
    * @param {string} id
    * @returns {HdGraphNode}
    */
@@ -64,10 +64,10 @@ class HdGraph {
   }
 
   /**
-   * 
-   * @param {string} id 
-   * @param {any} data 
-   * @param {any} dispatcher 
+   *
+   * @param {string} id
+   * @param {any} data
+   * @param {any} dispatcher
    */
   static update(id, data, dispatcher = null) {
     let node = this.read(id);
@@ -86,11 +86,11 @@ class HdGraph {
   }
 
   /**
-   * 
-   * @param {string} id 
-   * @param {string} propertyName 
-   * @param {any} propertyValue 
-   * @param {any} dispatcher 
+   *
+   * @param {string} id
+   * @param {string} propertyName
+   * @param {any} propertyValue
+   * @param {any} dispatcher
    */
   static setProperty(id, propertyName, propertyValue, dispatcher = null) {
     let node = this.read(id);
@@ -110,8 +110,8 @@ class HdGraph {
   }
 
   /**
-   * 
-   * @param {string} id 
+   *
+   * @param {string} id
    */
   static delete(id) {
     let node = this.read(id);
@@ -122,9 +122,9 @@ class HdGraph {
   }
 
   /**
-   * 
-   * @param {string} id 
-   * @param {string} hardId 
+   *
+   * @param {string} id
+   * @param {string} hardId
    */
   static clone(id, hardId = null) {
     let node = this.read(id);
@@ -138,8 +138,8 @@ class HdGraph {
   }
 
   /**
-   * 
-   * @param {string} id 
+   *
+   * @param {string} id
    * @param {string} conId
    */
   static connect(id, conId) {
@@ -156,8 +156,8 @@ class HdGraph {
   }
 
   /**
-   * 
-   * @param {string} id 
+   *
+   * @param {string} id
    * @param {string} conId
    */
   static connectDuplex(id, conId) {
@@ -179,9 +179,9 @@ class HdGraph {
   }
 
   /**
-   * 
-   * @param {string} nodeId 
-   * @param {string} connectionId 
+   *
+   * @param {string} nodeId
+   * @param {string} connectionId
    */
   static disconnect(nodeId, connectionId) {
     let node = this.read(nodeId);
@@ -200,8 +200,8 @@ class HdGraph {
   }
 
   /**
-   * 
-   * @param {string} query 
+   *
+   * @param {string} query
    * @param {string} fieldName
    * @returns {Array<string>}
    */
@@ -223,9 +223,9 @@ class HdGraph {
   }
 
   /**
-   * 
-   * @param {string} type 
-   * @param {string} query 
+   *
+   * @param {string} type
+   * @param {string} query
    * @param {string} fieldName
    * @returns {Array<string>}
    */
@@ -256,7 +256,7 @@ class HdGraph {
   }
 
   /**
-   * 
+   *
    * @param {string} id
    * @returns {Object}
    */
@@ -275,7 +275,7 @@ class HdGraph {
   }
 
   /**
-   * 
+   *
    * @param {string} id
    * @returns {Object}
    */
@@ -296,7 +296,7 @@ class HdGraph {
   }
 
   /**
-   * 
+   *
    * @param {string} type
    * @returns {Array<string>}
    */
@@ -311,7 +311,7 @@ class HdGraph {
   }
 
   /**
-   * 
+   *
    * @param {string} subType
    * @returns {Array<string>}
    */
@@ -326,8 +326,8 @@ class HdGraph {
   }
 
   /**
-   * 
-   * @param {String} type 
+   *
+   * @param {String} type
    */
   static removeNodesByType(type) {
     let typeArr = this.getByType(type);
@@ -341,8 +341,8 @@ class HdGraph {
   }
 
   /**
-   * 
-   * @param {String} subType 
+   *
+   * @param {String} subType
    */
   static removeNodesBySubType(subType) {
     let subTypeArr = this.getBySubType(subType);

@@ -1,4 +1,4 @@
-export class GUID {
+export class UID {
   static generate() {
     let allSymbolsStr = '1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm';
     return 'XXXXXXXXX-XXX'.replace(/[X]/g, () => {
