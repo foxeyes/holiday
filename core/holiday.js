@@ -11,8 +11,29 @@ import { HdState } from './hd-state.js';
 
 class Holiday extends HdElement {
 
-  static get __globalState() {
-    return HdState;
+  /**
+   *
+   * @param {Object} scheme
+   */
+  static applyGlobalStateScheme(scheme) {
+    HdState.applyScheme(scheme);
+  }
+
+  /**
+   *
+   * @param {String} statePath
+   * @param {Object} routingMap
+   * @param {String} propSeparator
+   */
+  static connectRouter(statePath, routingMap, propSeparator = null) {
+    if (propSeparator) {
+      HdRouter.setSeparator(propSeparator);
+    }
+    HdRouter.setRoutingMap(routingMap);
+    window.addEventListener('hd-on-route', (e) => {
+      HdState.publish(statePath, e['detail']);
+    });
+    HdRouter.notify();
   }
 
   constructor() {
@@ -26,7 +47,7 @@ class Holiday extends HdElement {
    * @param {*} value
    */
   publish(path, value) {
-    this.constructor['__globalState'].publish(path, value);
+    HdState.publish(path, value);
   }
 
   /**
@@ -35,7 +56,7 @@ class Holiday extends HdElement {
    * @param {Function} callback
    */
   subscribe(path, callback) {
-    this.constructor['__globalState'].subscribe(path, callback);
+    HdState.subscribe(path, callback);
     if (!this.__globalSubscriptions[ path ]) {
       this.__globalSubscriptions[ path ] = [];
     }
@@ -60,8 +81,8 @@ class Holiday extends HdElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     for (let path in this.__globalSubscriptions) {
-      this.__globalSubscriptions[ path ].forEach((callback) => {
-        this.constructor['__globalState'].unsubscribe(path, callback);
+      this.__globalSubscriptions[path].forEach((callback) => {
+        HdState.unsubscribe(path, callback);
         callback = null;
       });
     }
