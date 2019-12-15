@@ -26,7 +26,7 @@ class AppShellAl extends HdElement {
 
     this.state = {
       icon: '',
-      title: '',
+      caption: '',
       sidePanelAcive: false,
       menuIcon: 'menu',
       actions: {
@@ -48,8 +48,8 @@ class AppShellAl extends HdElement {
       this.setStateProperty('icon', iconName);
     });
 
-    this.defineAccessor('title', (title) => {
-      this.setStateProperty('title', title);
+    this.defineAccessor('caption', (caption) => {
+      this.setStateProperty('caption', caption);
     });
 
     this.defineAccessor('color-code', (color) => {
@@ -67,11 +67,10 @@ class AppShellAl extends HdElement {
 
 AppShellAl.template = /*html*/ `
 <style>
-  ::-webkit-scrollbar { 
-    display: none; 
+  ::-webkit-scrollbar {
+    display: none;
   }
   :host {
-    --color-code: var(--color-theme-1, #fff);
     display: block;
     padding-left: var(--side-panel-width, 240px);
     padding-top: calc(var(--tap-zone-size, 28px) + var(--gap-min, 2px) * 2);
@@ -87,8 +86,8 @@ AppShellAl.template = /*html*/ `
     border-top: var(--gap-min, 2px) solid currentColor;
     border-bottom: var(--gap-min, 2px) solid currentColor;
     padding-left: 0;
-    color: var(--color-theme-2, #000);
-    background-color: var(--color-theme-1, #fff);
+    color: var(--color, currentColor);
+    background-color: var(--bg-color, #fff);
     font-size: calc(var(--tap-zone-size, 28px) / 2);
     transition: left 0.2s;
     overflow: hidden;
@@ -108,13 +107,13 @@ AppShellAl.template = /*html*/ `
     min-width: var(--l-width);
   }
   :host([color-code]) .icon-wrapper {
-    background-color: var(--color-theme-2, #000);
-    color: var(--color-code);
+    background-color: var(--color, #000);
+    color: var(--color-code, currentColor);
   }
   :host([color-code]) .title {
     padding-left: var(--gap-mid, 0.6em);
   }
-  .title {
+  .caption {
     flex-grow: 1;
     padding-right: var(--gap-mid, 0.6em);
     overflow: hidden;
@@ -127,8 +126,8 @@ AppShellAl.template = /*html*/ `
     left: 0;
     bottom: 0;
     width: var(--side-panel-width, 240px);
-    background-color: var(--color-theme-2, #000);
-    color: var(--color-theme-1, #fff);
+    background-color: var(--color, #000);
+    color: var(--bg-color, #fff);
     padding: var(--gap-min, 2px);
     box-sizing: border-box;
     transition: transform 0.2s;
@@ -145,8 +144,8 @@ AppShellAl.template = /*html*/ `
     height: var(--tap-zone-size, 28px);
     width: var(--tap-zone-size, 28px);
     min-width: var(--tap-zone-size, 28px);
-    background-color: var(--color-theme-2, #000);
-    color: var(--color-theme-1, #fff);
+    background-color: var(--color, #000);
+    color: var(--bg-color, #fff);
     cursor: pointer;
     user-select: none;
   }
@@ -169,7 +168,7 @@ AppShellAl.template = /*html*/ `
     }
   }
 </style>
-<slot></slot> 
+<slot></slot>
 <top-panel-el bind="@active: sidePanelAcive" id="top-pan">
   <menu-btn-el bind="onclick: actions.menuClicked">
     <icon-mkp bind="icon: menuIcon"></icon-mkp>
@@ -177,7 +176,7 @@ AppShellAl.template = /*html*/ `
   <div class="icon-wrapper">
     <icon-mkp bind="icon: icon"></icon-mkp>
   </div>
-  <div class="title" bind="textContent: title"></div>
+  <div class="caption" bind="textContent: caption"></div>
   <div class="top-right">
     <slot name="top-right"></slot>
   </div>
@@ -188,7 +187,7 @@ AppShellAl.template = /*html*/ `
 `;
 AppShellAl.logicAttributes = [
   'icon',
-  'title',
+  'caption',
   'color-code',
 ];
 

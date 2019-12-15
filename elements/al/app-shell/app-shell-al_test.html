@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>app-shell-al</title>
+  <script src="./app-shell-al.js" type="module"></script>
+</head>
+<body>
+  <style>
+    :root {
+      --color: #00f;
+      --bg-color: #0ff;
+    }
+    .menu {
+      padding: 20px;
+    }
+  </style>
+  <app-shell-al icon="star" caption="CAPTION">
+    <div class="menu" slot="menu">APP MENU</div>
+    <div>CONTENT</div>
+  </app-shell-al>
+</body>
+</html>
