@@ -5,9 +5,9 @@
  * https://github.com/foxeyes/holiday/LICENSE.md
  */
 
-import { HdElement } from './hd-element.js';
-import { HdRouter } from './hd-router.js';
-import { HdState } from './hd-state.js';
+import {HdElement} from './hd-element.js';
+import {HdRouter} from './hd-router.js';
+import {HdState, HdSubscription} from './hd-state.js';
 
 class Holiday extends HdElement {
 
@@ -38,29 +38,31 @@ class Holiday extends HdElement {
 
   constructor() {
     super();
-    this.__globalSubscriptions = {};
+
+    /**
+     * @type {Set<HdSubscription>}
+     */
+    this.__globalSubscriptions = new Set();
   }
 
   /**
    *
-   * @param {String} path
-   * @param {*} value
+   * @param  {...any} args - key and value or key-value map object can be provided
    */
-  publish(path, value) {
-    HdState.publish(path, value);
+  publish(...args) {
+    HdState.publish(...args);
   }
 
   /**
    *
    * @param {String} path
    * @param {Function} callback
+   * @returns {HdSubscription}
    */
   subscribe(path, callback) {
-    HdState.subscribe(path, callback);
-    if (!this.__globalSubscriptions[ path ]) {
-      this.__globalSubscriptions[ path ] = [];
-    }
-    this.__globalSubscriptions[ path ].push(callback);
+    let subscribtion = HdState.subscribe(path, callback);
+    this.__globalSubscriptions.add(subscribtion);
+    return subscribtion;
   }
 
   /**
@@ -80,13 +82,11 @@ class Holiday extends HdElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    for (let path in this.__globalSubscriptions) {
-      this.__globalSubscriptions[path].forEach((callback) => {
-        HdState.unsubscribe(path, callback);
-        callback = null;
-      });
-    }
-    this.__globalSubscriptions = null;
+    this.__globalSubscriptions.forEach((subscription) => {
+      subscription.remove();
+      subscription.callback = null;
+      this.__globalSubscriptions.delete(subscription);
+    });
   }
 
 }

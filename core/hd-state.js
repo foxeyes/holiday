@@ -6,22 +6,33 @@
  */
 
 class PropDescriptor {
+
+  /**
+   *
+   * @param {{type: Function, value: *, cache: Boolean}} src
+   */
   constructor(src) {
-    /**
-     * @type {Function}
-     */
     this.type = src.type;
-
-    /**
-     * @type { any }
-     */
     this.value = src.value;
-
-    /**
-     * @type { Boolean }
-     */
     this.cache = src.cache || false;
   }
+}
+
+export class HdSubscription {
+
+  /**
+   *
+   * @param {{path: String, callback: Function}} src
+   */
+  constructor(src) {
+    this.path = src.path;
+    this.callback = src.callback;
+  }
+
+  remove() {
+    HdState.unsubscribe(this.path, this.callback);
+  }
+
 }
 
 class HdState {
@@ -33,9 +44,9 @@ class HdState {
   }
 
   /**
-   * 
-   * @param {String} path 
-   * @param {*} value 
+   *
+   * @param {String} path
+   * @param {*} value
    */
   static __putToCache(path, value) {
     let cachedStr = window.localStorage.getItem('hd-cache');
@@ -108,8 +119,8 @@ class HdState {
   }
 
   /**
-   * 
-   * @param {String} path 
+   *
+   * @param {String} path
    */
   static read(path) {
     let desc = this._getPropDesc(path);
@@ -121,10 +132,11 @@ class HdState {
   }
 
   /**
-   * 
-   * @param {String} path 
-   * @param {Function} handler 
+   *
+   * @param {String} path
+   * @param {Function} handler
    * @param {Boolean} silent
+   * @returns {HdSubscription}
    */
   static subscribe(path, handler, silent = false) {
     let desc = this._getPropDesc(path);
@@ -138,12 +150,16 @@ class HdState {
     if (this.read(path) !== undefined && !silent) {
       handler(this.read(path));
     }
+    return new HdSubscription({
+      path: path,
+      callback: handler,
+    });
   }
 
   /**
-   * 
-   * @param {String} path 
-   * @param {Function} handler 
+   *
+   * @param {String} path
+   * @param {Function} handler
    */
   static unsubscribe(path, handler) {
     let desc = this._getPropDesc(path);
@@ -163,9 +179,9 @@ class HdState {
   }
 
   /**
-   * 
-   * @param {String} path 
-   * @param {*} value 
+   *
+   * @param {String} path
+   * @param {*} value
    */
   static silentWrite(path, value) {
     let desc = this._getPropDesc(path);
@@ -186,8 +202,8 @@ class HdState {
   }
 
   /**
-   * 
-   * @param {String} path 
+   *
+   * @param {String} path
    */
   static notify(path) {
     let desc = this._getPropDesc(path);
@@ -203,10 +219,10 @@ class HdState {
   }
 
   /**
-   * 
+   *
    * @param {any} hdEl
-   * @param {String} localPath 
-   * @param {String} globalPath 
+   * @param {String} localPath
+   * @param {String} globalPath
    */
   static syncProps(hdEl, localPath, globalPath) {
     hdEl.setStateProperty(localPath, this.read(globalPath));
@@ -216,8 +232,8 @@ class HdState {
   }
 
   /**
-   * 
-   * @param {any} scheme 
+   *
+   * @param {any} scheme
    */
   static applyScheme(scheme) {
     Object.assign(this.scheme, scheme);
@@ -229,8 +245,8 @@ class HdState {
   }
 
   /**
-   * 
-   * @param {String} path 
+   *
+   * @param {String} path
    * @returns {PropDescriptor}
    */
   static _getPropDesc(path) {

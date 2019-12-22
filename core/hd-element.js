@@ -51,15 +51,15 @@ class HdElement extends HTMLElement {
 
       this.__parseTemplateBindings(this.$);
 
-      [...this.$.querySelectorAll('[id*="-"]')].forEach((el) => {
+      [...this.$.querySelectorAll('[id*="-"]')].forEach((/** @type {Element} */ el) => {
         this[el.id] = el;
       });
     }
   }
 
   /**
-   * 
-   * @param {String} path 
+   *
+   * @param {String} path
    */
   stateUpdated(path) {
     return;
@@ -72,7 +72,7 @@ class HdElement extends HTMLElement {
       mode: 'open',
     });
     this.__initialRender();
-    
+
     Object.defineProperty(this, 'state', {
       set: (stateObj) => {
         this.__state = stateObj;
@@ -112,9 +112,9 @@ class HdElement extends HTMLElement {
   }
 
   /**
-   * 
-   * @param {String} propName 
-   * @param {Function} handler 
+   *
+   * @param {String} propName
+   * @param {Function} handler
    */
   defineAccessor(propName, handler) {
     let localPropName = '__' + propName;
@@ -136,7 +136,7 @@ class HdElement extends HTMLElement {
   }
 
   /**
-   * 
+   *
    * @param  {...any} args - key and value or key-value map object can be provided
    */
   setStateProperty(...args) {
@@ -193,8 +193,8 @@ class HdElement extends HTMLElement {
   }
 
   /**
-   * 
-   * @param {String} path 
+   *
+   * @param {String} path
    * @param {*} value
    * @param {Number} debounceTimeout
    */
@@ -272,8 +272,8 @@ class HdElement extends HTMLElement {
   }
 
   /**
-   * 
-   * @param {String} propName 
+   *
+   * @param {String} propName
    * @param {*} propValue
    */
   notify(propName, propValue = null) {
