@@ -7,6 +7,7 @@ class CodeMkp extends HdElement {
     }
     let html = this.innerHTML;
     let hlChars = [
+      '=',
       '{',
       '}',
       `'`,
