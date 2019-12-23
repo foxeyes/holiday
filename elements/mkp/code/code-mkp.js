@@ -18,6 +18,8 @@ class CodeMkp extends HdElement {
       `)`,
       `[`,
       `]`,
+      '&gt;',
+      '&lt;',
     ];
     hlChars.forEach((char) => {
       html = html.split(char).join(`<span class="code-mkp-hl">${char}</span>`)

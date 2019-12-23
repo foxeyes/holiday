@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>code-mkp</title>
+  <script src="./code-mkp.js" type="module"></script>
+</head>
+<body>
+  <code-mkp id="code-el" highlight="#f00"></code-mkp>
+  <script>
+    let getSrc = async () => {
+      let src = await(await window.fetch('../image/image-mkp.js')).text();
+      let codeEl = document.querySelector('#code-el');
+      codeEl.textContent = src;
+      codeEl.colorize();
+    };
+    getSrc();
+  </script>
+</body>
+</html>
