@@ -3,10 +3,10 @@ import {HdElement} from '../../../core/hd-element.js';
 class CodeMkp extends HdElement {
 
   _colorize(srcCode) {
+    srcCode = srcCode.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     if (!this.hasAttribute('highlight')) {
       return srcCode;
     }
-    srcCode = srcCode.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     let hlChars = [
       '=',
       '#',
