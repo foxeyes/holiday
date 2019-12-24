@@ -33,9 +33,9 @@ class CodeMkp extends HdElement {
       return subStr.replace('*/', '*/</span>');
     }).join('<span class="comment">/*');
 
-    srcCode = srcCode.split('//').map((subStr) => {
+    srcCode = srcCode.split('// ').map((subStr) => {
       return subStr.replace('\n', '</span>\n');
-    }).join('<span class="comment">//');
+    }).join('<span class="comment">// ');
 
     return srcCode;
   }
@@ -67,6 +67,15 @@ class CodeMkp extends HdElement {
       }
     });
 
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.innerHTML) {
+      this.setStateProperty({
+        'src': this._colorize(this.innerHTML),
+      });
+    }
   }
 
 }
