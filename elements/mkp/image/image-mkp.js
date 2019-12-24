@@ -1,7 +1,7 @@
-import { HdElement } from '../../../core/hd-element.js';
+import {HdElement} from '../../../core/hd-element.js';
 import {} from '../spinner/spinner-mkp.js';
 
-class ImageMkp extends HdElement {
+export class ImageMkp extends HdElement {
 
   connectedCallback() {
     super.connectedCallback();
@@ -51,12 +51,7 @@ ImageMkp.template = /*html*/ `
    box-sizing: border-box;
  }
  :host([error]) {
-  background: linear-gradient(#FFF, #eee);
-  background-clip: content-box;
-  border-top: var(--gap-max, 20px) solid rgba(0, 0, 0, 0.1);
-  border-bottom: var(--gap-max, 20px) solid #fff;
-  border-left: var(--gap-max, 20px) solid rgba(0, 0, 0, 0.05);
-  border-right: var(--gap-max, 20px) solid rgba(0, 0, 0, 0.05);
+  border: 1px solid currentColor;
  }
  spinner-mkp {
    position: absolute;
@@ -79,13 +74,27 @@ ImageMkp.template = /*html*/ `
  :host([error]) #img-el {
   opacity: 0;
  }
+ svg {
+   position: absolute;
+   height: 50px;
+   width: 50px;
+ }
+ line {
+   stroke: currentColor;
+   stroke-width: 1.1px;
+ }
+:host(:not([error])) svg {
+  display: none;
+ }
 </style>
 <div id="img-el"></div>
 <spinner-mkp></spinner-mkp>
+<svg xmlns="http://www.w3.org/2000/svg" vewBox="0 0 50 50">
+ <line x1="0" y1="0" x2="50" y2="50"></line>
+ <line x1="0" y1="50" x2="50" y2="0"></line>
+</svg>
 `;
 ImageMkp.logicAttributes = [
   'src',
 ];
 ImageMkp.is = 'image-mkp';
-
-export { ImageMkp };

@@ -1,13 +1,16 @@
-import { HdElement } from '../../../core/hd-element.js';
+import {HdElement} from '../../../core/hd-element.js';
 
 class CodeMkp extends HdElement {
-  colorize() {
+
+  _colorize(srcCode) {
     if (!this.hasAttribute('highlight')) {
-      return;
+      return srcCode;
     }
-    let html = this.innerHTML;
+    srcCode = srcCode.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     let hlChars = [
       '=',
+      '#',
+      '|',
       '{',
       '}',
       `'`,
@@ -23,30 +26,47 @@ class CodeMkp extends HdElement {
       '&lt;',
     ];
     hlChars.forEach((char) => {
-      html = html.split(char).join(`<span class="code-mkp-hl">${char}</span>`)
+      srcCode = srcCode.split(char).join(`<span class="hl">${char}</span>`);
     });
 
-    html = html.split('/*').map((subStr) => {
+    srcCode = srcCode.split('/*').map((subStr) => {
       return subStr.replace('*/', '*/</span>');
-    }).join('<span class="code-mkp-comment">/*');
+    }).join('<span class="comment">/*');
 
-    html = html.split('//').map((subStr) => {
+    srcCode = srcCode.split('//').map((subStr) => {
       return subStr.replace('\n', '</span>\n');
-    }).join('<span class="code-mkp-comment">//');
+    }).join('<span class="comment">//');
 
-    this.innerHTML = html;
+    return srcCode;
   }
 
   constructor() {
     super();
+
+    this.state = {
+      src: 'Loading...',
+    };
+
     this.defineAccessor('highlight', (color) => {
       this.style.setProperty('--hl-color', color);
     });
-  }
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.colorize();
+    this.defineAccessor('src', async (/** @type {String} */ url) => {
+      try {
+        let srcCode = await (await window.fetch(url)).text();
+        this.setStateProperty({
+          'src': this._colorize(srcCode),
+        });
+      } catch (e) {
+        this.setStateProperty({
+          'src': 'Error...',
+        });
+        if (window['hdDevModeEnabled']) {
+          console.warn(e);
+        }
+      }
+    });
+
   }
 
 }
@@ -73,10 +93,10 @@ CodeMkp.template = /*html*/ `
     opacity: 0.05;
     pointer-events: none;
   }
-  ::slotted(.code-mkp-hl) {
+  .hl {
     color: var(--hl-color);
   }
-  ::slotted(.code-mkp-comment) {
+  .comment {
     color: var(--hl-color);
     font-style: italic;
     opacity: 0.7;
@@ -85,10 +105,11 @@ CodeMkp.template = /*html*/ `
     white-space: pre-wrap;
   }
 </style>
-<pre><code><slot></slot></code></pre>
+<pre><code id="code-el" bind="innerHTML: src"></code></pre>
 `;
 CodeMkp.logicAttributes = [
   'highlight',
+  'src',
 ];
 CodeMkp.is = 'code-mkp';
 

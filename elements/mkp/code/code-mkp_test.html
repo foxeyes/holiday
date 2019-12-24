@@ -8,15 +8,6 @@
   <script src="./code-mkp.js" type="module"></script>
 </head>
 <body>
-  <code-mkp id="code-el" highlight="#f00"></code-mkp>
-  <script>
-    let getSrc = async () => {
-      let src = await(await window.fetch('../image/image-mkp.js')).text();
-      let codeEl = document.querySelector('#code-el');
-      codeEl.textContent = src;
-      codeEl.colorize();
-    };
-    getSrc();
-  </script>
+  <code-mkp src="../image/image-mkp.js" highlight="#f00"></code-mkp>
 </body>
 </html>
