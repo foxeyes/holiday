@@ -27,6 +27,3 @@ export { TabSelectorUi } from './ui/tab-selector/tab-selector-ui.js';
 export { RadioUi } from './ui/radio/radio-ui.js';
 export { CheckboxUi } from './ui/checkbox/checkbox-ui.js';
 export { SelectUi } from './ui/select/select-ui.js';
-
-// Embed:
-export { GistEmbed } from './embed/gist/gist-embed.js';
