@@ -1,57 +1,58 @@
-import { HdElement } from '../../../core/hd-element.js';
-
+import {HdElement} from '../../../core/hd-element.js';
+import {IconMkp} from '../../mkp/icon/icon-mkp.js';
 import { } from '../../ui/button/button-ui.js';
-import { IconMkp } from '../../mkp/icon/icon-mkp.js';
+
 IconMkp.addIcons({
   'close': 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z',
 });
 
-class OverlayAl extends HdElement {
+export class OverlayAl extends HdElement {
+
+  /**
+   * @param {Boolean} val
+   */
+  set _active(val) {
+    if (val) {
+      document.body.style.height = '100vh';
+      document.body.style.overflow = 'hidden';
+      OverlayAl.instances.forEach((inst) => {
+        if (inst !== this) {
+          inst.removeAttribute('active');
+        }
+      });
+    } else {
+      this['content-el'].scrollTop = 0;
+      let styleTxt = document.body.getAttribute('style');
+      if (styleTxt && styleTxt.trim()) {
+        styleTxt = styleTxt.replace('height: 100vh;', '').replace('overflow: hidden;', '');
+        document.body.setAttribute('style', styleTxt.trim());
+      } else {
+        document.body.removeAttribute('style');
+      }
+    }
+  }
 
   constructor() {
     super();
     this.state = {
-
-      active: false,
       caption: '',
       icon: '',
-
       on: {
         closeClicked: () => {
-          this.active = false;
+          this.removeAttribute('active');
         },
       },
-
     };
 
     this.defineAccessor('active', (val) => {
-      document.body.style.height = '100%';
-      document.body.style.overflow = 'hidden';
-      document.body.ontouchmove = (e) => {
-        e.preventDefault();
-      };
-
-      if (val === true) {
-        this.setAttribute('active', '');
-      } else if (val === false) {
-        this[ 'content-el' ].scrollTop = 0;
-        this.removeAttribute('active');
-        let styleTxt = document.body.getAttribute('style');
-        styleTxt = styleTxt.replace('height: 100%;', '').replace('overflow: hidden;', '');
-        if (styleTxt.trim()) {
-          document.body.setAttribute('style', styleTxt.trim());
-        } else {
-          document.body.removeAttribute('style');
-        }
-        document.body.ontouchmove = undefined;
-      }
-      this.setStateProperty('active', val);
       if (this.hasAttribute('active')) {
-        OverlayAl.instances.forEach((inst) => {
-          if (inst !== this) {
-            inst.removeAttribute('active');
-          }
-        });
+        this._active = true;
+      } else {
+        if (val === true) {
+          this.setAttribute('active', '');
+        } else {
+          this._active = false;
+        }
       }
     });
 
@@ -75,10 +76,10 @@ class OverlayAl extends HdElement {
 
 OverlayAl.template = /*html*/ `
 <style>
-  ::-webkit-scrollbar { 
-    display: none; 
+  ::-webkit-scrollbar {
+    display: none;
   }
-  
+
   :host {
     --color-code-local: currentColor;
     --side-step: 50px;
@@ -90,7 +91,7 @@ OverlayAl.template = /*html*/ `
     background-color: var(--bg-color, #fff);
     color: var(--color, #000);
     z-index: 1000000;
-    border-radius: var(--radius, 4px);
+    border-radius: var(--ui-radius, 4px);
     box-shadow: 0 0 var(--side-step) var(--color, #000);
     will-change: opacity;
     transition: opacity 0.4s;
@@ -159,5 +160,3 @@ OverlayAl.logicAttributes = [
 ];
 OverlayAl.instances = new Set();
 OverlayAl.is = 'overlay-al';
-
-export { OverlayAl };
