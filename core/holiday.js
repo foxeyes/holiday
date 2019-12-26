@@ -57,10 +57,11 @@ class Holiday extends HdElement {
    *
    * @param {String} path
    * @param {Function} callback
+   * @param {Boolean} silent
    * @returns {HdSubscription}
    */
-  subscribe(path, callback) {
-    let subscribtion = HdState.subscribe(path, callback);
+  subscribe(path, callback, silent = false) {
+    let subscribtion = HdState.subscribe(path, callback, silent);
     this.__globalSubscriptions.add(subscribtion);
     return subscribtion;
   }
