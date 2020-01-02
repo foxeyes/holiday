@@ -3,7 +3,11 @@ import {HdElement} from '../../../core/hd-element.js';
 class CodeMkp extends HdElement {
 
   _colorize(srcCode) {
-    srcCode = srcCode.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    srcCode = srcCode
+      .replace(/;/g, '&semi;') // must be on a first place
+      .replace(/"/g, '&quot;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
     if (!this.hasAttribute('highlight')) {
       return srcCode;
     }
@@ -22,8 +26,11 @@ class CodeMkp extends HdElement {
       `)`,
       `[`,
       `]`,
-      '&gt;',
+      '&lt;/',
       '&lt;',
+      '&gt;',
+      '&semi;',
+      '&quot;',
     ];
     hlChars.forEach((char) => {
       srcCode = srcCode.split(char).join(`<span class="hl">${char}</span>`);
