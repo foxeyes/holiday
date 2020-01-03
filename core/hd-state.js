@@ -220,19 +220,6 @@ class HdState {
 
   /**
    *
-   * @param {any} hdEl
-   * @param {String} localPath
-   * @param {String} globalPath
-   */
-  static syncProps(hdEl, localPath, globalPath) {
-    hdEl.setStateProperty(localPath, this.read(globalPath));
-    this.subscribe(globalPath, () => {
-      hdEl.setStateProperty(localPath, this.read(globalPath));
-    });
-  }
-
-  /**
-   *
    * @param {any} scheme
    */
   static applyScheme(scheme) {
