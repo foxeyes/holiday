@@ -5,6 +5,7 @@ class CodeMkp extends HdElement {
   _colorize(srcCode) {
     srcCode = srcCode
       .replace(/;/g, '&semi;') // must be on a first place
+      .replace(/\//g, '&sol;')
       .replace(/"/g, '&quot;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;');
@@ -26,7 +27,7 @@ class CodeMkp extends HdElement {
       `)`,
       `[`,
       `]`,
-      '&lt;/',
+      '&lt;&sol;',
       '&lt;',
       '&gt;',
       '&semi;',
@@ -36,14 +37,12 @@ class CodeMkp extends HdElement {
       srcCode = srcCode.split(char).join(`<span class="hl">${char}</span>`);
     });
 
-    srcCode = srcCode.split('/*').map((subStr) => {
-      return subStr.replace('*/', '*/</span>');
-    }).join('<span class="comment">/*');
-
-    srcCode = srcCode.split('// ').map((subStr) => {
-      return subStr.replace('\n', '</span>\n');
-    }).join('<span class="comment">// ');
-
+    srcCode = srcCode
+      .split('&sol;*').join('<span class="comment">&sol;*')
+      .split('*&sol;').join('*&sol;</span>')
+      .split('&sol;&sol; ').map((subStr, idx) => {
+        return idx ? subStr.replace('\n', '</span>\n') : subStr;
+      }).join('<span class="comment">&sol;&sol; ');
     return srcCode;
   }
 
