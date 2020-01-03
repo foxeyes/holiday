@@ -15,6 +15,7 @@ class CodeMkp extends HdElement {
     let hlChars = [
       '=',
       '#',
+      '$',
       '|',
       '{',
       '}',

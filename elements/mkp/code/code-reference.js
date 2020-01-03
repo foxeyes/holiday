@@ -2,6 +2,8 @@
 Multiline comment
 */
 
+const linkName = 'Link 1';
+
 export class MyClass {
 
   constructor() {
@@ -9,6 +11,7 @@ export class MyClass {
     this._applyProp = (propName, value) => {
       this[propName] = value;
     };
+    this.$ = null;
   }
 
   // Single line comment:
@@ -31,7 +34,7 @@ const TEMPLATE = /*html*/ `
   }
 </style>
 <my-element my-attr="true">Some content...</my-element>
-<a href=".//my-page.html"></a>
+<a href="//my-page.html">${linkName}</a>
 `;
 
 // Last comment...
