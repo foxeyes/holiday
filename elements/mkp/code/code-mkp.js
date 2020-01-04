@@ -78,9 +78,9 @@ class CodeMkp extends HdElement {
 
   connectedCallback() {
     super.connectedCallback();
-    if (this.innerHTML) {
+    if (this.textContent) {
       this.setStateProperty({
-        'src': this._colorize(this.innerHTML),
+        'src': this._colorize(this.textContent),
       });
     }
   }
