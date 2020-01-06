@@ -205,7 +205,7 @@ InputUi.template = /*html*/ `
     background-color: var(--color, currentColor);
     opacity: var(--shade-opacity, 0.1);
     pointer-events: none;
-    border-radius: var(--radius, 2px);
+    border-radius: var(--ui-radius, 2px);
     transition: var(--transition, 0.2s);
   }
 
@@ -275,7 +275,7 @@ InputUi.template = /*html*/ `
   }
 
   :host([custom]) input::-webkit-inner-spin-button, :host([custom]) input::-webkit-outer-spin-button {
-    -webkit-appearance: none; 
+    -webkit-appearance: none;
     margin: 0;
   }
 
