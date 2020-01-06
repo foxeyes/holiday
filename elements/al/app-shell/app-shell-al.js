@@ -94,6 +94,18 @@ AppShellAl.template = /*html*/ `
     white-space: nowrap;
     z-index: 10000;
   }
+  top-panel-el::before {
+    position: absolute;
+    display: block;
+    background-color: currentColor;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.1;
+    pointer-events: none;
+  }
   top-panel-el[active] {
     left: var(--side-panel-width, 240px);
   }
