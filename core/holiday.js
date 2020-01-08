@@ -36,6 +36,14 @@ class Holiday extends HdElement {
     HdRouter.notify();
   }
 
+  get globalState() {
+    return HdState;
+  }
+
+  get appRouter() {
+    return HdRouter;
+  }
+
   constructor() {
     super();
 
@@ -50,7 +58,7 @@ class Holiday extends HdElement {
    * @param  {...any} args - key and value or key-value map object can be provided
    */
   publish(...args) {
-    HdState.publish(...args);
+    this.globalState.publish(...args);
   }
 
   /**
@@ -61,7 +69,7 @@ class Holiday extends HdElement {
    * @returns {HdSubscription}
    */
   subscribe(path, callback, silent = false) {
-    let subscribtion = HdState.subscribe(path, callback, silent);
+    let subscribtion = this.globalState.subscribe(path, callback, silent);
     this.__globalSubscriptions.add(subscribtion);
     return subscribtion;
   }
@@ -79,6 +87,14 @@ class Holiday extends HdElement {
         callback(newValue);
       }
     });
+  }
+
+  /**
+   *
+   * @param {String} globalPath
+   */
+  readGlobalProperty(globalPath) {
+    return this.globalState.read(globalPath);
   }
 
   disconnectedCallback() {
