@@ -1,18 +1,35 @@
 :root {
 
-  --color-error: #f00;
-
+  /* Two base colors: */
   --color: #000;
   --bg-color: #fff;
 
+  /* Color coding: */
+  --color-alert: #f00;
+
+  /* Size of convenient touch area. Interactive elements cannot take less space in UI */
   --tap-zone-size: 36px;
+
+  /* Size for side panel */
+  --side-panel-width: 200px;
+
+  /* Base font size for UI captions: */
   --ui-font-size: 16px;
 
+  /* Mesh steps and gaps */
   --gap-min: 2px;
   --gap-mid: 10px;
   --gap-max: 20px;
 
+  /* Box radius for UI-elements */
   --ui-radius: 2px;
+
+  /* Durability for base effects */
   --transition: 0.2s;
 
+  /* Shadow */
+  --ui-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+
+  /* Shading level */
+  --shade-opacity: 0.2;
 }
