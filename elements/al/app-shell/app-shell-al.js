@@ -71,6 +71,8 @@ AppShellAl.template = /*html*/ `
     display: none;
   }
   :host {
+    --l-width: calc(var(--tap-zone-size, 28px) + (var(--gap-min, 2px) * 2));
+
     display: block;
     padding-left: var(--side-panel-width, 240px);
     padding-top: calc(var(--tap-zone-size, 28px) + var(--gap-min, 2px) * 2);
@@ -82,7 +84,7 @@ AppShellAl.template = /*html*/ `
     left: var(--side-panel-width, 240px);
     display: flex;
     align-items: center;
-    height: calc(var(--tap-zone-size, 28px) + (var(--gap-min, 2px) * 2));
+    height: var(--l-width);
     box-shadow: var(--ui-shadow, 0 2px 12px rgba(0, 0, 0, 0.2));
     padding-left: 0;
     color: var(--color, currentColor);
@@ -109,7 +111,6 @@ AppShellAl.template = /*html*/ `
     left: var(--side-panel-width, 240px);
   }
   .icon-wrapper {
-    --l-width: calc(var(--tap-zone-size, 28px) + var(--gap-min, 2px));
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -152,8 +153,8 @@ AppShellAl.template = /*html*/ `
     display: none;
     justify-content: center;
     align-items: center;
-    height: var(--tap-zone-size, 28px);
-    width: var(--tap-zone-size, 28px);
+    height: 100%;
+    width: var(--l-width);
     min-width: var(--tap-zone-size, 28px);
     background-color: var(--color, #000);
     color: var(--bg-color, #fff);
