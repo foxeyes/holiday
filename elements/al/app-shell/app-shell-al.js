@@ -82,9 +82,8 @@ AppShellAl.template = /*html*/ `
     left: var(--side-panel-width, 240px);
     display: flex;
     align-items: center;
-    height: var(--tap-zone-size, 28px);
-    border-top: var(--gap-min, 2px) solid currentColor;
-    border-bottom: var(--gap-min, 2px) solid currentColor;
+    height: calc(var(--tap-zone-size, 28px) + (var(--gap-min, 2px) * 2));
+    box-shadow: var(--ui-shadow, 0 2px 12px rgba(0, 0, 0, 0.2));
     padding-left: 0;
     color: var(--color, currentColor);
     background-color: var(--bg-color, #fff);
