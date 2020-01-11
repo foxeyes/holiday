@@ -1,6 +1,6 @@
-import { HdElement } from '../../../core/hd-element.js';
+import {HdElement} from '../../../core/hd-element.js';
 
-class RepeatAl extends HdElement {
+export class RepeatAl extends HdElement {
 
   _createDataMap() {
     let bindedElements = [...this.querySelectorAll('[bind-repeat]')];
@@ -117,16 +117,15 @@ class RepeatAl extends HdElement {
 
   constructor() {
     super();
-    
-    
+
     this.defineAccessor('from', (/** @type {Number} */ from) => {
       this._reflectData();
     });
-    
+
     this.defineAccessor('size', (/** @type {Number} */ size) => {
       this._buildDOMSubtree();
     });
-    
+
     this.defineAccessor('data', (/** @type {Array<*>} */ data) => {
       this._reflectData();
     });
@@ -161,5 +160,3 @@ RepeatAl.logicAttributes = [
 ];
 
 RepeatAl.is = 'repeat-al';
-
-export { RepeatAl };

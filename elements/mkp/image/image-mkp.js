@@ -1,5 +1,5 @@
 import {HdElement} from '../../../core/hd-element.js';
-import {} from '../spinner/spinner-mkp.js';
+import {SPINNER_CSS} from '../../css/spinner/spinner-css.js';
 
 export class ImageMkp extends HdElement {
 
@@ -43,6 +43,7 @@ export class ImageMkp extends HdElement {
 
 ImageMkp.template = /*html*/ `
 <style>
+  ${SPINNER_CSS}
  :host {
    display: inline-flex;
    justify-content: center;
@@ -53,10 +54,10 @@ ImageMkp.template = /*html*/ `
  :host([error]) {
   border: 1px solid currentColor;
  }
- spinner-mkp {
+ spinner-css {
    position: absolute;
  }
- :host(:not([loading])) spinner-mkp {
+ :host(:not([loading])) spinner-css {
   display: none;
  }
  #img-el {
@@ -88,7 +89,7 @@ ImageMkp.template = /*html*/ `
  }
 </style>
 <div id="img-el"></div>
-<spinner-mkp></spinner-mkp>
+<spinner-css></spinner-css>
 <svg xmlns="http://www.w3.org/2000/svg" vewBox="0 0 50 50">
  <line x1="0" y1="0" x2="50" y2="50"></line>
  <line x1="0" y1="50" x2="50" y2="0"></line>

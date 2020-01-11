@@ -35,7 +35,7 @@ export class HdSubscription {
 
 }
 
-class HdState {
+export class HdState {
 
   static _print(msg) {
     if (window['hdDevModeEnabled']) {
@@ -276,4 +276,3 @@ HdState.scheme = Object.create(null);
 HdState.subscriptionsMap = Object.create(null);
 HdState.store = Object.create(null);
 
-export { HdState };

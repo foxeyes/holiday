@@ -1,12 +1,12 @@
-import { HdElement } from '../../../core/hd-element.js';
-import { IconMkp } from '../../mkp/icon/icon-mkp.js';
+import {HdElement} from '../../../core/hd-element.js';
+import {IconMkp} from '../../mkp/icon/icon-mkp.js';
 
 IconMkp.addIcons({
   'menu': 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z',
   'menu-close': 'M5,13L9,17L7.6,18.42L1.18,12L7.6,5.58L9,7L5,11H21V13H5M21,6V8H11V6H21M21,16V18H11V16H21Z',
 });
 
-class AppShellAl extends HdElement {
+export class AppShellAl extends HdElement {
 
   constructor() {
     super();
@@ -204,5 +204,3 @@ AppShellAl.logicAttributes = [
 ];
 
 AppShellAl.is = 'app-shell-al';
-
-export { AppShellAl };

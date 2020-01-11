@@ -1,6 +1,6 @@
 import {HdElement} from '../../../core/hd-element.js';
 
-class CodeMkp extends HdElement {
+export class CodeMkp extends HdElement {
 
   _colorize(srcCode) {
     srcCode = srcCode
@@ -129,4 +129,3 @@ CodeMkp.logicAttributes = [
 ];
 CodeMkp.is = 'code-mkp';
 
-export { CodeMkp };

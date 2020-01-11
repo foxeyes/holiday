@@ -7,7 +7,7 @@
 
 import {UID} from '../utils/uid.js';
 
-class HdGraphNode {
+export class HdGraphNode {
   constructor(src = {}) {
     this.guid = null;
     this.type = src.type || null;
@@ -18,7 +18,7 @@ class HdGraphNode {
   }
 }
 
-class HdGraph {
+export class HdGraph {
 
   static _print(msg) {
     if (window['hdDevModeEnabled']) {
@@ -363,4 +363,3 @@ class HdGraph {
 
 HdGraph.store = Object.create(null);
 
-export { HdGraph, HdGraphNode };

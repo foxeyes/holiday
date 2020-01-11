@@ -1,6 +1,10 @@
-import { HdElement } from '../../../core/hd-element.js';
+import {HdElement} from '../../../core/hd-element.js';
 
-class IconMkp extends HdElement {
+export class IconMkp extends HdElement {
+
+  _setIcon(iconName) {
+    IconMkp.iconSet[iconName] && this.setStateProperty('path', IconMkp.iconSet[iconName]);
+  }
 
   constructor() {
     super();
@@ -10,14 +14,14 @@ class IconMkp extends HdElement {
     };
 
     this.defineAccessor('icon', (iconName) => {
-      IconMkp.iconSet[ iconName ] && this.setStateProperty('path', IconMkp.iconSet[ iconName ]);
+      this._setIcon(iconName);
     });
 
   }
 
   /**
-   * 
-   * @param {Object} set 
+   *
+   * @param {Object.<String, String>} set
    */
   static addIcons(set) {
     Object.assign(IconMkp.iconSet, set);
@@ -54,5 +58,3 @@ IconMkp.logicAttributes = [
   'icon',
 ];
 IconMkp.is = 'icon-mkp';
-
-export { IconMkp };

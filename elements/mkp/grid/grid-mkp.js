@@ -1,6 +1,6 @@
-import { HdElement } from '../../../core/hd-element.js';
+import {HdElement} from '../../../core/hd-element.js';
 
-class GridMkp extends HdElement {
+export class GridMkp extends HdElement {
 
   get cssSheet() {
     return (this[ 'style-el' ] && this[ 'style-el' ].sheet) || null;
@@ -47,5 +47,3 @@ GridMkp.logicAttributes = [
 ];
 
 GridMkp.is = 'grid-mkp';
-
-export { GridMkp };

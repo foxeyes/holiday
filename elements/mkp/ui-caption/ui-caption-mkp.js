@@ -1,8 +1,7 @@
-import { HdElement } from '../../../core/hd-element.js';
-
+import {HdElement} from '../../../core/hd-element.js';
 import { } from '../icon/icon-mkp.js';
 
-class UiCaptionMkp extends HdElement {
+export class UiCaptionMkp extends HdElement {
 
   constructor() {
     super();
@@ -71,5 +70,3 @@ UiCaptionMkp.logicAttributes = [
   'icon',
 ];
 UiCaptionMkp.is = 'ui-caption-mkp';
-
-export { UiCaptionMkp };

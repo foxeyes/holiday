@@ -1,6 +1,6 @@
-import { HdElement } from '../../../core/hd-element.js';
+import {HdElement} from '../../../core/hd-element.js';
 
-class CtxAl extends HdElement {
+export class CtxAl extends HdElement {
 
   constructor() {
     super();
@@ -45,5 +45,3 @@ CtxAl.logicAttributes = [
   'current',
 ];
 CtxAl.is = 'ctx-al';
-
-export { CtxAl };

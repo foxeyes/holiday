@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CSS Elements</title>
+  <link rel="stylesheet" href="../../themes/default.css">
+</head>
+<body>
+  <script type="module">
+    import {PLACEHOLDER_CSS, SPACE_CSS, SPINNER_CSS} from '../exports.js';
+    let style = document.createElement('style');
+    document.body.appendChild(style);
+    style.textContent = PLACEHOLDER_CSS + SPACE_CSS + SPINNER_CSS;
+  </script>
+
+  <placeholder-css>Placeholder Content</placeholder-css>
+
+  <space-css max></space-css>
+
+  <spinner-css></spinner-css>
+
+</body>
+</html>

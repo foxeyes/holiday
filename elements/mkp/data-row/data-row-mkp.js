@@ -1,8 +1,7 @@
-import { HdElement } from '../../../core/hd-element.js';
-
+import {HdElement} from '../../../core/hd-element.js';
 import { } from '../../mkp/icon/icon-mkp.js';
 
-class DataRowMkp extends HdElement {
+export class DataRowMkp extends HdElement {
 
   constructor() {
     super();
@@ -25,7 +24,7 @@ class DataRowMkp extends HdElement {
         }
         let fmt = new Intl.NumberFormat(locale, options);
         return fmt.format(val);
-      } 
+      }
     };
 
     this.state = {
@@ -123,5 +122,3 @@ DataRowMkp.logicAttributes = [
   'format',
 ];
 DataRowMkp.is = 'data-row-mkp';
-
-export { DataRowMkp };

@@ -1,6 +1,6 @@
-import { HdElement } from '../../../core/hd-element.js';
+import {HdElement} from '../../../core/hd-element.js';
 
-class ColumnMkp extends HdElement {
+export class ColumnMkp extends HdElement {
 
   constructor() {
     super();
@@ -32,5 +32,3 @@ ColumnMkp.is = 'column-mkp';
 ColumnMkp.logicAttributes = [
   'width',
 ];
-
-export { ColumnMkp };

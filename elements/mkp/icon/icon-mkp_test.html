@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>icon-mkp</title>
+  <link rel="stylesheet" href="../../../themes/default.css">
+</head>
+<body>
+  <script type="module">
+    import {IconMkp} from './icon-mkp.js';
+    IconMkp.addIcons({
+      'arrow': 'M8.5,18.31L5.69,15.5L12.06,9.12H7.11V5.69H18.31V16.89H14.89V11.94L8.5,18.31Z',
+    });
+    let icon = new IconMkp();
+    icon.setAttribute('icon', 'arrow');
+    document.body.appendChild(icon);
+  </script>
+</body>
+</html>

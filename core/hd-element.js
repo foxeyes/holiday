@@ -5,7 +5,7 @@
  * https://github.com/foxeyes/holiday/LICENSE.md
  */
 
-class HdElement extends HTMLElement {
+export class HdElement extends HTMLElement {
 
   __parseTemplateBindings(element) {
     let bindedToStateElements = [...element.querySelectorAll('[bind]')];
@@ -299,4 +299,4 @@ class HdElement extends HTMLElement {
 }
 
 HdElement.__templatesMap = new Map();
-export { HdElement };
+

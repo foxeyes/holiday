@@ -5,7 +5,7 @@
  * https://github.com/foxeyes/holiday/LICENSE.md
  */
 
-class HdRouter {
+export class HdRouter {
 
   static _print(msg) {
     if (window['hdDevModeEnabled']) {
@@ -14,16 +14,16 @@ class HdRouter {
   }
 
   /**
-   * 
-   * @param {String} title 
+   *
+   * @param {String} title
    */
   static setDefaultTitle(title) {
     this.defaultTitle = title;
   }
 
   /**
-   * 
-   * @param {Object} map 
+   *
+   * @param {Object} map
    */
   static setRoutingMap(map) {
     Object.assign(this.appMap, map);
@@ -81,9 +81,9 @@ class HdRouter {
   }
 
   /**
-   * 
-   * @param {String} route 
-   * @param {Object} options 
+   *
+   * @param {String} route
+   * @param {Object} options
    */
   static reflect(route, options = {}) {
     let routeScheme = this.appMap[route];
@@ -127,5 +127,3 @@ HdRouter.appMap = Object.create(null);
 window.onpopstate = () => {
   HdRouter.notify();
 };
-
-export { HdRouter };

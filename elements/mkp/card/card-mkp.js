@@ -1,6 +1,6 @@
-import { HdElement } from '../../../core/hd-element.js';
+import {HdElement} from '../../../core/hd-element.js';
 
-class CardMkp extends HdElement {
+export class CardMkp extends HdElement {
 
   constructor() {
     super();
@@ -66,5 +66,3 @@ CardMkp.logicAttributes = [
   'background-pattern',
 ];
 CardMkp.is = 'card-mkp';
-
-export { CardMkp };

@@ -4,19 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>app-shell-al</title>
-  <script src="./app-shell-al.js" type="module"></script>
+  <title>grid-mkp</title>
   <link rel="stylesheet" href="../../../themes/default.css">
+  <script src="./grid-mkp.js" type="module"></script>
 </head>
 <body>
-  <style>
-    .menu {
-      padding: 20px;
-    }
-  </style>
-  <app-shell-al icon="star" caption="CAPTION">
-    <div class="menu" slot="menu">APP MENU</div>
-    <div>CONTENT</div>
-  </app-shell-al>
+  <grid-mkp columns="1fr 1fr 1fr" gap="var(--gap-max)">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+  </grid-mkp>
 </body>
 </html>

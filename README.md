@@ -1,12 +1,13 @@
-# Holiday.js - lightweight and flexible UI-library for those who tired of js-frameworks
-## Concept Basics
+# Holiday.js - lightweight and flexible UI-library for those who tired of all that js-frameworks
+## Concept Features
 
-* Minimal overhead upon a native web platform and DOM API
+* Minimal overhead upon a native web-platform and DOM API
 * Native syntax for templates and styling
 * Full power of modern web-platform: Custom Elements, Shadow DOM, ES modules, CSS variables
 * Minimalistic toolchain: can work directly in any modern browser, without any additional build process setting
+* All inclusive: application routing, state management, UI-library, design system and more...
 * Lightweight and "tree shaking" friendly: use what you need only
-* Fast as lightning: Holiday.js not using string pre-processing for templates in js runtime
+* Fast as lightning: Holiday.js not using any additional processing for templates in JavaScript runtime for component instances
 * Flexible and extensible: standard class-based syntax allows you to extend any core-class as you want
 * Easy to understand, easy to use: probably, you already know all you need
 
@@ -42,7 +43,7 @@ MyComponent.template = /*html*/ `
 MyComponent.is = 'my-component';
 ```
 
-## Full Documentation, Examples, Benchmarks
+## Full Documentation:
 ### [holiday-js.web.app](https://holiday-js.web.app/)
 
 ## Installation (using git)
