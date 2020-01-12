@@ -76,6 +76,17 @@ export class CodeMkp extends HdElement {
 
   }
 
+  set textContent(text) {
+    super.textContent = text;
+    this.setStateProperty({
+      'src': this._colorize(text),
+    });
+  }
+
+  get textContent() {
+    return super.textContent;
+  }
+
   connectedCallback() {
     super.connectedCallback();
     if (this.textContent) {
