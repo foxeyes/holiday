@@ -59,7 +59,6 @@ export class AppShellAl extends HdElement {
   }
 
   disconnectedCallback() {
-    super.disconnectedCallback();
     window.removeEventListener('click', this._onClickOutside);
     window.removeEventListener('touchstart', this._onClickOutside);
   }

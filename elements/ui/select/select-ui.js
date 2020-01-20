@@ -125,10 +125,9 @@ class SelectUi extends HdElement {
   }
 
   disconnectedCallback() {
-    super.disconnectedCallback();
     SelectUi.instances.delete(this);
   }
-  
+
 }
 
 SelectUi.template = /*html*/ `
@@ -222,7 +221,7 @@ SelectUi.template = /*html*/ `
     bottom: unset;
     top: 0;
   }
-  
+
   ::slotted(:not([option])) {
     display: none;
   }

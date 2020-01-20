@@ -54,7 +54,6 @@ class TeardropUi extends HdElement {
   }
 
   disconnectedCallback() {
-    super.disconnectedCallback();
     TD_INSTANCES.delete(this);
     if (TD_INSTANCES.size === 0) {
       window.removeEventListener('mousedown', _tdMouseUpHandler);
