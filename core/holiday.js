@@ -98,7 +98,6 @@ class Holiday extends HdElement {
   }
 
   disconnectedCallback() {
-    super.disconnectedCallback();
     this.__globalSubscriptions.forEach((subscription) => {
       subscription.remove();
       subscription.callback = null;
