@@ -19,12 +19,12 @@ export class TabSelectorUi extends HdElementB {
         this._currentTab = curTab;
         curTab.setAttribute('current', '');
         let curPos = this._tabsArr.indexOf(curTab);
-        this[ 'underline-el' ].style.left = this._defaultUnderlineWidth * curPos + '%';
+        this['underline-el'].style.left = this._defaultUnderlineWidth * curPos + '%';
         let tabColorCode = curTab.getAttribute('color-code');
         if (tabColorCode) {
-          this[ 'underline-el' ].style.backgroundColor = tabColorCode;
+          this['underline-el'].style.backgroundColor = tabColorCode;
         } else {
-          this[ 'underline-el' ].style.removeProperty('background-color');
+          this['underline-el'].style.removeProperty('background-color');
         }
       }
     });
@@ -36,7 +36,7 @@ export class TabSelectorUi extends HdElementB {
 
     this._tabsArr.forEach((tab) => {
       tab.addEventListener('click', (e) => {
-        let val = tab[ 'value' ];
+        let val = tab['value'];
         this.current = val;
         this.notify('current', val);
         this.notify('value', val);
@@ -44,7 +44,7 @@ export class TabSelectorUi extends HdElementB {
     });
 
     this._defaultUnderlineWidth = 100 / this._tabsArr.length;
-    this[ 'underline-el' ].style.width = this._defaultUnderlineWidth + '%';
+    this['underline-el'].style.width = this._defaultUnderlineWidth + '%';
     if (currentValue) {
       this.current = currentValue;
     }

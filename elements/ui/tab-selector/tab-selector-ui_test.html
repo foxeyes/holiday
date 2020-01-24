@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>tab-selector-ui</title>
+  <script src="../../al/ctx/ctx-al.js" type="module"></script>
   <script src="./tab-selector-ui.js" type="module"></script>
 </head>
 <body>
@@ -24,11 +25,25 @@
 
   <div>&nbsp;</div>
 
-  <tab-selector-ui>
+  <tab-selector-ui bind-prop="value" bind-id="tab">
     <tab-option-ui color-code="#f00" value="1" icon="star">Option 1</tab-option-ui>
     <tab-option-ui color-code="#0f0" value="2" icon="star">Option 2</tab-option-ui>
     <tab-option-ui color-code="#00f" value="3" icon="star">Option 3</tab-option-ui>
   </tab-selector-ui>
+
+  <div>&nbsp;</div>
+
+  <ctx-al bind-id="tab" bind-prop="current">
+    <div ctx="1" current>1</div>
+    <div ctx="2">2</div>
+    <div ctx="3">3</div>
+  </ctx-al>
+
+  <script>
+    window.addEventListener('tab', (e) => {
+      console.log(e.detail);
+    });
+  </script>
 
 </body>
 </html>

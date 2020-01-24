@@ -40,7 +40,7 @@ export class HdElementB extends HdElement {
    * @param {*} propValue
    */
   notify(propName, propValue = null) {
-    super.notify(propName, propValue = null);
+    super.notify(propName, propValue);
     if (this.__bindProp && this.__bindId && this.__bindActive) {
       window.dispatchEvent(new CustomEvent(this.__bindId, {
         detail: {
