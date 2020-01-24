@@ -1,6 +1,6 @@
-import { HdElement } from '../../../core/hd-element.js';
+import {HdElementB} from '../../../core/hd-element-b.js';
 
-class CheckboxUi extends HdElement {
+export class CheckboxUi extends HdElementB {
 
   constructor() {
     super();
@@ -27,7 +27,7 @@ class CheckboxUi extends HdElement {
     };
 
     this.checked = this.hasAttribute('checked');
-    
+
   }
 
 }
@@ -53,7 +53,7 @@ CheckboxUi.template = /*html*/ `
     content: '';
     position: absolute;
     top: 0;
-    left: 0;  
+    left: 0;
     right: 0;
     bottom: 0;
     background-color: var(--color, currentColor);
@@ -107,10 +107,7 @@ CheckboxUi.template = /*html*/ `
   <div class="box-inner"></div>
 </div>
 <div class="txt">
-  <slot></slot> 
+  <slot></slot>
 </div>
 `;
-
 CheckboxUi.is = 'checkbox-ui';
-
-export { CheckboxUi };

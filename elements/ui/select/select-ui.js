@@ -1,11 +1,11 @@
-import { HdElement } from '../../../core/hd-element.js';
-import { IconMkp } from '../../mkp/icon/icon-mkp.js';
+import {HdElementB} from '../../../core/hd-element-b.js';
+import {IconMkp} from '../../mkp/icon/icon-mkp.js';
 
 IconMkp.addIcons({
   'menu-down': 'M7,10L12,15L17,10H7Z',
 });
 
-class SelectUi extends HdElement {
+export class SelectUi extends HdElementB {
 
   constructor() {
     super();
@@ -282,4 +282,3 @@ SelectUi.bindable = true;
 SelectUi.instances = new Set();
 SelectUi.is = 'select-ui';
 
-export { SelectUi };

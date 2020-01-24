@@ -1,5 +1,5 @@
-import { HdElement } from '../../../core/hd-element.js';
-import { IconMkp } from '../../mkp/icon/icon-mkp.js';
+import {HdElementB} from '../../../core/hd-element-b.js';
+import {IconMkp} from '../../mkp/icon/icon-mkp.js';
 
 IconMkp.addIcons({
   'search': 'M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z',
@@ -12,7 +12,7 @@ IconMkp.addIcons({
   'btc': 'M6,4H8V2H10V4H12V2H14V4.03C16.25,4.28 18,6.18 18,8.5C18,9.8 17.45,11 16.56,11.8C17.73,12.61 18.5,13.97 18.5,15.5C18.5,18 16.5,20 14,20V22H12V20H10V22H8V20H6L6.5,18H8V6H6V4M10,13V18H14A2.5,2.5 0 0,0 16.5,15.5A2.5,2.5 0 0,0 14,13H10M10,6V11H13.5A2.5,2.5 0 0,0 16,8.5A2.5,2.5 0 0,0 13.5,6H13.5L10,6Z',
 });
 
-class InputUi extends HdElement {
+export class InputUi extends HdElementB {
 
   constructor() {
     super();
@@ -458,4 +458,3 @@ InputUi.logicAttributes = [
 ];
 InputUi.is = 'input-ui';
 
-export { InputUi };

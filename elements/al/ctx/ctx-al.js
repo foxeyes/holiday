@@ -1,6 +1,6 @@
-import {HdElement} from '../../../core/hd-element.js';
+import {HdElementB} from '../../../core/hd-element-b.js';
 
-export class CtxAl extends HdElement {
+export class CtxAl extends HdElementB {
 
   constructor() {
     super();

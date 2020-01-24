@@ -1,8 +1,7 @@
-import { HdElement } from '../../../core/hd-element.js';
-
+import {HdElementB} from '../../../core/hd-element-b.js';
 import { } from '../../mkp/icon/icon-mkp.js';
 
-class TabSelectorUi extends HdElement {
+export class TabSelectorUi extends HdElementB {
 
   constructor() {
     super();
@@ -13,7 +12,7 @@ class TabSelectorUi extends HdElement {
       }
       this._current = val;
       this.setAttribute('current', val);
-      
+
       let curTab = this.querySelector(`[value="${val}"]`);
       if (curTab) {
         this._currentTab && this._currentTab.removeAttribute('current');
@@ -60,7 +59,7 @@ class TabSelectorUi extends HdElement {
     window.setTimeout(() => {
       this._init();
     });
-    
+
   }
 
 }
@@ -104,7 +103,7 @@ TabSelectorUi.template = /*html*/ `
 `;
 TabSelectorUi.is = 'tab-selector-ui';
 
-class TabOptionUi extends HdElement {
+class TabOptionUi extends HdElementB {
 
   constructor() {
     super();
@@ -174,5 +173,3 @@ TabOptionUi.logicAttributes = [
   'color-code',
 ];
 TabOptionUi.is = 'tab-option-ui';
-
-export { TabSelectorUi };

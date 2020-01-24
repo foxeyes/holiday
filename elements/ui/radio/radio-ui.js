@@ -1,8 +1,8 @@
-import { HdElement } from '../../../core/hd-element.js';
+import {HdElementB} from '../../../core/hd-element-b.js';
 
 const RADIO_REG = Object.create(null);
 
-class RadioUi extends HdElement {
+export class RadioUi extends HdElementB {
 
   constructor() {
     super();
@@ -83,12 +83,10 @@ RadioUi.template = /*html*/ `
   <div class="radio-inner"></div>
 </div>
 <div class="txt">
-  <slot></slot> 
+  <slot></slot>
 </div>
 `;
 RadioUi.logicAttributes = [
   'name',
 ];
 RadioUi.is = 'radio-ui';
-
-export { RadioUi };
