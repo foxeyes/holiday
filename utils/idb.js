@@ -142,7 +142,7 @@ class DbInstance {
 
 export class IDB {
 
-  get readyEventName() {
+  static get readyEventName() {
     return READY_EVENT_NAME;
   }
 
