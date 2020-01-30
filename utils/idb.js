@@ -5,6 +5,8 @@
  * https://github.com/foxeyes/holiday/LICENSE.md
  */
 
+const READY_EVENT_NAME = 'hd-idb-store-ready';
+
 class DbInstance {
 
   _print(msg) {
@@ -14,7 +16,7 @@ class DbInstance {
   }
 
   _notifyWhenReady(event = null) {
-    window.dispatchEvent(new CustomEvent('hd-idb-store-ready', {
+    window.dispatchEvent(new CustomEvent(READY_EVENT_NAME, {
       detail: {
         dbName: this.name,
         storeName: this.storeName,
@@ -24,9 +26,9 @@ class DbInstance {
   }
 
   /**
-   * 
-   * @param {String} dbName 
-   * @param {String} storeName 
+   *
+   * @param {String} dbName
+   * @param {String} storeName
    */
   constructor(dbName, storeName) {
     this.name = dbName;
@@ -55,7 +57,7 @@ class DbInstance {
       });
     };
     if (window['hdDevModeEnabled']) {
-      this._print(`(${dbName}/${storeName}) IDB store initialized. Use 'hd-idb-store-ready' event for start.`);
+      this._print(`(${dbName}/${storeName}) IDB store initialized. Use "${READY_EVENT_NAME}" event for start.`);
     }
   }
 
@@ -104,8 +106,8 @@ class DbInstance {
   }
 
   /**
-   * 
-   * @param {String} key 
+   *
+   * @param {String} key
    */
   delete(key) {
     let tx = this.db.transaction(this.storeName, 'readwrite');
@@ -140,10 +142,15 @@ class DbInstance {
 
 export class IDB {
 
+  get readyEventName() {
+    return READY_EVENT_NAME;
+  }
+
   /**
-   * 
-   * @param {String} dbName 
-   * @param {String} storeName 
+   *
+   * @param {String} dbName
+   * @param {String} storeName
+   * @returns {DbInstance}
    */
   static open(dbName = 'holidayDb', storeName = 'store') {
     let key = dbName + '/' + storeName;
@@ -154,8 +161,8 @@ export class IDB {
   }
 
   /**
-   * 
-   * @param {String} dbName 
+   *
+   * @param {String} dbName
    */
   static clear(dbName) {
     window.indexedDB.deleteDatabase(dbName);
