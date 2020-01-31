@@ -19,13 +19,13 @@ export class CardMkp extends HdElement {
     super.connectedCallback();
     window.requestAnimationFrame(() => {
       let rect = this.getBoundingClientRect();
-      this.style.setProperty('--loc-half-height', rect.height + 'px');
+      this.style.setProperty('--loc-half-height', rect.height / 2 + 'px');
     });
   }
 
 }
 
-const ARR_MIX = /*css*/ `
+const ARR_MIX = `
 content: '';
 position: absolute;
 width: var(--gap-mid, 10px);
@@ -46,7 +46,6 @@ CardMkp.template = /*html*/ `
     background-color: var(--local-bg-color);
     color: var(--local-color);
     box-sizing: border-box;
-    transition: var(--transition, 0.2s);
   }
   :host([outline]) {
     border: 1px solid currentColor;
@@ -54,10 +53,8 @@ CardMkp.template = /*html*/ `
   :host([invert]) {
     --local-color: var(--bg-color, #fff);
     --local-bg-color: var(--color, #000);
-    background-color: var(--local-bg-color);
-    color: var(--local-color);
   }
-  :host([invert]) * {
+  :host([invert]) > * {
     --color: var(--local-color);
     --bg-color: var(--local-bg-color);
   }

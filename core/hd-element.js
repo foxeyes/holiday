@@ -182,7 +182,12 @@ export class HdElement extends HTMLElement {
             el.setAttribute(attrName, value);
           }
         } else {
-          if (el[binding.propName] !== value) {
+          if (binding.propName === 'innerDOM' && value.constructor === DocumentFragment) {
+            while (el.firstChild) {
+              el.firstChild.remove();
+            }
+            el.appendChild(value);
+          } else if (el[binding.propName] !== value) {
             el[binding.propName] = value;
           }
         }

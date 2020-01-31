@@ -9,11 +9,30 @@
   <script src="./card-mkp.js" type="module"></script>
 </head>
 <body>
+  <style>
+    [wrap] {
+      background-color: #ccc;
+      padding: 20px;
+    }
+  </style>
   <card-mkp shadow>Card Content</card-mkp>
   <div>&nbsp;</div>
   <card-mkp outline>Card Content</card-mkp>
   <div>&nbsp;</div>
   <card-mkp invert>Card Content</card-mkp>
+  <div>&nbsp;</div>
+  <div wrap>
+    <card-mkp arrow>
+      <div>Card Content</div>
+      <div>Card Content</div>
+      <div>Card Content</div>
+    </card-mkp>
+    <card-mkp arrow>
+      <div>Card Content</div>
+      <div>Card Content</div>
+      <div>Card Content</div>
+    </card-mkp>
+  </div>
   <div>&nbsp;</div>
   <card-mkp invert arrow>Card Content</card-mkp>
 </body>
