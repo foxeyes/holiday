@@ -1,6 +1,6 @@
 /**
  *
- * @param {Element | ShadowRoot} entryPoint
+ * @param {Element | HTMLElement | ShadowRoot} entryPoint
  * @param {String} selector
  * @returns {Array<Element>}
  */

@@ -17,10 +17,20 @@ export class CardMkp extends HdElement {
 
   connectedCallback() {
     super.connectedCallback();
-    window.requestAnimationFrame(() => {
-      let rect = this.getBoundingClientRect();
-      this.style.setProperty('--loc-half-height', rect.height / 2 + 'px');
-    });
+    if (this.hasAttribute('arrow')) {
+      let getHeight = () => {
+        window.requestAnimationFrame(() => {
+          let rect = this.getBoundingClientRect();
+          if (rect.height) {
+            this.style.setProperty('--loc-half-height', rect.height / 2 + 'px');
+          } else {
+            getHeight();
+          }
+        });
+      };
+      getHeight();
+    }
+
   }
 
 }
