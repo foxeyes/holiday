@@ -272,6 +272,23 @@ export class HdElement extends HTMLElement {
     this[name] = newVal;
   }
 
+  /**
+   *
+   * @param {String} statePath
+   * @param {Array<*>} dataArr
+   * @param {*} elementConstructor
+   * @param {String} [dataPropertyName]
+   */
+  prepareDomFragment(statePath, dataArr, elementConstructor, dataPropertyName = 'data') {
+    let fragment = document.createDocumentFragment();
+    dataArr.forEach((src) => {
+      let scEl = new elementConstructor();
+      scEl[dataPropertyName] = src;
+      fragment.appendChild(scEl);
+    });
+    this.setStateProperty(statePath, fragment);
+  }
+
 }
 
 HdElement.__templatesMap = new Map();
