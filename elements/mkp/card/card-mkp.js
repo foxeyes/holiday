@@ -38,11 +38,13 @@ background-color: transparent;
 CardMkp.template = /*html*/ `
 <style>
   :host {
+    --local-color: var(--color, #000);
+    --local-bg-color: var(--bg-color, #fff);
     display: block;
     padding: var(--gap-mid, 10px);
     border-radius: var(--radius, 4px);
-    background-color: var(--bg-color, #fff);
-    color: var(--color, #000);
+    background-color: var(--local-bg-color);
+    color: var(--local-color);
     box-sizing: border-box;
     transition: var(--transition, 0.2s);
   }
@@ -50,8 +52,8 @@ CardMkp.template = /*html*/ `
     border: 1px solid currentColor;
   }
   :host([invert]) {
-    --local-color: var(--bg-color);
-    --local-bg-color: var(--color);
+    --local-color: var(--bg-color, #fff);
+    --local-bg-color: var(--color, #000);
     background-color: var(--local-bg-color);
     color: var(--local-color);
   }
