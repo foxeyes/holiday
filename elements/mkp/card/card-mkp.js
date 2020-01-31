@@ -15,7 +15,25 @@ export class CardMkp extends HdElement {
 
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    window.requestAnimationFrame(() => {
+      let rect = this.getBoundingClientRect();
+      this.style.setProperty('--loc-half-height', rect.height + 'px');
+    });
+  }
+
 }
+
+const ARR_MIX = /*css*/ `
+content: '';
+position: absolute;
+width: var(--gap-mid, 10px);
+height: 100%;
+box-sizing: border-box;
+top: 0;
+background-color: transparent;
+`;
 
 CardMkp.template = /*html*/ `
 <style>
@@ -58,6 +76,29 @@ CardMkp.template = /*html*/ `
   :host([background-pattern]) {
     background-repeat: repeat;
     background-position: top left;
+  }
+  :host([arrow]) {
+    --loc-half-height: 0;
+    position: relative;
+    display: inline-block;
+    border-radius: 0;
+    border: none;
+    margin-left: var(--gap-mid, 10px);
+    margin-right: var(--gap-mid, 10px);
+  }
+  :host([arrow])::after {
+    ${ARR_MIX}
+    right: calc(0px - var(--gap-mid, 10px));
+    border-left: 10px solid var(--local-bg-color);
+    border-top: var(--loc-half-height) solid transparent;
+    border-bottom: var(--loc-half-height) solid transparent;
+  }
+  :host([arrow])::before {
+    ${ARR_MIX}
+    left: calc(0px - var(--gap-mid, 10px));
+    border-left: 10px solid transparent;
+    border-top: var(--loc-half-height) solid var(--local-bg-color);
+    border-bottom: var(--loc-half-height) solid var(--local-bg-color);
   }
 </style>
 <slot></slot>`;
