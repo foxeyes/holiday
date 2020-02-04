@@ -18,19 +18,26 @@ export class CardMkp extends HdElement {
   connectedCallback() {
     super.connectedCallback();
     if (this.hasAttribute('arrow')) {
-      let getHeight = () => {
-        window.requestAnimationFrame(() => {
-          let rect = this.getBoundingClientRect();
-          if (rect.height) {
-            this.style.setProperty('--loc-half-height', rect.height / 2 + 'px');
-          } else {
-            getHeight();
-          }
-        });
+      let intOpt = {
+        root: this.parentElement,
+        rootMargin: '0px',
+        threshold: 1.0
       };
-      getHeight();
+      let onIntersection = (e) => {
+        let eLast = [...e].pop();
+        if (eLast.isIntersecting) {
+          window.requestAnimationFrame(() => {
+            let rect = this.getBoundingClientRect();
+            if (rect.height) {
+              this.style.setProperty('--loc-half-height', rect.height / 2 + 'px');
+              observer.disconnect();
+            }
+          });
+        }
+      };
+      let observer = new IntersectionObserver(onIntersection, intOpt);
+      observer.observe(this);
     }
-
   }
 
 }
