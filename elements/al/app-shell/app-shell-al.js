@@ -87,7 +87,7 @@ AppShellAl.template = /*html*/ `
     box-shadow: var(--ui-shadow, 0 2px 12px rgba(0, 0, 0, 0.2));
     padding-left: 0;
     color: var(--color, currentColor);
-    background-color: var(--top-panel-color, var(--bg-colr, #fff));
+    background-color: var(--top-panel-color, var(--bg-color, #fff));
     font-size: calc(var(--tap-zone-size, 28px) / 2);
     transition: left 0.2s;
     overflow: hidden;
