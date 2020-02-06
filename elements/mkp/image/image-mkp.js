@@ -3,39 +3,42 @@ import {SPINNER_CSS} from '../../css/spinner/spinner-css.js';
 
 export class ImageMkp extends HdElement {
 
-  connectedCallback() {
-    super.connectedCallback();
+  constructor() {
+    super();
     this.setAttribute('error', '');
     this.defineAccessor('src', (src) => {
-      if (this._srcTimeout) {
-        window.clearTimeout(this._srcTimeout);
+      this.removeAttribute('error');
+      this.setAttribute('loading', '');
+      if (src === null || src === 'null') {
+        return;
       }
-      this._srcTimeout = window.setTimeout(() => {
+      if (!src) {
+        this.setAttribute('error', '');
+        this.removeAttribute('loading');
+        return;
+      }
+      this['img-el'].src = src;
+      this['img-el'].onload = (e) => {
+        // @ts-ignore
+        this.onload && this.onload(e);
+        if (this.hasAttribute('native-size')) {
+          this['img-el'].removeAttribute('default-size');
+          window.requestAnimationFrame(() => {
+            this.height = this['img-el'].height;
+            this.width = this['img-el'].width;
+            this.style.height = this.height + 'px';
+            this.style.width = this.width + 'px';
+          });
+        }
+        this.removeAttribute('loading');
         this.removeAttribute('error');
-        this.setAttribute('loading', '');
-        if (src === null || src === 'null') {
-          return;
-        }
-        if (!src) {
-          this.setAttribute('error', '');
-          this.removeAttribute('loading');
-          return;
-        }
-        let img = new Image();
-        img.src = src;
-        img.onload = () => {
-          this.removeAttribute('loading');
-          this.removeAttribute('error');
-          this[ 'img-el' ].style.backgroundImage = `url('${src}')`;
-          img = null;
-        }
-        img.onerror = () => {
-          this.setAttribute('error', '');
-          this.removeAttribute('loading');
-          img = null;
-        }
-        this._srcTimeout = null;
-      }, 20);
+      };
+      this['img-el'].onerror = (e) => {
+        // @ts-ignore
+        this.onerror && this.onerror(e);
+        this.setAttribute('error', '');
+        this.removeAttribute('loading');
+      };
     });
   }
 
@@ -50,6 +53,9 @@ ImageMkp.template = /*html*/ `
    align-items: center;
    font-size: 100%;
    box-sizing: border-box;
+   height: var(--native-height);
+   width: var(--native-width);
+   overflow: hidden;
  }
  :host([error]) {
   border: 1px solid currentColor;
@@ -61,13 +67,15 @@ ImageMkp.template = /*html*/ `
   display: none;
  }
  #img-el {
+   display: block;
+   object-fit: contain;
+   opacity: 1;
+   transition: 0.3s;
+   pointer-events: none;
+ }
+ #img-el[default-size] {
    height: 100%;
    width: 100%;
-   background-size: contain;
-   background-repeat: no-repeat;
-   background-position: center center;
-   opacity: 1;
-   transition: opacity 0.3s;
  }
  :host([loading]) #img-el {
   opacity: 0;
@@ -88,7 +96,7 @@ ImageMkp.template = /*html*/ `
   display: none;
  }
 </style>
-<div id="img-el"></div>
+<img id="img-el" default-size />
 <spinner-css></spinner-css>
 <svg xmlns="http://www.w3.org/2000/svg" vewBox="0 0 50 50">
  <line x1="0" y1="0" x2="50" y2="50"></line>
