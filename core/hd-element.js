@@ -7,6 +7,43 @@
 
 export class HdElement extends HTMLElement {
 
+  /**
+   * @param {Boolean} val
+   */
+  static set noShadow(val) {
+    this.__noShadow = val;
+  }
+
+  static get noShadow() {
+    return !!this.__noShadow;
+  }
+
+  /**
+   * @returns {Boolean}
+   */
+  get noShadow() {
+    return this.constructor['noShadow'];
+  }
+
+  /**
+  * @param {Boolean} val
+  */
+  static set displayContents(val) {
+    this.__displayContents = val;
+  }
+
+  static get displayContents() {
+    return this.__displayContents;
+  }
+
+  get displayContents() {
+    return this.constructor['displayContents'];
+  }
+
+  static get isShady() {
+    return window['ShadyDOM'] && window['ShadyDOM'].inUse;
+  }
+
   __parseTemplateBindings(element) {
     let bindedToStateElements = [...element.querySelectorAll('[bind]')];
     if (bindedToStateElements.length) {
@@ -37,20 +74,14 @@ export class HdElement extends HTMLElement {
     }
   }
 
-  static get isShady() {
-    return window['ShadyDOM'] && window['ShadyDOM'].inUse;
-  }
-
   __initialRender() {
     let tpl = HdElement.__templatesMap.get(this.constructor.name);
     if (tpl) {
-      if (HdElement['isShady']) {
+      if (HdElement['isShady'] && !this.noShadow) {
         window['ShadyCSS'].prepareTemplate(tpl, this.constructor['is']);
       }
-      this.shadowRoot.appendChild(tpl.content.cloneNode(true));
-
+      this.$.appendChild(tpl.content.cloneNode(true));
       this.__parseTemplateBindings(this.$);
-
       [...this.$.querySelectorAll('[id*="-"]')].forEach((/** @type {Element} */ el) => {
         this[el.id] = el;
       });
@@ -68,7 +99,7 @@ export class HdElement extends HTMLElement {
   constructor() {
     super();
     this.__state = this.state;
-    this.$ = this.attachShadow({
+    this.$ = this.noShadow ? new DocumentFragment() : this.attachShadow({
       mode: 'open',
     });
     this.__initialRender();
@@ -160,11 +191,9 @@ export class HdElement extends HTMLElement {
     } else {
       console.warn('(HdElement) Wrong state properties: ' + args);
     }
-
     if (!this.__stateBindingsMap) {
       return;
     }
-
     let parent = this.__state;
     let lastStep = path;
     let propPath = path.split('.');
@@ -176,7 +205,6 @@ export class HdElement extends HTMLElement {
       }
     });
     parent[lastStep] = value;
-
     let bindingsArr = this.__stateBindingsMap[path];
     if (bindingsArr) {
       bindingsArr.forEach((binding) => {
@@ -200,7 +228,6 @@ export class HdElement extends HTMLElement {
         }
       });
     }
-
     this.stateUpdated && this.stateUpdated(path);
   }
 
@@ -257,8 +284,13 @@ export class HdElement extends HTMLElement {
   }
 
   connectedCallback() {
-    if (HdElement['isShady']) {
+    if (this.noShadow) {
+      this.appendChild(this.$);
+    } else if (HdElement['isShady']) {
       window['ShadyCSS'].styleElement(this);
+    }
+    if (this.displayContents) {
+      this.style.display = 'contents';
     }
   }
 
@@ -303,4 +335,3 @@ export class HdElement extends HTMLElement {
 }
 
 HdElement.__templatesMap = new Map();
-
