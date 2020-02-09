@@ -80,7 +80,14 @@ export class HdElement extends HTMLElement {
       if (HdElement['isShady'] && !this.noShadow) {
         window['ShadyCSS'].prepareTemplate(tpl, this.constructor['is']);
       }
-      this.$.appendChild(tpl.content.cloneNode(true));
+      if (this.noShadow) {
+        this.$ = tpl.content.cloneNode(true);
+      } else {
+        this.$ = this.attachShadow({
+          mode: 'open',
+        });
+        this.$.appendChild(tpl.content.cloneNode(true));
+      }
       this.__parseTemplateBindings(this.$);
       [...this.$.querySelectorAll('[id*="-"]')].forEach((/** @type {Element} */ el) => {
         this[el.id] = el;
@@ -99,11 +106,7 @@ export class HdElement extends HTMLElement {
   constructor() {
     super();
     this.__state = this.state;
-    this.$ = this.noShadow ? new DocumentFragment() : this.attachShadow({
-      mode: 'open',
-    });
     this.__initialRender();
-
     Object.defineProperty(this, 'state', {
       set: (stateObj) => {
         this.__state = stateObj;
