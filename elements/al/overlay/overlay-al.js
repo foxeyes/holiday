@@ -29,6 +29,9 @@ export class OverlayAl extends HdElement {
       } else {
         document.body.removeAttribute('style');
       }
+      if (this.onClose && this.onClose.constructor === Function) {
+        this.onClose();
+      }
     }
   }
 
@@ -43,6 +46,8 @@ export class OverlayAl extends HdElement {
         },
       },
     };
+
+    this.onClose = null;
 
     this.defineAccessor('active', (val) => {
       if (this.hasAttribute('active')) {
